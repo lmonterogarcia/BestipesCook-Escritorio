@@ -8,6 +8,6 @@ Aplicacion de Escritorio para adminsitracion de app de cocina
 - lmonterogarcia
 
 ## Links
-*  Proyeto https://github.com/users/lmonterogarcia/projects/2
+*  Proyecto https://github.com/users/lmonterogarcia/projects/2
 *  App Escritorio https://github.com/lmonterogarcia/ProyectoConjunto2DAM-Escritorio
 *  App Android https://github.com/lmonterogarcia/ProyectoConjunto2DAM-Android
