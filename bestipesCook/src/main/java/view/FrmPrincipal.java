@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
+import model.Colors;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -17,6 +18,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.List;
+import java.awt.Toolkit;
+import java.awt.GridLayout;
 
 public class FrmPrincipal extends JFrame {
 
@@ -24,6 +27,7 @@ public class FrmPrincipal extends JFrame {
 	public static List list;
 	
 	public FrmPrincipal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\recursos\\MyBestCookRecipe2.png"));
 		setTitle("Bestipes Cook");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 600);
@@ -35,7 +39,7 @@ public class FrmPrincipal extends JFrame {
 		JPanel left_pnl = new JPanel();
 		left_pnl.setBackground(new Color(255, 204, 102));
 		contentPane.add(left_pnl, BorderLayout.WEST);
-		left_pnl.setLayout(new BoxLayout(left_pnl, BoxLayout.Y_AXIS));
+		left_pnl.setLayout(new GridLayout(8, 1, 0, -25));
 		
 		
 		JButton btnNoticias = new JButton(new ImageIcon("src\\recursos\\noticia_icon.png"));
@@ -46,10 +50,10 @@ public class FrmPrincipal extends JFrame {
 		left_pnl.add(btnNoticias);
 		
 		JLabel lblNoticias = new JLabel("Noticias");
+		lblNoticias.setForeground(Colors.cBlack);
 		lblNoticias.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		lblNoticias.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblNoticias.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		left_pnl.add(lblNoticias);
 		
 		JButton btnRetos = new JButton(new ImageIcon("src\\recursos\\reto_icon.png"));
@@ -60,6 +64,7 @@ public class FrmPrincipal extends JFrame {
 		left_pnl.add(btnRetos);
 		
 		JLabel lblRetos = new JLabel("Retos");
+		lblRetos.setForeground(Colors.cBlack);
 		lblRetos.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		lblRetos.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblRetos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -72,6 +77,7 @@ public class FrmPrincipal extends JFrame {
 		left_pnl.add(btnCategorias);
 		
 		JLabel lblCategorias = new JLabel("Categorías");
+		lblCategorias.setForeground(Colors.cBlack);
 		lblCategorias.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		lblCategorias.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblCategorias.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,6 +90,7 @@ public class FrmPrincipal extends JFrame {
 		left_pnl.add(btnRecetas);
 		
 		JLabel lblRecetas = new JLabel("Recetas");
+		lblRecetas.setForeground(Colors.cBlack);
 		lblRecetas.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		lblRecetas.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblRecetas.setHorizontalAlignment(SwingConstants.CENTER);
