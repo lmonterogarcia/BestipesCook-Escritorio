@@ -30,9 +30,6 @@ public class Login extends JDialog {
 	public static JTextField txtUsuario;
 	public static JPasswordField txtPassword;
 	public static Login window;
-	public static JButton btnRegistrarse;
-	public static JButton btnRecordarPassword;
-	public static JPanel btn_pnl;
 
 	public Login() {
 		window = this;
@@ -89,45 +86,7 @@ public class Login extends JDialog {
 		txtPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		center_pnl.add(txtPassword);
 		txtPassword.setColumns(10);
-		
-		btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 11));
-		btnRegistrarse.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnRegistrarse.setContentAreaFilled(false);
-		btnRegistrarse.setBorderPainted(false);
-		center_pnl.add(btnRegistrarse);
-		
-		btnRecordarPassword = new JButton("¿Has olvidado tu contraseña?");
-		btnRecordarPassword.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 11));
-		btnRecordarPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnRecordarPassword.setContentAreaFilled(false);
-		btnRecordarPassword.setBorderPainted(false);
-		center_pnl.add(btnRecordarPassword);
-		
-		btn_pnl = new JPanel();
-		btn_pnl.setBackground(new Color(255, 255, 204));
-		center_pnl.add(btn_pnl);
-		btn_pnl.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-		
-		JButton btnAceptar = new JButton("Aceptar");
-		btnAceptar.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 21));
-		btnAceptar.setContentAreaFilled(false);
-		btnAceptar.setBorderPainted(false);
-		btn_pnl.add(btnAceptar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 21));
-		btnCancelar.setContentAreaFilled(false);
-		btnCancelar.setBorderPainted(false);
-		btn_pnl.add(btnCancelar);
-		
-		btn_pnl.setVisible(false);
-		
-		btnAceptar.addActionListener(e -> Ctrl_Login.insertUser());
-		btnCancelar.addActionListener(e -> Ctrl_Login.back());
 		conectarBtn.addActionListener(e -> Ctrl_Login.conectar());
-		btnRecordarPassword.addActionListener(e -> dispose());
-		btnRegistrarse.addActionListener(e -> Ctrl_Login.registrar());
 		
 
 		setVisible(true);
