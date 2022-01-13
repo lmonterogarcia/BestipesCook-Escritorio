@@ -29,6 +29,7 @@ public class FrmPrincipal extends JFrame {
 	public FrmPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\recursos\\MyBestCookRecipe2.png"));
 		setTitle("Bestipes Cook");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 950, 600);
 		contentPane = new JPanel();
@@ -106,10 +107,18 @@ public class FrmPrincipal extends JFrame {
 		list.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 40));
 		center_pnl.add(list, BorderLayout.CENTER);
 		
+		JButton btnAdd = new JButton("");
+		btnAdd.setIcon(new ImageIcon("src\\recursos\\add_icon.png"));
+		btnAdd.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
+		btnAdd.setContentAreaFilled(false);
+		btnAdd.setBorderPainted(false);
+		center_pnl.add(btnAdd, BorderLayout.SOUTH);
+		
 		btnNoticias.addActionListener(e -> Ctrl_FrmPrincipal.noticiaVentana());
 		btnRetos.addActionListener(e -> Ctrl_FrmPrincipal.retoVentana());
 		btnCategorias.addActionListener(e -> Ctrl_FrmPrincipal.categoriaVentana());
 		btnRecetas.addActionListener(e -> Ctrl_FrmPrincipal.recetaVentana());
+		btnAdd.addActionListener(e -> Ctrl_FrmPrincipal.crearContenido());
 		
 		list.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {

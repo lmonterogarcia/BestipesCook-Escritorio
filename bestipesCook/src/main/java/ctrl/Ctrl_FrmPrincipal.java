@@ -54,4 +54,8 @@ public class Ctrl_FrmPrincipal {
 		}
 	}
 
+	public static void crearContenido() {
+		ventanaDetalle();
+	}
+
 }
