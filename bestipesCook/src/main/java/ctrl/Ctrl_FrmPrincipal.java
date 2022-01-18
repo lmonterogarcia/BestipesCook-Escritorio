@@ -1,5 +1,6 @@
 package ctrl;
 
+import logic.*;
 import view.FrmPrincipal;
 
 public class Ctrl_FrmPrincipal {
@@ -8,33 +9,25 @@ public class Ctrl_FrmPrincipal {
 	public static void noticiaVentana() {
 		bMenu = 0;
 		FrmPrincipal.list.removeAll();
-		for(int i = 1; i <= 20; i++) {
-			FrmPrincipal.list.add("Noticia "+i);
-		}
+		NoticiaLogic.cargarDatos();
 	}
 
 	public static void retoVentana() {
 		bMenu = 1;
 		FrmPrincipal.list.removeAll();
-		for(int i = 1; i <= 20; i++) {
-			FrmPrincipal.list.add("Reto "+i);
-		}
+		RetoLogic.cargarDatos();
 	}
 
 	public static void categoriaVentana() {
 		bMenu = 2;
 		FrmPrincipal.list.removeAll();
-		for(int i = 1; i <= 20; i++) {
-			FrmPrincipal.list.add("Categoría "+i);
-		}
+		CategoriaLogic.cargarDatos();
 	}
 
 	public static void recetaVentana() {
 		bMenu = 3;
 		FrmPrincipal.list.removeAll();
-		for(int i = 1; i <= 20; i++) {
-			FrmPrincipal.list.add("Receta "+i);
-		}
+		RecetaLogic.cargarDatos();
 	}
 
 	public static void ventanaDetalle() {
