@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import model.InfoData;
 import model.Noticia;
 import view.FrmPrincipal;
 
-public class NoticiaLogic {
-	private static final String URI = "http://bestipescook.es/app/desktop/noticia/";
+public class NoticiaLogic implements InfoData{
 	public static ArrayList<Noticia> lstNoticias;
 	public static void cargarDatos() {
 
@@ -28,7 +28,7 @@ public class NoticiaLogic {
 	}
 
 		private static ArrayList<Noticia> getNoticias() throws IOException {
-			String url = URI + "lst-noticias.php";
+			String url = InfoData.URI + "lst-noticias.php";
 			System.out.println(url);
 			String requestHttp = peticionHttp(url);
 			return stringToListNoticia(requestHttp);
