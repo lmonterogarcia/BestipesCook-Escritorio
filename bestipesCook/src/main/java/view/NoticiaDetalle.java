@@ -1,12 +1,6 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,63 +8,118 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_NoticiaDetalle;
+import model.InfoData;
 
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import java.awt.Font;
+import java.awt.TextArea;
+import java.awt.Color;
 
 public class NoticiaDetalle extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
+	public static JTextField txtTitle;
+	public static JTextField txtSubTitle;
+	public static JTextField txtDate;
+	public static TextArea txtDescripcion;
+	public static JButton btnEditar;
+	public static JButton btnCancelar;
+	public static JButton btnGuardar;
+	
 	public NoticiaDetalle() {
-		setTitle("Noticia detalle");
-		setModal(true);
+		setTitle("Noticia - Edición");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		contentPanel.setBackground(InfoData.cNaranja);
 		contentPanel.setBounds(0, 0, 434, 228);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(10, 102, 414, 115);
-		contentPanel.add(textArea_1);
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		
-		try {
-			BufferedImage buffImg = ImageIO.read(new File("src//recursos//img_icon.png"));
-			lblNewLabel.setIcon(new ImageIcon(Ctrl_NoticiaDetalle.resizeImage(buffImg, 50, 50)));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JLabel lblNewLabel = new JLabel("IMG");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		
 		lblNewLabel.setBounds(265, 11, 159, 80);
 		contentPanel.add(lblNewLabel);
+		
+		txtTitle = new JTextField();
+		txtTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtTitle.setBackground(InfoData.cNaranja);
+		txtTitle.setFont(new Font("Yu Gothic UI", Font.PLAIN, 20));
+		txtTitle.setEditable(false);
+		txtTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		txtTitle.setBounds(10, 0, 245, 31);
+		contentPanel.add(txtTitle);
+		txtTitle.setColumns(10);
+		
+		txtSubTitle = new JTextField();
+		txtSubTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtSubTitle.setBackground(InfoData.cNaranja);
+		txtSubTitle.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 18));
+		txtSubTitle.setEditable(false);
+		txtSubTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		txtSubTitle.setBounds(10, 30, 245, 31);
+		contentPanel.add(txtSubTitle);
+		txtSubTitle.setColumns(10);
+		
+		txtDate = new JTextField();
+		txtDate.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtDate.setBackground(InfoData.cNaranja);
+		txtDate.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 10));
+		txtDate.setEditable(false);
+		txtDate.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDate.setBounds(10, 61, 245, 31);
+		contentPanel.add(txtDate);
+		txtDate.setColumns(10);
+		
+		txtDescripcion = new TextArea("", 3 , 100 , TextArea.SCROLLBARS_VERTICAL_ONLY);
+		txtDescripcion.setBackground(InfoData.cRositaPalo);
+		txtDescripcion.setEditable(false);
+		txtDescripcion.setBounds(10, 97, 414, 131);
+		contentPanel.add(txtDescripcion);
 
 		JPanel buttonPane = new JPanel();
+		buttonPane.setBackground(InfoData.cNaranja);
 		buttonPane.setBounds(0, 228, 434, 33);
-		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		FlowLayout fl_buttonPane = new FlowLayout(FlowLayout.CENTER);
+		fl_buttonPane.setHgap(75);
+		buttonPane.setLayout(fl_buttonPane);
 		getContentPane().add(buttonPane);
 
-		JButton okButton = new JButton("OK");
-		okButton.setActionCommand("OK");
-		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
-
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton);
+		btnGuardar = new JButton("GUARDAR");
+		btnGuardar.setVisible(false);
+		btnGuardar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		btnGuardar.setContentAreaFilled(false);
+		btnGuardar.setBorderPainted(false);
+		buttonPane.add(btnGuardar);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(0, 0, 5, 22);
-		getContentPane().add(textArea);
+		btnEditar = new JButton("EDITAR");
+		btnEditar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		btnEditar.setContentAreaFilled(false);
+		btnEditar.setBorderPainted(false);
+		buttonPane.add(btnEditar);
+		getRootPane().setDefaultButton(btnEditar);
 
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setBorderPainted(false);
+		buttonPane.add(btnCancelar);
+		
+
+		setResizable(false);
 		setVisible(true);
+		setModal(true);
+		
+		//EVENTOS
+		
+		btnEditar.addActionListener(e -> Ctrl_NoticiaDetalle.habilitarEdicion());
+		btnCancelar.addActionListener(e -> Ctrl_NoticiaDetalle.deshabilitarEdicion());
+		btnGuardar.addActionListener(e -> Ctrl_NoticiaDetalle.updNoticia());
+		
 	}
 }
