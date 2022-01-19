@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import model.InfoData;
 import model.Noticia;
 import view.FrmPrincipal;
+import view.NoticiaDetalle;
 
 public class NoticiaLogic implements InfoData{
 	public static ArrayList<Noticia> lstNoticias;
@@ -52,6 +53,8 @@ public class NoticiaLogic implements InfoData{
 			conn.disconnect();
 			return resultado.toString();
 		}
+		
+		
 
 		private static ArrayList<Noticia> stringToListNoticia(String requestHttp) {
 			ArrayList<Noticia> lstNoticias = new ArrayList<Noticia>();
@@ -77,5 +80,11 @@ public class NoticiaLogic implements InfoData{
 			return new Noticia(idNoticia,fechaCreacionNoticia,tituloNoticia,subtituloNoticia,textoNoticia,imagenidImagen);
 		}
 
+		public static void updNoticiaPHP(Noticia oNoticia) {
+			String url = InfoData.URI + "upd-noticia.php?txtTituloNoticia="+NoticiaDetalle.txtTitle.getText()
+			+"&txtSubtituloNoticia="+NoticiaDetalle.txtSubTitle.getText()
+			+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
+			+"&txtIdNoticia="+oNoticia.getIdNoticia();
+		}
 
 	}

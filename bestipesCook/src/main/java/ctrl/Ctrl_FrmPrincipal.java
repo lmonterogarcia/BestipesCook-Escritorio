@@ -30,25 +30,21 @@ public class Ctrl_FrmPrincipal {
 		RecetaLogic.cargarDatos();
 	}
 
-	public static void ventanaDetalle() {
+	public static void ventanaDetalle(boolean boNuevaFila) {
 		switch(bMenu) {
 		case 0:
-			Ctrl_NoticiaDetalle.inicio();
+			Ctrl_NoticiaDetalle.inicio(boNuevaFila);
 			break;
 		case 1:
-			Ctrl_RetoDetalle.inicio();
+			Ctrl_RetoDetalle.inicio(boNuevaFila);
 			break;
 		case 2:
-			Ctrl_CategoriaDetalle.inicio();
+			Ctrl_CategoriaDetalle.inicio(boNuevaFila);
 			break;
 		case 3:
-			Ctrl_RecetaDetalle.inicio();
+			Ctrl_RecetaDetalle.inicio(boNuevaFila);
 			break;
 		}
-	}
-
-	public static void crearContenido() {
-		ventanaDetalle();
 	}
 
 }

@@ -118,12 +118,12 @@ public class FrmPrincipal extends JFrame {
 		btnRetos.addActionListener(e -> Ctrl_FrmPrincipal.retoVentana());
 		btnCategorias.addActionListener(e -> Ctrl_FrmPrincipal.categoriaVentana());
 		btnRecetas.addActionListener(e -> Ctrl_FrmPrincipal.recetaVentana());
-		btnAdd.addActionListener(e -> Ctrl_FrmPrincipal.crearContenido());
+		btnAdd.addActionListener(e -> Ctrl_FrmPrincipal.ventanaDetalle(true));
 		
 		list.addMouseListener(new java.awt.event.MouseAdapter() {
 		    public void mouseClicked(java.awt.event.MouseEvent e) {
 		        if (e.getClickCount() == 2) {
-		        	Ctrl_FrmPrincipal.ventanaDetalle();
+		        	Ctrl_FrmPrincipal.ventanaDetalle(false);
 		        }
 		    }
 		});

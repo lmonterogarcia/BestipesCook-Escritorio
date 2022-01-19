@@ -3,7 +3,7 @@ package ctrl;
 import view.RetoDetalle;
 
 public class Ctrl_RetoDetalle {
-	public static void inicio() {
+	public static void inicio(boolean boNuevaFila) {
 		new RetoDetalle();
 	}
 }
