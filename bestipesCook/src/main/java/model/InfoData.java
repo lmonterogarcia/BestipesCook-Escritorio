@@ -11,5 +11,5 @@ public interface InfoData {
 	public static final Color cWhite = new Color (255,255,255);
 	
 	//####################### DATOS HOSTING #############################
-	public final String URI = "https://thecrewdevelopers.com/bestipes/app/desktop/noticia/";
+	public final String URI = "https://thecrewdevelopers.com/bestipes/app/desktop/";
 }
