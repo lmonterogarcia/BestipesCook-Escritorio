@@ -10,28 +10,29 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import model.Categoria;
 import model.InfoData;
 import model.Noticia;
 import view.FrmPrincipal;
 
 public class CategoriaLogic implements InfoData{
-	public static ArrayList<Noticia> lstNoticias;
+	public static ArrayList<Categoria> lstCategorias;
 	public static void cargarDatos() {
 
 		try {
-			lstNoticias = getNoticias();
-			lstNoticias.forEach(noticia -> FrmPrincipal.list.add(noticia.getTituloNoticia()+" - "+noticia.getFechaCreacionNoticia()));
+			lstCategorias = getCategorias();
+			lstCategorias.forEach(categoria -> FrmPrincipal.list.add(categoria.getNombreCategoria()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-		private static ArrayList<Noticia> getNoticias() throws IOException {
-			String url = InfoData.URI + "lst-noticias.php";
+		private static ArrayList<Categoria> getCategorias() throws IOException {
+			String url = InfoData.URI + "categoria/lst-categorias.php";
 			System.out.println(url);
 			String requestHttp = peticionHttp(url);
-			return stringToListNoticia(requestHttp);
+			return stringToListCategoria(requestHttp);
 		}
 
 		private static String peticionHttp(String urlWebService) throws IOException{
@@ -53,28 +54,31 @@ public class CategoriaLogic implements InfoData{
 			return resultado.toString();
 		}
 
-		private static ArrayList<Noticia> stringToListNoticia(String requestHttp) {
-			ArrayList<Noticia> lstNoticias = new ArrayList<Noticia>();
+		private static ArrayList<Categoria> stringToListCategoria(String requestHttp) {
+			ArrayList<Categoria> lstCategorias = new ArrayList<Categoria>();
 			JSONArray jsonArr = new JSONArray(requestHttp);
 
 			for(int i = 0 ; i < jsonArr.length(); i++) {
 				JSONObject jsonObj = jsonArr.getJSONObject(i);
-				lstNoticias.add(objJsonParseNoticia(jsonObj));
+				lstCategorias.add(objJsonParseCategoria(jsonObj));
 			}
 
-			return lstNoticias;
+			return lstCategorias;
 		}
 
-		private static Noticia objJsonParseNoticia(JSONObject jsonObj) {
+		private static Categoria objJsonParseCategoria(JSONObject jsonObj) {
 			//Extraer los values del objeto JSON
-			Integer idNoticia = jsonObj.getInt("idNoticia");
-			String fechaCreacionNoticia = jsonObj.getString("fechaCreacionNoticia");
-			String tituloNoticia = jsonObj.getString("tituloNoticia");
-			String subtituloNoticia = jsonObj.getString("subtituloNoticia");
-			String textoNoticia = jsonObj.getString("textoNoticia");
-			Integer imagenidImagen = jsonObj.getInt("imagenidImagen");
+			Integer idCategoria = jsonObj.getInt("idCategoria");
+			String nombreCategoria = jsonObj.getString("nombreCategoria");
+			String challengueGet = jsonObj.getString("challenge");
+			Boolean challengue;
+			if ("1".equals(challengueGet)) {
+				challengue = true;
+			}else {
+				challengue = false;
+			}
 
-			return new Noticia(idNoticia,fechaCreacionNoticia,tituloNoticia,subtituloNoticia,textoNoticia,imagenidImagen);
+			return new Categoria(idCategoria,nombreCategoria,challengue);
 		}
 
 
