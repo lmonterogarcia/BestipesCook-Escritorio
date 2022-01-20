@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import model.InfoData;
 import model.Noticia;
 import view.FrmPrincipal;
+import view.NoticiaDetalle;
 
 public class NoticiaLogic implements InfoData{
 	public static ArrayList<Noticia> lstNoticias;
@@ -28,7 +29,7 @@ public class NoticiaLogic implements InfoData{
 	}
 
 		private static ArrayList<Noticia> getNoticias() throws IOException {
-			String url = InfoData.URI + "lst-noticias.php";
+			String url = InfoData.URI + "noticia/lst-noticias.php";
 			System.out.println(url);
 			String requestHttp = peticionHttp(url);
 			return stringToListNoticia(requestHttp);
@@ -37,10 +38,14 @@ public class NoticiaLogic implements InfoData{
 		private static String peticionHttp(String urlWebService) throws IOException{
 			StringBuilder resultado = new StringBuilder();
 
+			//Formatear espacios
+			if(urlWebService.contains(" "))
+				urlWebService = urlWebService.replace(" ", "%20");
+			
 			//Realizar la petición HTTP
-
 			URL url = new URL(urlWebService);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			
 			conn.setRequestMethod("GET");
 
 			//Recoger los datos de respuesta
@@ -52,6 +57,8 @@ public class NoticiaLogic implements InfoData{
 			conn.disconnect();
 			return resultado.toString();
 		}
+		
+		
 
 		private static ArrayList<Noticia> stringToListNoticia(String requestHttp) {
 			ArrayList<Noticia> lstNoticias = new ArrayList<Noticia>();
@@ -77,5 +84,37 @@ public class NoticiaLogic implements InfoData{
 			return new Noticia(idNoticia,fechaCreacionNoticia,tituloNoticia,subtituloNoticia,textoNoticia,imagenidImagen);
 		}
 
+		public static void updNoticiaPHP(Noticia oNoticia) {
+			String url = InfoData.URI + "noticia/upd-noticia.php?txtTituloNoticia="+NoticiaDetalle.txtTitle.getText()
+			+"&txtSubtituloNoticia="+NoticiaDetalle.txtSubTitle.getText()
+			+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
+			+"&txtIdNoticia="+oNoticia.getIdNoticia();
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+
+		public static void insNoticiaPHP() {
+			String url = InfoData.URI + "noticia/ins-noticia.php?txtTituloNoticia="+NoticiaDetalle.txtTitle.getText()
+			+"&txtSubtituloNoticia="+NoticiaDetalle.txtSubTitle.getText()
+			+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
+			+"&txtImg="+1;
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+
+		public static void delNoticiaPHP(Noticia oNoticia) {
+			String url = InfoData.URI + "noticia/del-noticia.php?txtTituloNoticia="+"&txtIdNoticia="+oNoticia.getIdNoticia();
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
 
 	}
