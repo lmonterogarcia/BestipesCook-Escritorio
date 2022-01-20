@@ -13,7 +13,9 @@ import org.json.JSONObject;
 import model.Categoria;
 import model.InfoData;
 import model.Noticia;
+import view.CategoriaDetalle;
 import view.FrmPrincipal;
+import view.NoticiaDetalle;
 
 public class CategoriaLogic implements InfoData{
 	public static ArrayList<Categoria> lstCategorias;
@@ -30,13 +32,16 @@ public class CategoriaLogic implements InfoData{
 
 		private static ArrayList<Categoria> getCategorias() throws IOException {
 			String url = InfoData.URI + "categoria/lst-categorias.php";
-			System.out.println(url);
 			String requestHttp = peticionHttp(url);
 			return stringToListCategoria(requestHttp);
 		}
 
 		private static String peticionHttp(String urlWebService) throws IOException{
 			StringBuilder resultado = new StringBuilder();
+			
+			//Formatear espacios
+			if(urlWebService.contains(" "))
+				urlWebService = urlWebService.replace(" ", "%20");
 
 			//Realizar la petición HTTP
 
@@ -79,6 +84,52 @@ public class CategoriaLogic implements InfoData{
 			}
 
 			return new Categoria(idCategoria,nombreCategoria,challengue);
+		}
+		
+		public static void updCategoriaPHP(Categoria oCategoria) {
+			
+			String sChallenge;
+			if (CategoriaDetalle.checkBoxChallenge.isSelected()) {
+				sChallenge = "1";				
+			}else {
+				sChallenge = "0";
+			}
+			
+			String url = InfoData.URI + "categoria/upd-categoria.php?txtNombreCategoria="+CategoriaDetalle.txtTitle.getText()
+			+"&txtChallenge="+sChallenge
+			+"&txtIdCategoria="+oCategoria.getIdCategoria();
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+
+		public static void insCategoriaPHP() {
+			
+			String sChallenge;
+			if (CategoriaDetalle.checkBoxChallenge.isSelected()) {
+				sChallenge = "1";				
+			}else {
+				sChallenge = "0";
+			}
+			
+			String url = InfoData.URI + "categoria/ins-categoria.php?txtNombreCategoria="+CategoriaDetalle.txtTitle.getText()
+			+"&txtChallenge="+sChallenge;
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+
+		public static void delCategoriaPHP(Categoria oCategoria) {
+			String url = InfoData.URI + "categoria/del-categoria.php?txtIdCategoria="+oCategoria.getIdCategoria();
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
 		}
 
 
