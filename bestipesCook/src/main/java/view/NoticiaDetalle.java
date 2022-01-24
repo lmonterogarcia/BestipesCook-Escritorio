@@ -2,16 +2,22 @@ package view;
 
 import java.awt.FlowLayout;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Image;
 
+import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
 import model.InfoData;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -20,6 +26,11 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.TextArea;
 import java.awt.Color;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JFileChooser;
+import java.io.File;
 
 public class NoticiaDetalle extends JDialog {
 
@@ -33,6 +44,7 @@ public class NoticiaDetalle extends JDialog {
 	public static JButton btnGuardar;
 	public static JButton btnBorrar;
 	public static JDialog ventana;
+	public static JLabel lblImg;
 
 
 	public NoticiaDetalle() {
@@ -46,12 +58,9 @@ public class NoticiaDetalle extends JDialog {
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("IMG");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-
-		lblNewLabel.setBounds(265, 11, 159, 80);
-		contentPanel.add(lblNewLabel);
+		lblImg = new JLabel("");
+		lblImg.setBounds(265, 11, 159, 80);
+		contentPanel.add(lblImg);
 
 		txtTitle = new JTextField();
 		txtTitle.setText("Titulo");
@@ -137,10 +146,44 @@ public class NoticiaDetalle extends JDialog {
 		btnCancelar.addActionListener(e -> Ctrl_NoticiaDetalle.deshabilitarEdicion());
 		btnGuardar.addActionListener(e -> Ctrl_NoticiaDetalle.updNoticia());
 		btnBorrar.addActionListener(e -> Ctrl_NoticiaDetalle.delNoticia());
+		
+		lblImg.addMouseListener(new MouseAdapter()  
+		{  
+		    public void mouseClicked(MouseEvent e)  
+		    {  
+		    	JFileChooser chooser = new JFileChooser();
+		    	chooser.showOpenDialog(null);
+		    	File f = chooser.getSelectedFile();
+		    	Ctrl_Imagen.previsualizarImg(f.getAbsolutePath());
+		    	/*
+		    	try {
+					JFileChooser chooser = new JFileChooser();
+					chooser.showOpenDialog(null);
+					File f = chooser.getSelectedFile();
+					path = f + “”;
+					filename = f.getAbsolutePath();
+					ImageIcon imgThisImg = new ImageIcon(new ImageIcon(filename)
+					.getImage().getScaledInstance(280, 187, Image.SCALE_DEFAULT));
+					jLabel1.setIcon(imgThisImg);
+					File image = new File(filename);
+					FileInputStream fis = new FileInputStream(image);
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					byte[] buf = new byte[1024];
+					for (int readNum; (readNum = fis.read(buf)) != -1;) {
+					bos.write(buf, 0, readNum);
+					}
+					person_image = bos.toByteArray();
+					} catch (HeadlessException | IOException e) {
+					JOptionPane.showMessageDialog(null, e, “Error”, JOptionPane.ERROR_MESSAGE);
+					}
+					*/
+		    }  
+		}); 
 
 		addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent we) {
 				Ctrl_NoticiaDetalle.cerrarVentanaDetalle();
+				dispose();
 			}});
 	}
 }
