@@ -138,7 +138,6 @@ public class NoticiaDetalle extends JDialog {
 
 		setResizable(false);
 		setVisible(true);
-		setModal(true);
 
 		//EVENTOS
 

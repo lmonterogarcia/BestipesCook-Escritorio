@@ -1,9 +1,7 @@
 package ctrl;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -12,11 +10,10 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
 import model.InfoData;
-import view.NoticiaDetalle;
 
 public class ClienteFTP {
 
-	public static void start() {
+	public static void start(boolean boUpload) {
 		//Creamos el objeto cliente FTP
 		FTPClient clienteFTP = new FTPClient();
 
@@ -36,8 +33,14 @@ public class ClienteFTP {
 			//Verificamos que estamos conectados con el servidor
 			verificarConexion(clienteFTP);
 
-			//Subimos el archivo
-			UploadFile(clienteFTP);
+			if(boUpload) {
+				//Subimos el archivo
+				uploadFile(clienteFTP);
+			}else {
+				//Borramos el archivo
+				clienteFTP.deleteFile(Ctrl_Imagen.rutaImagenCargada);
+			}
+			
 			
 			//Nos desconectamos del servidor
 			clienteFTP.logout();
@@ -66,21 +69,21 @@ public class ClienteFTP {
 		}
 	}
 	
-	public static void UploadFile(FTPClient clienteFTP){
+	public static void uploadFile(FTPClient clienteFTP){
         File firstLocalFile = new File(Ctrl_Imagen.rutaImagenCargada);
-       		System.out.println(Ctrl_Imagen.rutaImagenCargada);
 	        try {
+	        	clienteFTP.setFileType(FTP.BINARY_FILE_TYPE);
 	        	InputStream inputStream = new FileInputStream(firstLocalFile);
-				inputStream.close();
+				
 				clienteFTP.changeWorkingDirectory(InfoData.PATH_IMG);
 				if (clienteFTP.storeFile(firstLocalFile.getName(), inputStream)) {
 				    System.out.println("El archivo se ha subido con éxito.");
 				}else {
 					System.err.println("No se ha podido subir el archivo.");
 				}
+				inputStream.close();
 			} catch (Exception e) {
 				e.getMessage();
 			}
 	}
-
 }

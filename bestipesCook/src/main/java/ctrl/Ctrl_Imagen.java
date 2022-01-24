@@ -15,6 +15,7 @@ public class Ctrl_Imagen {
 
 	public static void cargarImg(String direccion) {
 		try {
+			System.out.println(direccion);
 			URL url = new URL(direccion);
 			Image image = ImageIO.read(url);
 			ImageIcon imgIcon = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(159,80,Image.SCALE_DEFAULT));

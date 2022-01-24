@@ -48,16 +48,17 @@ public class ImagenLogic {
 			System.err.println(e.getMessage());
 		}
 	}
-/*
-	public static void delImagenPHP(Imagen oImagen) {
-		String url = InfoData.URI + "imagen/del-imagen.php?txtTituloNoticia="+"&txtIdNoticia="+oNoticia.getIdNoticia();
+
+	public static void delImagenPHP(Integer idImagen) {
+		String url = InfoData.URI + "imagen/del-imagen.php?txtidImagen="+idImagen;
+		System.out.println(url);
 		try {
 			peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	*/
+	
 	public static Imagen getImagen(Integer imagenidImagen) throws IOException {
 		String url = InfoData.URI + "imagen/get-imagen.php?txtidImagen="+imagenidImagen;
 		String requestHttp = peticionHttp(url);
