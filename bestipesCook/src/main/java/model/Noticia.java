@@ -6,19 +6,19 @@ public class Noticia {
 	private String tituloNoticia;
 	private String subtituloNoticia;
 	private String textoNoticia;
-	private Integer imagenidImagen;
+	private Imagen oImagen;
 
 	public Noticia() {
 	}
 
 	public Noticia(Integer idNoticia, String fechaCreacionNoticia, String tituloNoticia, String subtituloNoticia,
-			String textoNoticia, Integer imagenidImagen) {
+			String textoNoticia, Imagen oImagen) {
 		this.idNoticia = idNoticia;
 		this.fechaCreacionNoticia = fechaCreacionNoticia;
 		this.tituloNoticia = tituloNoticia;
 		this.subtituloNoticia = subtituloNoticia;
 		this.textoNoticia = textoNoticia;
-		this.imagenidImagen = imagenidImagen;
+		this.oImagen = oImagen;
 	}
 
 	public Integer getIdNoticia() {
@@ -61,18 +61,18 @@ public class Noticia {
 		this.textoNoticia = textoNoticia;
 	}
 
-	public Integer getImagenidImagen() {
-		return imagenidImagen;
+	public Imagen getoImagen() {
+		return oImagen;
 	}
 
-	public void setImagenidImagen(Integer imagenidImagen) {
-		this.imagenidImagen = imagenidImagen;
+	public void setoImagen(Imagen oImagen) {
+		this.oImagen = oImagen;
 	}
 
 	@Override
 	public String toString() {
 		return "Noticia [idNoticia=" + idNoticia + ", fechaCreacionNoticia=" + fechaCreacionNoticia + ", tituloNoticia="
 				+ tituloNoticia + ", subtituloNoticia=" + subtituloNoticia + ", textoNoticia=" + textoNoticia
-				+ ", imagenidImagen=" + imagenidImagen + "]";
+				+ ", oImagen=" + oImagen + "]";
 	}
 }

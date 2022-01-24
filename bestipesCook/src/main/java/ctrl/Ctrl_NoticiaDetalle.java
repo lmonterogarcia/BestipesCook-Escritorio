@@ -1,5 +1,7 @@
 package ctrl;
 
+import java.io.IOException;
+
 import logic.NoticiaLogic;
 import model.InfoData;
 import model.Noticia;
@@ -25,6 +27,7 @@ public class Ctrl_NoticiaDetalle {
 		NoticiaDetalle.txtSubTitle.setText(oNoticia.getSubtituloNoticia());
 		NoticiaDetalle.txtDate.setText(oNoticia.getFechaCreacionNoticia());
 		NoticiaDetalle.txtDescripcion.setText(oNoticia.getTextoNoticia());
+		Ctrl_Imagen.cargarImg(InfoData.URI_MEDIA+oNoticia.getoImagen().getRutaRelativaImagen());
 	}
 
 	public static void habilitarEdicion() {
@@ -41,7 +44,7 @@ public class Ctrl_NoticiaDetalle {
 		if(oNoticia != null) {
 			NoticiaDetalle.btnBorrar.setVisible(true);
 		}
-		
+
 	}
 
 	public static void deshabilitarEdicion() {
@@ -63,13 +66,24 @@ public class Ctrl_NoticiaDetalle {
 	}
 
 	public static void updNoticia() {
-		deshabilitarEdicion();
 		if(oNoticia == null) {
-			NoticiaLogic.insNoticiaPHP();
+			try {
+				if(Ctrl_Imagen.rutaImagenCargada.equals("") || NoticiaDetalle.txtTitle.getText().equals("")
+						|| NoticiaDetalle.txtSubTitle.getText().equals("")
+						|| NoticiaDetalle.txtDescripcion.getText().equals("")){
+					System.err.println("Hay que completar todos los campos");
+				}else {
+					NoticiaLogic.insNoticiaPHP();
+					cerrarVentanaDetalle();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}else {
 			NoticiaLogic.updNoticiaPHP(oNoticia);
+			cerrarVentanaDetalle();
 		}
-		cerrarVentanaDetalle();
+		
 	}
 
 	public static void cerrarVentanaDetalle() {
