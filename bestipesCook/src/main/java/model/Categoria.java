@@ -23,6 +23,7 @@ public class Categoria {
 		this.challengue = challengue;
 	}
 
+
 	public int getIdCategoria() {
 		return idCategoria;
 	}
