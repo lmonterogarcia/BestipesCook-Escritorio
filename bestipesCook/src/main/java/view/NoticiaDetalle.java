@@ -59,17 +59,17 @@ public class NoticiaDetalle extends JDialog {
 		contentPanel.setLayout(null);
 
 		lblImg = new JLabel("");
-		lblImg.setBounds(265, 11, 159, 80);
+		lblImg.setBounds(295, 10, 100, 100);
 		contentPanel.add(lblImg);
 
 		txtTitle = new JTextField();
 		txtTitle.setText("Titulo");
 		txtTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		txtTitle.setBackground(InfoData.cNaranja);
-		txtTitle.setFont(new Font("Yu Gothic UI", Font.PLAIN, 20));
+		txtTitle.setFont(new Font("Yu Gothic UI", Font.PLAIN, 22));
 		txtTitle.setEditable(false);
 		txtTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTitle.setBounds(10, 0, 245, 31);
+		txtTitle.setBounds(10, 0, 275, 31);
 		contentPanel.add(txtTitle);
 		txtTitle.setColumns(10);
 
@@ -80,24 +80,24 @@ public class NoticiaDetalle extends JDialog {
 		txtSubTitle.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 18));
 		txtSubTitle.setEditable(false);
 		txtSubTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		txtSubTitle.setBounds(10, 30, 245, 31);
+		txtSubTitle.setBounds(10, 35, 275, 31);
 		contentPanel.add(txtSubTitle);
 		txtSubTitle.setColumns(10);
 
 		txtDate = new JTextField();
 		txtDate.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		txtDate.setBackground(InfoData.cNaranja);
-		txtDate.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 10));
+		txtDate.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 12));
 		txtDate.setEditable(false);
 		txtDate.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDate.setBounds(10, 61, 245, 31);
+		txtDate.setBounds(10, 72, 275, 31);
 		contentPanel.add(txtDate);
 		txtDate.setColumns(10);
 
 		txtDescripcion = new TextArea("Descripcion", 3 , 100 , TextArea.SCROLLBARS_VERTICAL_ONLY);
 		txtDescripcion.setBackground(InfoData.cRositaPalo);
 		txtDescripcion.setEditable(false);
-		txtDescripcion.setBounds(10, 97, 414, 131);
+		txtDescripcion.setBounds(10, 116, 414, 112);
 		contentPanel.add(txtDescripcion);
 
 		JPanel buttonPane = new JPanel();

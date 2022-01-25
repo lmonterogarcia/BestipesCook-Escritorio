@@ -1,11 +1,8 @@
 package logic;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -13,24 +10,26 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
+import ctrl.RenderList;
 import model.Imagen;
 import model.InfoData;
 import model.Noticia;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import view.FrmPrincipal;
 import view.NoticiaDetalle;
 
 public class NoticiaLogic implements InfoData{
 	public static ArrayList<Noticia> lstNoticias;
+	
 	public static void cargarDatos() {
-
+		
 		try {
 			lstNoticias = getNoticias();
-			lstNoticias.forEach(noticia -> FrmPrincipal.list.add(noticia.getTituloNoticia()+" - "+noticia.getFechaCreacionNoticia()));
+			new RenderList();
+			
+	        //lstNoticias.forEach(noticia -> FrmPrincipal.list.add(noticia.getTituloNoticia()+" - "+noticia.getFechaCreacionNoticia()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

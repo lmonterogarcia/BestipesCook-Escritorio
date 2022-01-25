@@ -5,26 +5,29 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
 import model.Colors;
+import model.Noticia;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.GridLayout;
 
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	public static List list;
+	public static JList list;
+	
 	
 	public FrmPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\recursos\\MyBestCookRecipe2.png"));
@@ -101,11 +104,13 @@ public class FrmPrincipal extends JFrame {
 		center_pnl.setBackground(new Color(255, 255, 153));
 		contentPane.add(center_pnl, BorderLayout.CENTER);
 		center_pnl.setLayout(new BorderLayout(0, 0));
+ 
+        //create the list
+        list = new JList();
+        JScrollPane panelScroll = new JScrollPane(list);
+        list.setBackground(new Color(255, 255, 204));    
+        center_pnl.add(panelScroll, BorderLayout.CENTER);
 		
-		list = new List();
-		list.setBackground(new Color(255, 255, 204));
-		list.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 40));
-		center_pnl.add(list, BorderLayout.CENTER);
 		
 		JButton btnAdd = new JButton("");
 		btnAdd.setIcon(new ImageIcon("src\\recursos\\add_icon.png"));
