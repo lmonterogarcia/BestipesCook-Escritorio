@@ -12,6 +12,6 @@ public interface InfoData {
 	
 	//####################### DATOS HOSTING #############################
 	public final String URI = "https://thecrewdevelopers.com/bestipes/app/desktop/";
-	public final String URI_MEDIA = "https://thecrewdevelopers.com/bestipes/app/media/";
+	public final String URI_MEDIA = "https://thecrewdevelopers.com/bestipes/app/media/imagenes/";
 	public final String PATH_IMG = "//app//media//imagenes";
 }
