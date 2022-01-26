@@ -32,18 +32,8 @@ public class RetoLogic implements InfoData{
 
 		private static ArrayList<Reto> getRetos() throws IOException {
 			String url = InfoData.URI + "reto/lst-retos.php";
-			System.out.println(url);
 			String requestHttp = peticionHttp(url);
 			return stringToListRetos(requestHttp);
-		}
-
-		private static String peticionHttp(String urlWebService) throws IOException{
-			OkHttpClient client = new OkHttpClient();
-			Request request = new Request.Builder().url(urlWebService).build();
-
-			Response response = client.newCall(request).execute();
-			
-			return response.body().string();
 		}
 
 		private static ArrayList<Reto> stringToListRetos(String requestHttp) throws IOException {
@@ -56,6 +46,15 @@ public class RetoLogic implements InfoData{
 			}
 
 			return lstRetos;
+		}
+		
+		private static String peticionHttp(String urlWebService) throws IOException{
+			OkHttpClient client = new OkHttpClient();
+			Request request = new Request.Builder().url(urlWebService).build();
+
+			Response response = client.newCall(request).execute();
+			
+			return response.body().string();
 		}
 
 		private static Reto objJsonParseRetos(JSONObject jsonObj) throws IOException {
@@ -113,7 +112,7 @@ public class RetoLogic implements InfoData{
 				//Borramos la imagen antigua
 				//Eliminamos los datos de la imagen en la BD
 				ImagenLogic.delImagenPHP(oReto.getoImagen().getIdImagen());
-				System.out.println("La id que quiero borrar: "+oReto.getoImagen().getIdImagen());
+				
 				//Eliminamos la imagen del servidor FTP
 				Ctrl_Imagen.rutaImagenCargada = InfoData.PATH_IMG+"/"+oReto.getoImagen().getRutaRelativaImagen();
 				ClienteFTP.start(false);

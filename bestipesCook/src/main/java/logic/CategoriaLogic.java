@@ -34,14 +34,6 @@ public class CategoriaLogic implements InfoData{
 		return stringToListCategoria(requestHttp);
 	}
 
-	private static String peticionHttp(String urlWebService) throws IOException{
-		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlWebService).build();
-
-		Response response = client.newCall(request).execute();
-		
-		return response.body().string();
-	}
 
 	private static ArrayList<Categoria> stringToListCategoria(String requestHttp) {
 		ArrayList<Categoria> lstCategorias = new ArrayList<Categoria>();
@@ -53,6 +45,15 @@ public class CategoriaLogic implements InfoData{
 		}
 
 		return lstCategorias;
+	}
+	
+	private static String peticionHttp(String urlWebService) throws IOException{
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url(urlWebService).build();
+
+		Response response = client.newCall(request).execute();
+		
+		return response.body().string();
 	}
 
 	private static Categoria objJsonParseCategoria(JSONObject jsonObj) {
