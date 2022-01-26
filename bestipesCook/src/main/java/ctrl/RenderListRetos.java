@@ -15,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import logic.NoticiaLogic;
 import logic.RetoLogic;
 import model.InfoData;
 import view.FrmPrincipal;
@@ -26,7 +25,7 @@ public class RenderListRetos {
 
     public RenderListRetos() {
     	String[] nameList = new String[RetoLogic.lstRetos.size()];
-    	DefaultListModel listModel = new DefaultListModel();
+    	DefaultListModel<Object> listModel = new DefaultListModel<Object>();
     	
     	for(int i = 0; i < nameList.length; i++) {
     		listModel.addElement("  "+RetoLogic.lstRetos.get(i).getTituloReto()+"  -  "+RetoLogic.lstRetos.get(i).getSubtituReto());
@@ -45,7 +44,7 @@ public class RenderListRetos {
         Font font = new Font("Yu Gothic UI Light", Font.BOLD, 24);
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             
 			try {

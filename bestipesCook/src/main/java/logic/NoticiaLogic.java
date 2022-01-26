@@ -43,7 +43,7 @@ public class NoticiaLogic implements InfoData{
 		Request request = new Request.Builder().url(urlWebService).build();
 
 		Response response = client.newCall(request).execute();
-
+		
 		return response.body().string();
 	}
 

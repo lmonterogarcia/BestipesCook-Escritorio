@@ -10,7 +10,6 @@ import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
 import model.Colors;
-import model.Noticia;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -26,7 +25,7 @@ import java.awt.GridLayout;
 public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	public static JList list;
+	public static JList<Object> list;
 	
 	
 	public FrmPrincipal() {
@@ -106,7 +105,7 @@ public class FrmPrincipal extends JFrame {
 		center_pnl.setLayout(new BorderLayout(0, 0));
  
         //create the list
-        list = new JList();
+        list = new JList<Object>();
         JScrollPane panelScroll = new JScrollPane(list);
         list.setBackground(new Color(255, 255, 204));    
         center_pnl.add(panelScroll, BorderLayout.CENTER);

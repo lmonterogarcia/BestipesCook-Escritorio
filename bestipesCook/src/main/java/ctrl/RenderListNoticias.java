@@ -25,7 +25,7 @@ public class RenderListNoticias {
 
     public RenderListNoticias() {
     	String[] nameList = new String[NoticiaLogic.lstNoticias.size()];
-    	DefaultListModel listModel = new DefaultListModel();
+    	DefaultListModel<Object> listModel = new DefaultListModel<Object>();
     	
     	for(int i = 0; i < nameList.length; i++) {
     		listModel.addElement("  "+NoticiaLogic.lstNoticias.get(i).getTituloNoticia()+"  -  "+NoticiaLogic.lstNoticias.get(i).getSubtituloNoticia());
@@ -44,7 +44,7 @@ public class RenderListNoticias {
         Font font = new Font("Yu Gothic UI Light", Font.BOLD, 24);
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             
 			try {
