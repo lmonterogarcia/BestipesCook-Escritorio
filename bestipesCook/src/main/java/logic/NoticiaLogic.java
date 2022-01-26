@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
-import ctrl.RenderList;
+import ctrl.RenderListNoticias;
 import model.Imagen;
 import model.InfoData;
 import model.Noticia;
@@ -26,7 +26,7 @@ public class NoticiaLogic implements InfoData{
 		
 		try {
 			lstNoticias = getNoticias();
-			new RenderList();
+			new RenderListNoticias();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

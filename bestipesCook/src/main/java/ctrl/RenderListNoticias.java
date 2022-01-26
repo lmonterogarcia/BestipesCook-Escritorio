@@ -19,11 +19,11 @@ import logic.NoticiaLogic;
 import model.InfoData;
 import view.FrmPrincipal;
 
-public class RenderList {
+public class RenderListNoticias {
 
     private final HashMap<String, ImageIcon> imageMap;
 
-    public RenderList() {
+    public RenderListNoticias() {
     	String[] nameList = new String[NoticiaLogic.lstNoticias.size()];
     	DefaultListModel listModel = new DefaultListModel();
     	

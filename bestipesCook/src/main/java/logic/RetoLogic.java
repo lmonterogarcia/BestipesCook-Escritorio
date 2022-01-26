@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
-import ctrl.RenderList;
+import ctrl.RenderListNoticias;
 import ctrl.RenderListRetos;
 import model.Imagen;
 import model.InfoData;
