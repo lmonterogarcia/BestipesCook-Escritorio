@@ -27,8 +27,6 @@ public class NoticiaLogic implements InfoData{
 		try {
 			lstNoticias = getNoticias();
 			new RenderList();
-			
-	        //lstNoticias.forEach(noticia -> FrmPrincipal.list.add(noticia.getTituloNoticia()+" - "+noticia.getFechaCreacionNoticia()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +34,6 @@ public class NoticiaLogic implements InfoData{
 
 	private static ArrayList<Noticia> getNoticias() throws IOException {
 		String url = InfoData.URI + "noticia/lst-noticias.php";
-		System.out.println(url);
 		String requestHttp = peticionHttp(url);
 		return stringToListNoticia(requestHttp);
 	}
@@ -144,7 +141,6 @@ public class NoticiaLogic implements InfoData{
 		+"&txtSubtituloNoticia="+NoticiaDetalle.txtSubTitle.getText()
 		+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
 		+"&txtImg="+oImagen.getIdImagen();
-
 		try {
 			peticionHttp(url);
 		} catch (IOException e) {

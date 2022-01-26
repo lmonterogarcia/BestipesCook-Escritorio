@@ -16,19 +16,20 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import logic.NoticiaLogic;
+import logic.RetoLogic;
 import model.InfoData;
 import view.FrmPrincipal;
 
-public class RenderList {
+public class RenderListRetos {
 
     private final HashMap<String, ImageIcon> imageMap;
 
-    public RenderList() {
-    	String[] nameList = new String[NoticiaLogic.lstNoticias.size()];
+    public RenderListRetos() {
+    	String[] nameList = new String[RetoLogic.lstRetos.size()];
     	DefaultListModel listModel = new DefaultListModel();
     	
     	for(int i = 0; i < nameList.length; i++) {
-    		listModel.addElement("  "+NoticiaLogic.lstNoticias.get(i).getTituloNoticia()+"  -  "+NoticiaLogic.lstNoticias.get(i).getSubtituloNoticia());
+    		listModel.addElement("  "+RetoLogic.lstRetos.get(i).getTituloReto()+"  -  "+RetoLogic.lstRetos.get(i).getSubtituReto());
 		}
     	
         imageMap = createImageMap(nameList);
@@ -65,9 +66,9 @@ public class RenderList {
 
     private HashMap<String, ImageIcon> createImageMap(String[] list) {
     	HashMap<String, ImageIcon> map = new HashMap<>();
-		NoticiaLogic.lstNoticias.forEach(noticia -> {
+    	RetoLogic.lstRetos.forEach(reto -> {
 			try {
-				map.put("  "+noticia.getTituloNoticia()+"  -  "+noticia.getSubtituloNoticia(), new ImageIcon(new URL(InfoData.URI_MEDIA+noticia.getoImagen().getRutaRelativaImagen())));
+				map.put("  "+reto.getTituloReto()+"  -  "+reto.getSubtituReto(), new ImageIcon(new URL(InfoData.URI_MEDIA+reto.getoImagen().getRutaRelativaImagen())));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
