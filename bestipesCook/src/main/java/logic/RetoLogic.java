@@ -73,11 +73,19 @@ public class RetoLogic implements InfoData{
 		public static void updRetoPHP(Reto oReto){
 			String url = "";
 			if(Ctrl_Imagen.rutaImagenCargada.equals("")||oReto.getoImagen().getRutaRelativaImagen().equals(new File(Ctrl_Imagen.rutaImagenCargada).getName())) {
-				url = InfoData.URI + "noticia/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
+				url = InfoData.URI + "reto/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 				+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 				+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
+				+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
 				+"&txtIdReto="+oReto.getIdReto()
 				+"&txtidImagen="+oReto.getoImagen().getIdImagen();
+				
+				try {
+					peticionHttp(url);
+				} catch (IOException e) {
+					System.err.println(e.getMessage());
+				}
+				
 			}else {
 				//Creamos la nueva imagen
 				//Tranferencia del archivo imagen al servidor FTP
@@ -97,9 +105,10 @@ public class RetoLogic implements InfoData{
 					e.getMessage();
 				}
 
-				url = InfoData.URI + "noticia/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
+				url = InfoData.URI + "reto/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 				+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 				+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
+				+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
 				+"&txtIdReto="+oReto.getIdReto()
 				+"&txtidImagen="+oImagen.getIdImagen();
 
@@ -133,10 +142,11 @@ public class RetoLogic implements InfoData{
 			//Peticion del id generado para la tupla generada
 			Imagen oImagen = ImagenLogic.getImagenByUrl(rutaImagen);
 
-			//Insertar noticia
-			String url = InfoData.URI + "noticia/ins-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
+			//Insertar reto
+			String url = InfoData.URI + "reto/ins-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 			+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 			+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
+			+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
 			+"&txtImg="+oImagen.getIdImagen();
 			try {
 				peticionHttp(url);
@@ -146,7 +156,7 @@ public class RetoLogic implements InfoData{
 		}
 
 		public static void delRetoPHP(Reto oReto) {
-			String url = InfoData.URI + "noticia/del-reto.php?txtIdReto="+oReto.getIdReto();
+			String url = InfoData.URI + "reto/del-reto.php?txtIdReto="+oReto.getIdReto();
 			try {
 				peticionHttp(url);
 			} catch (IOException e) {

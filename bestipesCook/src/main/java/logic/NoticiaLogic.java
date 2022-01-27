@@ -79,6 +79,13 @@ public class NoticiaLogic implements InfoData{
 			+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
 			+"&txtIdNoticia="+oNoticia.getIdNoticia()
 			+"&txtidImagen="+oNoticia.getoImagen().getIdImagen();
+			
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+			
 		}else {
 			//Creamos la nueva imagen
 			//Tranferencia del archivo imagen al servidor FTP

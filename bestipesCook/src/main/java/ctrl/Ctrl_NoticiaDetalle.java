@@ -27,7 +27,7 @@ public class Ctrl_NoticiaDetalle {
 		NoticiaDetalle.txtSubTitle.setText(oNoticia.getSubtituloNoticia());
 		NoticiaDetalle.txtDate.setText(oNoticia.getFechaCreacionNoticia());
 		NoticiaDetalle.txtDescripcion.setText(oNoticia.getTextoNoticia());
-		Ctrl_Imagen.cargarImg(InfoData.URI_MEDIA+oNoticia.getoImagen().getRutaRelativaImagen());
+		Ctrl_Imagen.cargarImgNoticia(InfoData.URI_MEDIA+oNoticia.getoImagen().getRutaRelativaImagen());
 	}
 
 	public static void habilitarEdicion() {

@@ -1,6 +1,14 @@
 package ctrl;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.swing.JFormattedTextField.AbstractFormatter;
 
 import logic.RetoLogic;
 import model.InfoData;
@@ -10,6 +18,8 @@ import view.RetoDetalle;
 
 public class Ctrl_RetoDetalle {
 	public static Reto oReto;
+	
+	
 	public static void inicio(boolean boNuevaFila) {
 		if(boNuevaFila) {
 			new RetoDetalle();
@@ -21,20 +31,33 @@ public class Ctrl_RetoDetalle {
 		}
 
 	}
+	
+	private static Date formatDate(String fecha) {
+		Date date = new Date();
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		String currentTime = format.format(date);
+		
+		return date;
+	}
 
 	private static void cargarDatos(Reto oReto) {
 		RetoDetalle.txtTitle.setText(oReto.getTituloReto());
 		RetoDetalle.txtSubTitle.setText(oReto.getSubtituReto());
 		RetoDetalle.txtDate.setText(oReto.getFechaCreacionReto()+" - "+oReto.getFechaFinalizacionReto());
 		RetoDetalle.txtDescripcion.setText(oReto.getTextoReto());
-		Ctrl_Imagen.cargarImg(InfoData.URI_MEDIA+oReto.getoImagen().getRutaRelativaImagen());
+		RetoDetalle.fechaModelo.setValue(formatDate(oReto.getFechaFinalizacionReto()));
+		Ctrl_Imagen.cargarImgReto(InfoData.URI_MEDIA+oReto.getoImagen().getRutaRelativaImagen());
 	}
 
 	public static void habilitarEdicion() {
 		RetoDetalle.txtTitle.setEditable(true);
 		RetoDetalle.txtSubTitle.setEditable(true);
 		RetoDetalle.txtDescripcion.setEditable(true);
-		RetoDetalle.btnEditar.setVisible(false);
+		RetoDetalle.datePicker.getComponent(1).setEnabled(true);
+		RetoDetalle.fechaFinalizacion.setVisible(true);
+		RetoDetalle.btnEditar.setVisible(true);
 
 		RetoDetalle.txtTitle.setBackground(InfoData.cWhite);
 		RetoDetalle.txtSubTitle.setBackground(InfoData.cWhite);
@@ -49,10 +72,12 @@ public class Ctrl_RetoDetalle {
 
 	public static void deshabilitarEdicion() {
 		if(oReto != null && RetoDetalle.txtTitle.isEditable()) {
+			RetoDetalle.datePicker.setVisible(false);
+			RetoDetalle.fechaFinalizacion.setVisible(false);
 			RetoDetalle.txtTitle.setEditable(false);
 			RetoDetalle.txtSubTitle.setEditable(false);
 			RetoDetalle.txtDescripcion.setEditable(false);
-			RetoDetalle.btnEditar.setVisible(true);
+			RetoDetalle.btnEditar.setVisible(false);
 
 			RetoDetalle.txtTitle.setBackground(InfoData.cNaranja);
 			RetoDetalle.txtSubTitle.setBackground(InfoData.cNaranja);
@@ -60,6 +85,8 @@ public class Ctrl_RetoDetalle {
 
 			RetoDetalle.btnGuardar.setVisible(false);
 			RetoDetalle.btnBorrar.setVisible(false);
+			
+			
 		}else{
 			cerrarVentanaDetalle();
 		}
@@ -89,11 +116,33 @@ public class Ctrl_RetoDetalle {
 	public static void cerrarVentanaDetalle() {
 		oReto = null;
 		RetoDetalle.ventana.dispose();
-		Ctrl_FrmPrincipal.noticiaVentana();
+		Ctrl_FrmPrincipal.retoVentana();
 	}
 
 	public static void delReto() {
 		RetoLogic.delRetoPHP(oReto);
 		cerrarVentanaDetalle();
+	}
+	
+	public static class DateLabelFormatter extends AbstractFormatter {
+
+	    private String datePattern = "yyyy-MM-dd";
+	    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
+
+	    @Override
+	    public Object stringToValue(String text) throws ParseException {
+	        return dateFormatter.parseObject(text);
+	    }
+
+	    @Override
+	    public String valueToString(Object value) throws ParseException {
+	        if (value != null) {
+	            Calendar cal = (Calendar) value;
+	            return dateFormatter.format(cal.getTime());
+	        }
+
+	        return "";
+	    }
+
 	}
 }

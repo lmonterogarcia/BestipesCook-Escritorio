@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
 import java.io.File;
+import javax.swing.ImageIcon;
 
 public class NoticiaDetalle extends JDialog {
 
@@ -52,7 +53,8 @@ public class NoticiaDetalle extends JDialog {
 		contentPanel.setLayout(null);
 
 		lblImg = new JLabel("");
-		lblImg.setBounds(295, 10, 100, 100);
+		lblImg.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\BestipesCook-Escritorio\\bestipesCook\\src\\recursos\\img_add.png"));
+		lblImg.setBounds(295, 10, 129, 100);
 		contentPanel.add(lblImg);
 
 		txtTitle = new JTextField();
@@ -146,7 +148,7 @@ public class NoticiaDetalle extends JDialog {
 		    	JFileChooser chooser = new JFileChooser();
 		    	chooser.showOpenDialog(null);
 		    	File f = chooser.getSelectedFile();
-		    	Ctrl_Imagen.previsualizarImg(f.getAbsolutePath());
+		    	Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
 		    	/*
 		    	try {
 					JFileChooser chooser = new JFileChooser();

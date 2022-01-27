@@ -7,13 +7,15 @@ import java.awt.Dimension;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import model.Reto;
 import view.NoticiaDetalle;
+import view.RetoDetalle;
 
 public class Ctrl_Imagen {
 	public static String rutaImagenCargada = "";
 	private final static Dimension boundary = new Dimension(100, 100);
 	
-	public static void cargarImg(String direccion) {
+	public static void cargarImgNoticia(String direccion) {
 		try {
 			URL url = new URL(direccion);
 			Image image = ImageIO.read(url);
@@ -25,12 +27,37 @@ public class Ctrl_Imagen {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void cargarImgReto(String direccion) {
+		try {
+			URL url = new URL(direccion);
+			Image image = ImageIO.read(url);
+			ImageIcon imgIcon = new ImageIcon(image);
+			imgIcon = optimizarImagen(imgIcon);
+			RetoDetalle.lblImg.setIcon(imgIcon);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	public static void previsualizarImg(String direccion) {
+	public static void previsualizarImgNoticia(String direccion) {
 		try {
 			ImageIcon imgIcon = new ImageIcon(direccion);
 			imgIcon = optimizarImagen(imgIcon);
 			NoticiaDetalle.lblImg.setIcon(imgIcon);
+			rutaImagenCargada = direccion;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void previsualizarImgReto(String direccion) {
+		try {
+			ImageIcon imgIcon = new ImageIcon(direccion);
+			imgIcon = optimizarImagen(imgIcon);
+			RetoDetalle.lblImg.setIcon(imgIcon);
 			rutaImagenCargada = direccion;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
