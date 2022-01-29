@@ -1,33 +1,27 @@
 package logic;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ctrl.RenderListCategoria;
 import model.Categoria;
 import model.InfoData;
-import model.Noticia;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import view.CategoriaDetalle;
-import view.FrmPrincipal;
-import view.NoticiaDetalle;
 
 public class CategoriaLogic implements InfoData{
 	public static ArrayList<Categoria> lstCategorias;
+	
 	public static void cargarDatos() {
 
 		try {
 			lstCategorias = getCategorias();
-			lstCategorias.forEach(categoria -> FrmPrincipal.list.add(categoria.getNombreCategoria()));
+			new RenderListCategoria();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,25 +34,6 @@ public class CategoriaLogic implements InfoData{
 		return stringToListCategoria(requestHttp);
 	}
 
-	private static String runHttp(String url) throws IOException {
-		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-		try (Response response = client.newCall(request).execute()) {
-			return response.body().string();
-		}
-	}
-
-	private static String peticionHttp(String urlWebService) throws IOException{
-		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlWebService).build();
-
-		Response response = client.newCall(request).execute();
-		
-		return response.body().string();
-	}
 
 	private static ArrayList<Categoria> stringToListCategoria(String requestHttp) {
 		ArrayList<Categoria> lstCategorias = new ArrayList<Categoria>();
@@ -70,6 +45,15 @@ public class CategoriaLogic implements InfoData{
 		}
 
 		return lstCategorias;
+	}
+	
+	private static String peticionHttp(String urlWebService) throws IOException{
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url(urlWebService).build();
+
+		Response response = client.newCall(request).execute();
+		
+		return response.body().string();
 	}
 
 	private static Categoria objJsonParseCategoria(JSONObject jsonObj) {

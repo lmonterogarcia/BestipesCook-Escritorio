@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
-import ctrl.RenderList;
+import ctrl.RenderListNoticias;
 import model.Imagen;
 import model.InfoData;
 import model.Noticia;
@@ -26,7 +26,7 @@ public class NoticiaLogic implements InfoData{
 		
 		try {
 			lstNoticias = getNoticias();
-			new RenderList();
+			new RenderListNoticias();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,17 +38,6 @@ public class NoticiaLogic implements InfoData{
 		return stringToListNoticia(requestHttp);
 	}
 
-	private static String peticionHttp(String urlWebService) throws IOException{
-		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlWebService).build();
-
-		Response response = client.newCall(request).execute();
-
-		return response.body().string();
-	}
-
-
-
 	private static ArrayList<Noticia> stringToListNoticia(String requestHttp) throws IOException {
 		ArrayList<Noticia> lstNoticias = new ArrayList<Noticia>();
 		JSONArray jsonArr = new JSONArray(requestHttp);
@@ -59,6 +48,15 @@ public class NoticiaLogic implements InfoData{
 		}
 
 		return lstNoticias;
+	}
+	
+	private static String peticionHttp(String urlWebService) throws IOException{
+		OkHttpClient client = new OkHttpClient();
+		Request request = new Request.Builder().url(urlWebService).build();
+
+		Response response = client.newCall(request).execute();
+		
+		return response.body().string();
 	}
 
 	private static Noticia objJsonParseNoticia(JSONObject jsonObj) throws IOException {
@@ -81,6 +79,13 @@ public class NoticiaLogic implements InfoData{
 			+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
 			+"&txtIdNoticia="+oNoticia.getIdNoticia()
 			+"&txtidImagen="+oNoticia.getoImagen().getIdImagen();
+			
+			try {
+				peticionHttp(url);
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+			
 		}else {
 			//Creamos la nueva imagen
 			//Tranferencia del archivo imagen al servidor FTP
@@ -115,7 +120,6 @@ public class NoticiaLogic implements InfoData{
 			//Borramos la imagen antigua
 			//Eliminamos los datos de la imagen en la BD
 			ImagenLogic.delImagenPHP(oNoticia.getoImagen().getIdImagen());
-			System.out.println("La id que quiero borrar: "+oNoticia.getoImagen().getIdImagen());
 			//Eliminamos la imagen del servidor FTP
 			Ctrl_Imagen.rutaImagenCargada = InfoData.PATH_IMG+"/"+oNoticia.getoImagen().getRutaRelativaImagen();
 			ClienteFTP.start(false);

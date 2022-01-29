@@ -1,22 +1,19 @@
 package view;
 
-import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.TextArea;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_CategoriaDetalle;
-import ctrl.Ctrl_NoticiaDetalle;
 import model.InfoData;
 import javax.swing.JCheckBox;
 

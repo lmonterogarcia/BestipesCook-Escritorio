@@ -32,7 +32,6 @@ public class ImagenLogic {
 
 	public static void delImagenPHP(Integer idImagen) {
 		String url = InfoData.URI + "imagen/del-imagen.php?txtidImagen="+idImagen;
-		System.out.println(url);
 		try {
 			peticionHttp(url);
 		} catch (IOException e) {
