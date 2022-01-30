@@ -11,27 +11,27 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import model.InfoData;
-import model.Noticia;
+import model.Receta;
 import view.FrmPrincipal;
 
 public class RecetaLogic implements InfoData{
-	public static ArrayList<Noticia> lstNoticias;
+	public static ArrayList<Receta> lstRecetas;
 	public static void cargarDatos() {
 
 		try {
-			lstNoticias = getNoticias();
-			lstNoticias.forEach(noticia -> FrmPrincipal.list.add(noticia.getTituloNoticia()+" - "+noticia.getFechaCreacionNoticia()));
+			lstRecetas = getRecetas();
+			lstRecetas.forEach(receta -> FrmPrincipal.list.add(receta.getTituloReceta()+" - "+receta.getFechaCreacionReceta()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-		private static ArrayList<Noticia> getNoticias() throws IOException {
-			String url = InfoData.URI + "lst-noticias.php";
+		private static ArrayList<Receta> getRecetas() throws IOException {
+			String url = InfoData.URI + "lst-recetas.php";
 			System.out.println(url);
 			String requestHttp = peticionHttp(url);
-			return stringToListNoticia(requestHttp);
+			return stringToListReceta(requestHttp);
 		}
 
 		private static String peticionHttp(String urlWebService) throws IOException{
@@ -53,28 +53,28 @@ public class RecetaLogic implements InfoData{
 			return resultado.toString();
 		}
 
-		private static ArrayList<Noticia> stringToListNoticia(String requestHttp) {
-			ArrayList<Noticia> lstNoticias = new ArrayList<Noticia>();
+		private static ArrayList<Receta> stringToListReceta(String requestHttp) {
+			ArrayList<Receta> lstRecetas = new ArrayList<Receta>();
 			JSONArray jsonArr = new JSONArray(requestHttp);
 
 			for(int i = 0 ; i < jsonArr.length(); i++) {
 				JSONObject jsonObj = jsonArr.getJSONObject(i);
-				lstNoticias.add(objJsonParseNoticia(jsonObj));
+				lstRecetas.add(objJsonParseReceta(jsonObj));
 			}
 
-			return lstNoticias;
+			return lstRecetas;
 		}
 
-		private static Noticia objJsonParseNoticia(JSONObject jsonObj) {
+		private static Receta objJsonParseReceta(JSONObject jsonObj) {
 			//Extraer los values del objeto JSON
-			Integer idNoticia = jsonObj.getInt("idNoticia");
-			String fechaCreacionNoticia = jsonObj.getString("fechaCreacionNoticia");
-			String tituloNoticia = jsonObj.getString("tituloNoticia");
-			String subtituloNoticia = jsonObj.getString("subtituloNoticia");
-			String textoNoticia = jsonObj.getString("textoNoticia");
+			Integer idReceta = jsonObj.getInt("idReceta");
+			String fechaCreacionReceta = jsonObj.getString("fechaCreacionReceta");
+			String tituloReceta = jsonObj.getString("tituloReceta");
+			String subtituloReceta = jsonObj.getString("subtituloReceta");
+			String textoReceta = jsonObj.getString("textoReceta");
 			Integer imagenidImagen = jsonObj.getInt("imagenidImagen");
 
-			return new Noticia(idNoticia,fechaCreacionNoticia,tituloNoticia,subtituloNoticia,textoNoticia,imagenidImagen);
+			return new Receta(idReceta,fechaCreacionReceta,tituloReceta,subtituloReceta,textoReceta,imagenidImagen);
 		}
 
 

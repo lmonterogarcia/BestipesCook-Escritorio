@@ -1,4 +1,4 @@
-package receta;
+package model.receta;
 
 import java.util.Objects;
 
