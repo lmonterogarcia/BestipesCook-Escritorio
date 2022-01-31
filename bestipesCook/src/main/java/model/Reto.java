@@ -1,19 +1,21 @@
 package model;
 
+import java.time.LocalDateTime;
+
 public class Reto {
 	private Integer idReto;
 	private String fechaCreacionReto;
 	private String tituloReto;
 	private String subtituReto;
 	private String textoReto;
-	private String fechaFinalizacionReto;
+	private LocalDateTime fechaFinalizacionReto;
 	private Imagen oImagen;
 	
 	public Reto() {
 	}
 	
 	public Reto(Integer idReto, String fechaCreacionReto, String tituloReto, String subtituReto, String textoReto,
-			String fechaFinalizacionReto, Imagen oImagen) {
+			LocalDateTime fechaFinalizacionReto, Imagen oImagen) {
 		this.idReto = idReto;
 		this.fechaCreacionReto = fechaCreacionReto;
 		this.tituloReto = tituloReto;
@@ -63,11 +65,11 @@ public class Reto {
 		this.textoReto = textoReto;
 	}
 
-	public String getFechaFinalizacionReto() {
+	public LocalDateTime getFechaFinalizacionReto() {
 		return fechaFinalizacionReto;
 	}
 
-	public void setFechaFinalizacionReto(String fechaFinalizacionReto) {
+	public void setFechaFinalizacionReto(LocalDateTime fechaFinalizacionReto) {
 		this.fechaFinalizacionReto = fechaFinalizacionReto;
 	}
 

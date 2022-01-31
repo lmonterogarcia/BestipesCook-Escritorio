@@ -2,14 +2,13 @@ package logic;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ctrl.ClienteFTP;
-import ctrl.Ctrl_Imagen;
-import ctrl.RenderListRetos;
+import ctrl.*;
 import model.Imagen;
 import model.InfoData;
 import model.Reto;
@@ -64,7 +63,7 @@ public class RetoLogic implements InfoData{
 			String tituloReto = jsonObj.getString("tituloReto");
 			String subtituloReto = jsonObj.getString("subtituloReto");
 			String textoReto = jsonObj.getString("textoReto");
-			String fechaFinalizacionReto = jsonObj.getString("fechaFinalizacionReto");
+			LocalDateTime fechaFinalizacionReto = LocalDateTime.parse(jsonObj.getString("fechaFinalizacionReto"), Ctrl_RetoDetalle.dateTimeformatterFromDB);
 			Integer imagenidImagen = jsonObj.getInt("imagenidImagen");
 
 			return new Reto(idReto,fechaCreacionReto,tituloReto,subtituloReto,textoReto,fechaFinalizacionReto,ImagenLogic.getImagen(imagenidImagen));
@@ -76,7 +75,7 @@ public class RetoLogic implements InfoData{
 				url = InfoData.URI + "reto/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 				+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 				+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
-				+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
+				+"&txtFechaFinalizacionReto="+(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker))
 				+"&txtIdReto="+oReto.getIdReto()
 				+"&txtidImagen="+oReto.getoImagen().getIdImagen();
 				
@@ -108,7 +107,7 @@ public class RetoLogic implements InfoData{
 				url = InfoData.URI + "reto/upd-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 				+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 				+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
-				+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
+				+"&txtFechaFinalizacionReto="+(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker))
 				+"&txtIdReto="+oReto.getIdReto()
 				+"&txtidImagen="+oImagen.getIdImagen();
 
@@ -129,6 +128,7 @@ public class RetoLogic implements InfoData{
 
 		}
 
+
 		public static void insRetoPHP() throws IOException {
 			//Tranferencia del archivo imagen al servidor FTP
 			ClienteFTP.start(true);
@@ -146,8 +146,10 @@ public class RetoLogic implements InfoData{
 			String url = InfoData.URI + "reto/ins-reto.php?txtTituloReto="+RetoDetalle.txtTitle.getText()
 			+"&txtSubtituloReto="+RetoDetalle.txtSubTitle.getText()
 			+"&txtTextoReto="+RetoDetalle.txtDescripcion.getText()
-			+"&txtFechaFinalizacionReto="+RetoDetalle.datePicker.getModel().getValue()
+			+"&txtFechaFinalizacionReto="+(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker))
 			+"&txtImg="+oImagen.getIdImagen();
+			
+			System.out.println(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker));
 			try {
 				peticionHttp(url);
 			} catch (IOException e) {

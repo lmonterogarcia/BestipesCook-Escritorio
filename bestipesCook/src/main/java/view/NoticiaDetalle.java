@@ -39,7 +39,7 @@ public class NoticiaDetalle extends JDialog {
 	public static JButton btnBorrar;
 	public static JDialog ventana;
 	public static JLabel lblImg;
-
+	public static Boolean boEdit = false;
 
 	public NoticiaDetalle() {
 		ventana = this;
@@ -53,7 +53,8 @@ public class NoticiaDetalle extends JDialog {
 		contentPanel.setLayout(null);
 
 		lblImg = new JLabel("");
-		lblImg.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\BestipesCook-Escritorio\\bestipesCook\\src\\recursos\\img_add.png"));
+		lblImg.setIcon(new ImageIcon(
+				"C:\\Users\\Usuario\\Documents\\BestipesCook-Escritorio\\bestipesCook\\src\\recursos\\img_add.png"));
 		lblImg.setBounds(295, 10, 129, 100);
 		contentPanel.add(lblImg);
 
@@ -89,7 +90,7 @@ public class NoticiaDetalle extends JDialog {
 		contentPanel.add(txtDate);
 		txtDate.setColumns(10);
 
-		txtDescripcion = new TextArea("Descripcion", 3 , 100 , TextArea.SCROLLBARS_VERTICAL_ONLY);
+		txtDescripcion = new TextArea("Descripcion", 3, 100, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		txtDescripcion.setBackground(InfoData.cRositaPalo);
 		txtDescripcion.setEditable(false);
 		txtDescripcion.setBounds(10, 116, 414, 112);
@@ -109,7 +110,7 @@ public class NoticiaDetalle extends JDialog {
 		btnGuardar.setContentAreaFilled(false);
 		btnGuardar.setBorderPainted(false);
 		buttonPane.add(btnGuardar);
-		
+
 		btnBorrar = new JButton("BORRAR");
 		btnBorrar.setVisible(false);
 		btnBorrar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
@@ -130,54 +131,46 @@ public class NoticiaDetalle extends JDialog {
 		btnCancelar.setBorderPainted(false);
 		buttonPane.add(btnCancelar);
 
-
 		setResizable(false);
 		setVisible(true);
 
-		//EVENTOS
+		// EVENTOS
 
 		btnEditar.addActionListener(e -> Ctrl_NoticiaDetalle.habilitarEdicion());
 		btnCancelar.addActionListener(e -> Ctrl_NoticiaDetalle.deshabilitarEdicion());
 		btnGuardar.addActionListener(e -> Ctrl_NoticiaDetalle.updNoticia());
 		btnBorrar.addActionListener(e -> Ctrl_NoticiaDetalle.delNoticia());
-		
-		lblImg.addMouseListener(new MouseAdapter()  
-		{  
-		    public void mouseClicked(MouseEvent e)  
-		    {  
-		    	JFileChooser chooser = new JFileChooser();
-		    	chooser.showOpenDialog(null);
-		    	File f = chooser.getSelectedFile();
-		    	Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
-		    	/*
-		    	try {
+
+		lblImg.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				
+				if (boEdit) {
 					JFileChooser chooser = new JFileChooser();
 					chooser.showOpenDialog(null);
 					File f = chooser.getSelectedFile();
-					path = f + “”;
-					filename = f.getAbsolutePath();
-					ImageIcon imgThisImg = new ImageIcon(new ImageIcon(filename)
-					.getImage().getScaledInstance(280, 187, Image.SCALE_DEFAULT));
-					jLabel1.setIcon(imgThisImg);
-					File image = new File(filename);
-					FileInputStream fis = new FileInputStream(image);
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					byte[] buf = new byte[1024];
-					for (int readNum; (readNum = fis.read(buf)) != -1;) {
-					bos.write(buf, 0, readNum);
-					}
-					person_image = bos.toByteArray();
-					} catch (HeadlessException | IOException e) {
-					JOptionPane.showMessageDialog(null, e, “Error”, JOptionPane.ERROR_MESSAGE);
-					}
-					*/
-		    }  
-		}); 
+					Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
+					/*
+					 * try { JFileChooser chooser = new JFileChooser();
+					 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +
+					 * “”; filename = f.getAbsolutePath(); ImageIcon imgThisImg = new ImageIcon(new
+					 * ImageIcon(filename) .getImage().getScaledInstance(280, 187,
+					 * Image.SCALE_DEFAULT)); jLabel1.setIcon(imgThisImg); File image = new
+					 * File(filename); FileInputStream fis = new FileInputStream(image);
+					 * ByteArrayOutputStream bos = new ByteArrayOutputStream(); byte[] buf = new
+					 * byte[1024]; for (int readNum; (readNum = fis.read(buf)) != -1;) {
+					 * bos.write(buf, 0, readNum); } person_image = bos.toByteArray(); } catch
+					 * (HeadlessException | IOException e) { JOptionPane.showMessageDialog(null, e,
+					 * “Error”, JOptionPane.ERROR_MESSAGE); }
+					 */
+				}
+			}
+		});
 
-		addWindowListener(new WindowAdapter(){
+		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				Ctrl_NoticiaDetalle.cerrarVentanaDetalle();
 				dispose();
-			}});
+			}
+		});
 	}
 }
