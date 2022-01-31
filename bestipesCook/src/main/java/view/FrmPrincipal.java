@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
-import model.Colors;
+import model.constantes.Colors;
 
 import javax.swing.JLabel;
 import javax.swing.JList;

@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import logic.RetoLogic;
-import model.InfoData;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 
 public class RenderListRetos {

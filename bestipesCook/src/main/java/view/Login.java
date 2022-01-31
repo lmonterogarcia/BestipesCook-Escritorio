@@ -10,7 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_Login;
-import model.Colors;
+import model.constantes.Colors;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;

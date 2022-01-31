@@ -14,7 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_CategoriaDetalle;
-import model.InfoData;
+import model.constantes.InfoData;
+
 import javax.swing.JCheckBox;
 
 public class CategoriaDetalle extends JDialog {

@@ -1,8 +1,8 @@
 package ctrl;
 
 import logic.CategoriaLogic;
-import model.InfoData;
-import model.Categoria;
+import model.categoria.Categoria;
+import model.constantes.InfoData;
 import view.CategoriaDetalle;
 import view.FrmPrincipal;
 

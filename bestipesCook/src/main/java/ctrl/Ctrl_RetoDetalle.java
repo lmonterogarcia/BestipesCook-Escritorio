@@ -11,8 +11,8 @@ import java.util.Date;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 
 import logic.RetoLogic;
-import model.InfoData;
 import model.Reto;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 import view.RetoDetalle;
 

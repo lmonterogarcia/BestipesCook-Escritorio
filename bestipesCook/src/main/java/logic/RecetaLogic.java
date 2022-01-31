@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.InfoData;
 import model.Receta;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 
 public class RecetaLogic implements InfoData{

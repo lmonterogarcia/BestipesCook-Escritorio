@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.json.JSONObject;
 
 import model.Imagen;
-import model.InfoData;
+import model.constantes.InfoData;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
