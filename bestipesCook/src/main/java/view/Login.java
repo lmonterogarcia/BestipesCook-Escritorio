@@ -10,7 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_Login;
-import model.Colors;
+import model.constantes.Colors;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -48,12 +48,12 @@ public class Login extends JDialog {
 				System.exit(0);
 			}});
 		
-		JButton userBtn = new JButton(new ImageIcon("src\\recursos\\logo_icon.png"));
+		JButton userBtn = new JButton(new ImageIcon("src/recursos/logo_icon.png"));
 		userBtn.setContentAreaFilled(false);
 		userBtn.setBorderPainted(false);
 		contentPanel.add(userBtn, BorderLayout.NORTH);
 		
-		JButton conectarBtn = new JButton(new ImageIcon("src\\recursos\\acceder_icon.png"));
+		JButton conectarBtn = new JButton(new ImageIcon("src/recursos/acceder_icon.png"));
 		conectarBtn.setContentAreaFilled(false);
 		conectarBtn.setBorderPainted(false);
 		contentPanel.add(conectarBtn, BorderLayout.SOUTH);

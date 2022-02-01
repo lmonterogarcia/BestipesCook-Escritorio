@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
-import model.Colors;
+import model.constantes.Colors;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -29,7 +29,7 @@ public class FrmPrincipal extends JFrame {
 	
 	
 	public FrmPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("src\\recursos\\MyBestCookRecipe2.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/MyBestCookRecipe2.png"));
 		setTitle("Bestipes Cook");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class FrmPrincipal extends JFrame {
 		left_pnl.setLayout(new GridLayout(8, 1, 0, -25));
 		
 		
-		JButton btnNoticias = new JButton(new ImageIcon("src\\recursos\\noticia_icon.png"));
+		JButton btnNoticias = new JButton(new ImageIcon("src/recursos/noticia_icon.png"));
 		btnNoticias.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNoticias.setContentAreaFilled(false);
 		btnNoticias.setBorderPainted(false);
@@ -59,7 +59,7 @@ public class FrmPrincipal extends JFrame {
 		lblNoticias.setHorizontalAlignment(SwingConstants.CENTER);
 		left_pnl.add(lblNoticias);
 		
-		JButton btnRetos = new JButton(new ImageIcon("src\\recursos\\reto_icon.png"));
+		JButton btnRetos = new JButton(new ImageIcon("src/recursos/reto_icon.png"));
 		btnRetos.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnRetos.setContentAreaFilled(false);
 		btnRetos.setBorderPainted(false);
@@ -73,7 +73,7 @@ public class FrmPrincipal extends JFrame {
 		lblRetos.setHorizontalAlignment(SwingConstants.CENTER);
 		left_pnl.add(lblRetos);
 		
-		JButton btnCategorias = new JButton(new ImageIcon("src\\recursos\\categoria_icon.png"));
+		JButton btnCategorias = new JButton(new ImageIcon("src/recursos/categoria_icon.png"));
 		btnCategorias.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnCategorias.setContentAreaFilled(false);
 		btnCategorias.setBorderPainted(false);
@@ -86,7 +86,7 @@ public class FrmPrincipal extends JFrame {
 		lblCategorias.setHorizontalAlignment(SwingConstants.CENTER);
 		left_pnl.add(lblCategorias);
 		
-		JButton btnRecetas = new JButton(new ImageIcon("src\\recursos\\receta_icon.png"));
+		JButton btnRecetas = new JButton(new ImageIcon("src/recursos/receta_icon.png"));
 		btnRecetas.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnRecetas.setContentAreaFilled(false);
 		btnRecetas.setBorderPainted(false);
@@ -112,7 +112,7 @@ public class FrmPrincipal extends JFrame {
 		
 		
 		JButton btnAdd = new JButton("");
-		btnAdd.setIcon(new ImageIcon("src\\recursos\\add_icon.png"));
+		btnAdd.setIcon(new ImageIcon("src/recursos/add_icon.png"));
 		btnAdd.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		btnAdd.setContentAreaFilled(false);
 		btnAdd.setBorderPainted(false);

@@ -3,8 +3,8 @@ package ctrl;
 import java.io.IOException;
 
 import logic.NoticiaLogic;
-import model.InfoData;
 import model.Noticia;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 import view.NoticiaDetalle;
 

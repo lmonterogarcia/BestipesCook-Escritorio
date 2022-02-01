@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 
 import logic.NoticiaLogic;
-import model.InfoData;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 
 public class RenderListNoticias {

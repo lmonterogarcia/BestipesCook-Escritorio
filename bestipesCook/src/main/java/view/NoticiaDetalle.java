@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
-import model.InfoData;
+import model.constantes.InfoData;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

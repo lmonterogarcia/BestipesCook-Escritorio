@@ -10,6 +10,8 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_RetoDetalle;
+import model.constantes.InfoData;
+import ctrl.Ctrl_RetoDetalle.DateLabelFormatter;
 import model.InfoData;
 
 import java.awt.event.WindowAdapter;

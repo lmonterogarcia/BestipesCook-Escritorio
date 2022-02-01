@@ -15,8 +15,8 @@ import javax.swing.JFormattedTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
 import logic.RetoLogic;
-import model.InfoData;
 import model.Reto;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 import view.RetoDetalle;
 

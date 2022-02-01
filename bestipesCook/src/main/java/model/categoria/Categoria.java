@@ -1,4 +1,6 @@
-package model;
+package model.categoria;
+
+import java.util.Objects;
 
 public class Categoria {
 	private int idCategoria;
@@ -53,4 +55,22 @@ public class Categoria {
 		return "Categoria [idCategoria=" + idCategoria + ", nombreCategoria=" + nombreCategoria + ", challengue="
 				+ challengue + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idCategoria);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		return idCategoria == other.idCategoria;
+	}
+	
 }

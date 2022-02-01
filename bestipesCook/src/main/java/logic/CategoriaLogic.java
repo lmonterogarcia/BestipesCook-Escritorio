@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import ctrl.RenderListCategoria;
-import model.Categoria;
-import model.InfoData;
+import model.categoria.Categoria;
+import model.constantes.InfoData;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
