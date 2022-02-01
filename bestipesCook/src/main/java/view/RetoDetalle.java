@@ -6,14 +6,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import org.jdesktop.swingx.JXDatePicker;
 
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_RetoDetalle;
-import ctrl.Ctrl_RetoDetalle.DateLabelFormatter;
 import model.InfoData;
 
 import java.awt.event.WindowAdapter;
@@ -29,8 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.util.Properties;
-import javax.swing.SpringLayout;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.ImageIcon;
 
 public class RetoDetalle extends JDialog {
@@ -41,9 +37,7 @@ public class RetoDetalle extends JDialog {
 	public static JTextField txtSubTitle;
 	public static JTextField txtDate;
 	public static JLabel fechaFinalizacion;
-	public static UtilDateModel fechaModelo;
-	public static JDatePanelImpl datePanel;
-	public static JDatePickerImpl datePicker;
+	public static JXDatePicker picker;
 	public static TextArea txtDescripcion;
 	public static JButton btnEditar;
 	public static JButton btnCancelar;
@@ -51,7 +45,7 @@ public class RetoDetalle extends JDialog {
 	public static JButton btnBorrar;
 	public static JDialog ventana;
 	public static JLabel lblImg;
-	private SpringLayout springLayout;
+	
 
 	public RetoDetalle() {
 		ventana = this;
@@ -98,19 +92,14 @@ public class RetoDetalle extends JDialog {
 		txtDate.setFont(new Font("Yu Gothic UI Light", Font.PLAIN, 18));
 		txtDate.setEditable(false);
 		txtDate.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		picker = new JXDatePicker();
+	    picker.setDate(Calendar.getInstance().getTime());
+	    picker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
+	    picker.setBounds(10, 84, 265, 26);
+	    picker.setEditable(false);
 
-		fechaModelo = new UtilDateModel();
-		fechaModelo.setSelected(true);
-		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		datePanel = new JDatePanelImpl(fechaModelo, p);
-		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		datePicker.setBounds(10, 84, 265, 26);
-		datePicker.getComponent(1).setEnabled(false);
-		RetoDetalle.datePicker.setTextEditable(false);
-		contentPanel.add(datePicker);
+	    contentPanel.add(picker);
 
 		txtDescripcion = new TextArea("Descripcion", 3, 100, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		txtDescripcion.setBackground(InfoData.cRositaPalo);
@@ -167,27 +156,31 @@ public class RetoDetalle extends JDialog {
 		btnGuardar.addActionListener(e -> Ctrl_RetoDetalle.updReto());
 		btnBorrar.addActionListener(e -> Ctrl_RetoDetalle.delReto());
 
-		lblImg.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(null);
-				File f = chooser.getSelectedFile();
-				Ctrl_Imagen.previsualizarImgReto(f.getAbsolutePath());
-				/*
-				 * try { JFileChooser chooser = new JFileChooser();
-				 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +
-				 * “”; filename = f.getAbsolutePath(); ImageIcon imgThisImg = new ImageIcon(new
-				 * ImageIcon(filename) .getImage().getScaledInstance(280, 187,
-				 * Image.SCALE_DEFAULT)); jLabel1.setIcon(imgThisImg); File image = new
-				 * File(filename); FileInputStream fis = new FileInputStream(image);
-				 * ByteArrayOutputStream bos = new ByteArrayOutputStream(); byte[] buf = new
-				 * byte[1024]; for (int readNum; (readNum = fis.read(buf)) != -1;) {
-				 * bos.write(buf, 0, readNum); } person_image = bos.toByteArray(); } catch
-				 * (HeadlessException | IOException e) { JOptionPane.showMessageDialog(null, e,
-				 * “Error”, JOptionPane.ERROR_MESSAGE); }
-				 */
-			}
-		});
+		
+			
+			lblImg.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (boEdit) {
+						JFileChooser chooser = new JFileChooser();
+						chooser.showOpenDialog(null);
+						File f = chooser.getSelectedFile();
+						Ctrl_Imagen.previsualizarImgReto(f.getAbsolutePath());
+						/*
+						 * try { JFileChooser chooser = new JFileChooser();
+						 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +
+						 * “”; filename = f.getAbsolutePath(); ImageIcon imgThisImg = new ImageIcon(new
+						 * ImageIcon(filename) .getImage().getScaledInstance(280, 187,
+						 * Image.SCALE_DEFAULT)); jLabel1.setIcon(imgThisImg); File image = new
+						 * File(filename); FileInputStream fis = new FileInputStream(image);
+						 * ByteArrayOutputStream bos = new ByteArrayOutputStream(); byte[] buf = new
+						 * byte[1024]; for (int readNum; (readNum = fis.read(buf)) != -1;) {
+						 * bos.write(buf, 0, readNum); } person_image = bos.toByteArray(); } catch
+						 * (HeadlessException | IOException e) { JOptionPane.showMessageDialog(null, e,
+						 * “Error”, JOptionPane.ERROR_MESSAGE); }
+						 */
+					}
+				}
+			});
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
