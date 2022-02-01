@@ -2,7 +2,7 @@ package model.receta;
 
 import java.util.Objects;
 
-public class IngredienteReceta {
+public class IngredienteReceta implements IIngredienteReceta{
 
 	private Receta oReceta;
 	private Ingrediente oIngrediente;
@@ -39,7 +39,9 @@ public class IngredienteReceta {
 	}
 
 	public void setiCantidadIngrediente(int iCantidadIngrediente) {
-		this.iCantidadIngrediente = iCantidadIngrediente;
+		if (iCantidadIngrediente >= 0 && iCantidadIngrediente < ICANTIDADINGREDIENTEMAX) {
+			this.iCantidadIngrediente = iCantidadIngrediente;
+		}
 	}
 
 	public int getiMedida() {
@@ -47,7 +49,9 @@ public class IngredienteReceta {
 	}
 
 	public void setiMedida(int iMedida) {
-		this.iMedida = iMedida;
+		if (iMedida >= 0 && iMedida < AMEDIDAS.length) {
+			this.iMedida = iMedida;
+		}
 	}
 
 	@Override
