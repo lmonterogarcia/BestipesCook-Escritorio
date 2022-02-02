@@ -14,4 +14,10 @@ public interface InfoData {
 	public final String URI = "https://thecrewdevelopers.com/bestipes/app/desktop/";
 	public final String URI_MEDIA = "https://thecrewdevelopers.com/bestipes/app/media/imagenes/";
 	public final String PATH_IMG = "//app//media//imagenes";
+	
+	// ## RECETA ##
+	public final String URI_RECETA = "receta/";
+	public final String URI_LSTRECETAS = "lst-recetas.php";
+	public final String URI_GETPUNTUACIONESTRELLA = "get-puntuacionestrella.php?txtIdReceta=";
+	public final String URI_GETIMAGENBYIDRECETA = "get-imagenbyidreceta.php?txtIdReceta=";
 }

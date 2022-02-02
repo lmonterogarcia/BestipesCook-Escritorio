@@ -12,9 +12,10 @@ public class Receta {
 	// NN
 	private LocalDateTime fechaCreacionReceta;
 	private String sTituloReceta;
-	private boolean booEnREvision;
+	private boolean booEnRevision;
 	private Usuario usuario;
 	// N
+	private String sTextoReceta;
 	private short shComensalesReceta;
 	private float fDuracionReceta;
 	
@@ -25,22 +26,23 @@ public class Receta {
 		this.iIdReceta = iIdReceta;
 	}
 
-	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnREvision,
+	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnRevision,
 			Usuario usuario) {
 		this.iIdReceta = iIdReceta;
 		this.fechaCreacionReceta = fechaCreacionReceta;
 		this.sTituloReceta = sTituloReceta;
-		this.booEnREvision = booEnREvision;
+		this.booEnRevision = booEnRevision;
 		this.usuario = usuario;
 	}
 
-	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnREvision,
-			Usuario usuario, short shComensalesReceta, float fDuracionReceta) {
+	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnRevision,
+			Usuario usuario, String sTextoReceta, short shComensalesReceta, float fDuracionReceta) {
 		this.iIdReceta = iIdReceta;
 		this.fechaCreacionReceta = fechaCreacionReceta;
 		this.sTituloReceta = sTituloReceta;
-		this.booEnREvision = booEnREvision;
+		this.booEnRevision = booEnRevision;
 		this.usuario = usuario;
+		this.sTextoReceta = sTextoReceta;
 		this.shComensalesReceta = shComensalesReceta;
 		this.fDuracionReceta = fDuracionReceta;
 	}
@@ -70,11 +72,11 @@ public class Receta {
 	}
 
 	public boolean isBooEnREvision() {
-		return booEnREvision;
+		return booEnRevision;
 	}
 
 	public void setBooEnREvision(boolean booEnREvision) {
-		this.booEnREvision = booEnREvision;
+		this.booEnRevision = booEnREvision;
 	}
 
 	public Usuario getUsuario() {
@@ -83,6 +85,22 @@ public class Receta {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public boolean isBooEnRevision() {
+		return booEnRevision;
+	}
+
+	public void setBooEnRevision(boolean booEnRevision) {
+		this.booEnRevision = booEnRevision;
+	}
+
+	public String getsTextoReceta() {
+		return sTextoReceta;
+	}
+
+	public void setsTextoReceta(String sTextoReceta) {
+		this.sTextoReceta = sTextoReceta;
 	}
 
 	public short getShComensalesReceta() {

@@ -14,6 +14,7 @@ import model.constantes.InfoData;
 public class ClienteFTP {
 
 	public static void start(boolean boUpload) {
+		
 		//Creamos el objeto cliente FTP
 		FTPClient clienteFTP = new FTPClient();
 
