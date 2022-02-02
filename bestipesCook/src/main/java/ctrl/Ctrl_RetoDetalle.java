@@ -136,7 +136,7 @@ public class Ctrl_RetoDetalle {
 	public static void cerrarVentanaDetalle() {
 		oReto = null;
 		RetoDetalle.ventana.dispose();
-		Ctrl_FrmPrincipal.retoVentana();
+		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
 	public static void delReto() {

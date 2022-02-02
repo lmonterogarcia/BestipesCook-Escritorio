@@ -67,7 +67,7 @@ public class Ctrl_CategoriaDetalle {
 	public static void cerrarVentanaDetalle() {
 		oCategoria = null;
 		CategoriaDetalle.ventana.dispose();
-		Ctrl_FrmPrincipal.categoriaVentana();
+		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
 	public static void delCategoria() {

@@ -4,57 +4,34 @@ import logic.*;
 import view.FrmPrincipal;
 
 public class Ctrl_FrmPrincipal {
-	private static byte bMenu;
+	public static byte bMenu;
 	
+	@SuppressWarnings("static-access")
 	public static void ventanaPrincipal(byte i) {
-		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
 		bMenu = i;
+		FrmPrincipal.list.removeAll();
+		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
 		switch(i) {
 		case 0:
-			FrmPrincipal.list.removeAll();
+			FrmPrincipal.ventana.setTitle("Noticias");
 			NoticiaLogic.cargarDatos();
 			break;
 		case 1:
-			FrmPrincipal.list.removeAll();
+			FrmPrincipal.ventana.setTitle("Retos");
 			RetoLogic.cargarDatos();
 			break;
 		case 2:
-			FrmPrincipal.list.removeAll();
+			FrmPrincipal.ventana.setTitle("Categorias");
 			CategoriaLogic.cargarDatos();
 			break;
 		case 3:
-			FrmPrincipal.list.removeAll();
+			FrmPrincipal.ventana.setTitle("Recetas");
 			RecetaLogic.cargarDatos();
 			break;
 		}
 		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getDefaultCursor());
 	}
 
-	public static void noticiaVentana() {
-		bMenu = 0;
-		FrmPrincipal.list.removeAll();
-		NoticiaLogic.cargarDatos();
-		
-	}
-
-	public static void retoVentana() {
-		bMenu = 1;
-		FrmPrincipal.list.removeAll();
-		RetoLogic.cargarDatos();
-	}
-
-	public static void categoriaVentana() {
-		bMenu = 2;
-		FrmPrincipal.list.removeAll();
-		CategoriaLogic.cargarDatos();
-	}
-
-
-	public static void recetaVentana() {
-		bMenu = 3;
-		FrmPrincipal.list.removeAll();
-		RecetaLogic.cargarDatos();
-	}
 
 	public static void ventanaDetalle(boolean boNuevaFila) {
 		switch(bMenu) {

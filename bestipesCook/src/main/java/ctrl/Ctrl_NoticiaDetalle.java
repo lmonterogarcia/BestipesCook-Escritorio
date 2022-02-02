@@ -91,7 +91,7 @@ public class Ctrl_NoticiaDetalle {
 	public static void cerrarVentanaDetalle() {
 		oNoticia = null;
 		NoticiaDetalle.ventana.dispose();
-		Ctrl_FrmPrincipal.noticiaVentana();
+		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
 	public static void delNoticia() {
