@@ -1,14 +1,18 @@
 package ctrl;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Date;
 
-import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.JFormattedTextField;
+
+import org.jdesktop.swingx.JXDatePicker;
 
 import logic.RetoLogic;
 import model.Reto;
@@ -32,30 +36,45 @@ public class Ctrl_RetoDetalle {
 
 	}
 	
-	private static Date formatDate(String fecha) {
-		Date date = new Date();
-
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		String currentTime = format.format(date);
-		
-		return date;
+	 public static DateTimeFormatter dateTimeformatterFromDB = new DateTimeFormatterBuilder()
+             .appendPattern("yyyy-MM-dd HH:mm:ss")
+             .optionalStart()
+             .appendPattern(".")
+             .appendFraction(ChronoField.MICRO_OF_SECOND, 1, 6, false)
+             .optionalEnd()
+             .toFormatter(); //LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+	
+	
+	 public static Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+		    return Timestamp.valueOf(dateToConvert);
 	}
+	 
+	public static String formatDate(JXDatePicker datePicker) {
+
+		JFormattedTextField editor = datePicker.getEditor();
+		Date dateInDatePicker = (Date) editor.getValue();
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		String strDate = dateFormat.format(dateInDatePicker);
+		
+		return strDate;
+	}	
 
 	private static void cargarDatos(Reto oReto) {
 		RetoDetalle.txtTitle.setText(oReto.getTituloReto());
 		RetoDetalle.txtSubTitle.setText(oReto.getSubtituReto());
 		RetoDetalle.txtDate.setText(oReto.getFechaCreacionReto()+" - "+oReto.getFechaFinalizacionReto());
 		RetoDetalle.txtDescripcion.setText(oReto.getTextoReto());
-		RetoDetalle.fechaModelo.setValue(formatDate(oReto.getFechaFinalizacionReto()));
+		RetoDetalle.picker.setDate(convertToDateViaSqlTimestamp(oReto.getFechaFinalizacionReto()));		
 		Ctrl_Imagen.cargarImgReto(InfoData.URI_MEDIA+oReto.getoImagen().getRutaRelativaImagen());
 	}
 
 	public static void habilitarEdicion() {
+		RetoDetalle.boEdit=true;
 		RetoDetalle.txtTitle.setEditable(true);
 		RetoDetalle.txtSubTitle.setEditable(true);
 		RetoDetalle.txtDescripcion.setEditable(true);
-		RetoDetalle.datePicker.getComponent(1).setEnabled(true);
+		RetoDetalle.picker.setEditable(true);
 		RetoDetalle.fechaFinalizacion.setVisible(true);
 		RetoDetalle.btnEditar.setVisible(true);
 
@@ -72,11 +91,12 @@ public class Ctrl_RetoDetalle {
 
 	public static void deshabilitarEdicion() {
 		if(oReto != null && RetoDetalle.txtTitle.isEditable()) {
-			RetoDetalle.datePicker.setVisible(false);
+			RetoDetalle.boEdit=false;
 			RetoDetalle.fechaFinalizacion.setVisible(false);
 			RetoDetalle.txtTitle.setEditable(false);
 			RetoDetalle.txtSubTitle.setEditable(false);
 			RetoDetalle.txtDescripcion.setEditable(false);
+			RetoDetalle.picker.setEditable(false);
 			RetoDetalle.btnEditar.setVisible(false);
 
 			RetoDetalle.txtTitle.setBackground(InfoData.cNaranja);
@@ -124,25 +144,5 @@ public class Ctrl_RetoDetalle {
 		cerrarVentanaDetalle();
 	}
 	
-	public static class DateLabelFormatter extends AbstractFormatter {
-
-	    private String datePattern = "yyyy-MM-dd";
-	    private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
-
-	    @Override
-	    public Object stringToValue(String text) throws ParseException {
-	        return dateFormatter.parseObject(text);
-	    }
-
-	    @Override
-	    public String valueToString(Object value) throws ParseException {
-	        if (value != null) {
-	            Calendar cal = (Calendar) value;
-	            return dateFormatter.format(cal.getTime());
-	        }
-
-	        return "";
-	    }
-
-	}
+	
 }

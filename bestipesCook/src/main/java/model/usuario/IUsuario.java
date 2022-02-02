@@ -1,5 +1,5 @@
 package model.usuario;
 
-public class IUsuario {
+public interface IUsuario {
 
 }

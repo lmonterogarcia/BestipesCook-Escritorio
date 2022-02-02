@@ -31,6 +31,7 @@ public class Ctrl_NoticiaDetalle {
 	}
 
 	public static void habilitarEdicion() {
+		NoticiaDetalle.boEdit = true;
 		NoticiaDetalle.txtTitle.setEditable(true);
 		NoticiaDetalle.txtSubTitle.setEditable(true);
 		NoticiaDetalle.txtDescripcion.setEditable(true);
@@ -49,6 +50,7 @@ public class Ctrl_NoticiaDetalle {
 
 	public static void deshabilitarEdicion() {
 		if(oNoticia != null && NoticiaDetalle.txtTitle.isEditable()) {
+			NoticiaDetalle.boEdit = false;
 			NoticiaDetalle.txtTitle.setEditable(false);
 			NoticiaDetalle.txtSubTitle.setEditable(false);
 			NoticiaDetalle.txtDescripcion.setEditable(false);

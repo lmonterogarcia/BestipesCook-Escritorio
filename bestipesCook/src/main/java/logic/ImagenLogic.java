@@ -12,7 +12,7 @@ import okhttp3.Response;
 
 public class ImagenLogic {
 	
-	private static String peticionHttp(String urlWebService) throws IOException{
+	private static String peticionHttp(String urlWebService) throws IOException {
 		OkHttpClient client = new OkHttpClient();
 		Request request = new Request.Builder().url(urlWebService).build();
 
@@ -41,6 +41,17 @@ public class ImagenLogic {
 
 	public static Imagen getImagen(Integer imagenidImagen) throws IOException {
 		String url = InfoData.URI + "imagen/get-imagen.php?txtidImagen="+imagenidImagen;
+		String requestHttp = peticionHttp(url);
+		
+		Imagen oImagen = new Imagen();
+		JSONObject jsonObj = new JSONObject(requestHttp);
+		oImagen = objJsonParseImagen(jsonObj);
+		
+		return oImagen;
+	}
+	
+	public static Imagen getImagenByIdReceta(Integer idReceta) throws IOException {
+		String url = InfoData.URI + InfoData.URI_RECETA + InfoData.URI_GETIMAGENBYIDRECETA + idReceta;
 		String requestHttp = peticionHttp(url);
 		
 		Imagen oImagen = new Imagen();

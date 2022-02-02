@@ -15,24 +15,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import logic.NoticiaLogic;
+import ctrl.RenderListRecetas.ListRenderer;
+import logic.RecetaLogic;
 import model.constantes.InfoData;
 import view.FrmPrincipal;
 
-public class RenderListNoticias {
+public class RenderListRecetas {
 
 	private final HashMap<String, ImageIcon> imageMap;
 
-	public RenderListNoticias() {
-		String[] nameList = new String[NoticiaLogic.lstNoticias.size()];
+	public RenderListRecetas() {
+		String[] recetaList = new String[RecetaLogic.lstRecetas.size()];
 		DefaultListModel<Object> listModel = new DefaultListModel<Object>();
 
-		for (int i = 0; i < nameList.length; i++) {
-			listModel.addElement("  " + NoticiaLogic.lstNoticias.get(i).getTituloNoticia() + "  -  "
-					+ NoticiaLogic.lstNoticias.get(i).getSubtituloNoticia());
+		for (int i = 0; i < recetaList.length; i++) {
+			listModel.addElement(
+					"  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - " + RecetaLogic.lstEstrellas.get(i));
 		}
 
-		imageMap = createImageMap(nameList);
+		imageMap = createImageMap();
 
 		// imageMap.forEach((key, value) -> System.out.println("[Key] : " + key + "
 		// [Value] : " + value));
@@ -66,17 +67,22 @@ public class RenderListNoticias {
 		}
 	}
 
-	private HashMap<String, ImageIcon> createImageMap(String[] list) {
+	private HashMap<String, ImageIcon> createImageMap() {
 		HashMap<String, ImageIcon> map = new HashMap<>();
-		NoticiaLogic.lstNoticias.forEach(noticia -> {
+
+		for (int i = 0; i < RecetaLogic.lstRecetas.size(); i++) {
 			try {
-				map.put("  " + noticia.getTituloNoticia() + "  -  " + noticia.getSubtituloNoticia(),
-						new ImageIcon(new URL(InfoData.URI_MEDIA + noticia.getoImagen().getRutaRelativaImagen())));
+				map.put("  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - "
+						+ RecetaLogic.lstEstrellas.get(i),
+						new ImageIcon(new URL(
+								InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(i).getRutaRelativaImagen())));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
-		});
+		}
+
 		return map;
 	}
+
 }
