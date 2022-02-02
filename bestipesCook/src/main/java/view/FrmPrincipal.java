@@ -26,9 +26,11 @@ public class FrmPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	public static JList<Object> list;
+	public static JFrame ventana;
 	
 	
 	public FrmPrincipal() {
+		ventana = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/recursos/MyBestCookRecipe2.png"));
 		setTitle("Bestipes Cook");
 		setResizable(false);
@@ -118,10 +120,10 @@ public class FrmPrincipal extends JFrame {
 		btnAdd.setBorderPainted(false);
 		center_pnl.add(btnAdd, BorderLayout.SOUTH);
 		
-		btnNoticias.addActionListener(e -> Ctrl_FrmPrincipal.noticiaVentana());
-		btnRetos.addActionListener(e -> Ctrl_FrmPrincipal.retoVentana());
-		btnCategorias.addActionListener(e -> Ctrl_FrmPrincipal.categoriaVentana());
-		btnRecetas.addActionListener(e -> Ctrl_FrmPrincipal.recetaVentana());
+		btnNoticias.addActionListener(e -> Ctrl_FrmPrincipal.ventanaPrincipal((byte)0));
+		btnRetos.addActionListener(e -> Ctrl_FrmPrincipal.ventanaPrincipal((byte)1));
+		btnCategorias.addActionListener(e -> Ctrl_FrmPrincipal.ventanaPrincipal((byte)2));
+		btnRecetas.addActionListener(e -> Ctrl_FrmPrincipal.ventanaPrincipal((byte)3));
 		btnAdd.addActionListener(e -> Ctrl_FrmPrincipal.ventanaDetalle(true));
 		
 		list.addMouseListener(new java.awt.event.MouseAdapter() {

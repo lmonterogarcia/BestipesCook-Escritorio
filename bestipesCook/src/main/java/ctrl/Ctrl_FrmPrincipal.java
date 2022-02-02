@@ -5,11 +5,36 @@ import view.FrmPrincipal;
 
 public class Ctrl_FrmPrincipal {
 	private static byte bMenu;
+	
+	public static void ventanaPrincipal(byte i) {
+		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
+		bMenu = i;
+		switch(i) {
+		case 0:
+			FrmPrincipal.list.removeAll();
+			NoticiaLogic.cargarDatos();
+			break;
+		case 1:
+			FrmPrincipal.list.removeAll();
+			RetoLogic.cargarDatos();
+			break;
+		case 2:
+			FrmPrincipal.list.removeAll();
+			CategoriaLogic.cargarDatos();
+			break;
+		case 3:
+			FrmPrincipal.list.removeAll();
+			RecetaLogic.cargarDatos();
+			break;
+		}
+		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getDefaultCursor());
+	}
 
 	public static void noticiaVentana() {
 		bMenu = 0;
 		FrmPrincipal.list.removeAll();
 		NoticiaLogic.cargarDatos();
+		
 	}
 
 	public static void retoVentana() {
@@ -23,6 +48,7 @@ public class Ctrl_FrmPrincipal {
 		FrmPrincipal.list.removeAll();
 		CategoriaLogic.cargarDatos();
 	}
+
 
 	public static void recetaVentana() {
 		bMenu = 3;
