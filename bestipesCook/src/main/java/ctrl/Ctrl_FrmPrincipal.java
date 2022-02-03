@@ -11,6 +11,7 @@ public class Ctrl_FrmPrincipal {
 		bMenu = i;
 		FrmPrincipal.list.removeAll();
 		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
+		FrmPrincipal.btnAdd.setVisible(true);
 		switch(i) {
 		case 0:
 			FrmPrincipal.ventana.setTitle("Noticias");
@@ -25,6 +26,7 @@ public class Ctrl_FrmPrincipal {
 			CategoriaLogic.cargarDatos();
 			break;
 		case 3:
+			FrmPrincipal.btnAdd.setVisible(false);
 			FrmPrincipal.ventana.setTitle("Recetas");
 			RecetaLogic.cargarDatos();
 			break;
