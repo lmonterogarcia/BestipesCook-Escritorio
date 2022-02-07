@@ -30,8 +30,8 @@ public class Ctrl_RecetaDetalle {
 		RecetaDetalle.cbEnRevision.setSelected(RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision());
 		Ctrl_Imagen.cargarImgReceta(
 				InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(iPosicion).getRutaRelativaImagen());
-		cargarIngredientes();
-		cargarPasos();
+//		cargarIngredientes();
+//		cargarPasos();
 
 
 	}
