@@ -19,7 +19,7 @@ import model.Imagen;
 import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
-public class RecetaLogic extends SwingWorker<String, Void> implements InfoData, IConstantes  {
+public class RecetaLogic implements InfoData, IConstantes  {
 
 	public static ArrayList<Receta> lstRecetas;
 	public static ArrayList<Float> lstEstrellas = new ArrayList<Float>();
@@ -122,11 +122,5 @@ public class RecetaLogic extends SwingWorker<String, Void> implements InfoData, 
 			boo = true;
 		}
 		return boo;
-	}
-
-	@Override
-	protected String doInBackground() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

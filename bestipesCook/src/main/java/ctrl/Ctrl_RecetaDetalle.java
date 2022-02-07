@@ -1,28 +1,39 @@
 package ctrl;
 
 import logic.RecetaLogic;
-import model.receta.*;
+import model.constantes.InfoData;
 import view.FrmPrincipal;
 import view.RecetaDetalle;
 
 public class Ctrl_RecetaDetalle {
-	
-	public static Receta oReceta;
-	
-	public static void inicio(boolean boNuevaFila) {
-		
+
+	private static int iPosicion;
+
+	public Ctrl_RecetaDetalle(int iPosicion) {
+		this.iPosicion = iPosicion;
+	}
+
+	public static void inicio() {
 		new RecetaDetalle();
+		iPosicion = FrmPrincipal.list.getSelectedIndex();
 		cargarDatos();
-
-
 	}
 
 	private static void cargarDatos() {
-		RecetaDetalle.txtTitle.setText(oReceta.getTituloReceta());
-		RecetaDetalle.txtSubTitle.setText(oReceta.getSubtituloReceta());
-		RecetaDetalle.txtDate.setText(oReceta.getFechaCreacionReceta());
-		RecetaDetalle.txtDescripcion.setText(oReceta.getTextoReceta());
-		Ctrl_Imagen.cargarImgReceta(InfoData.URI_MEDIA+oReceta.getoImagen().getRutaRelativaImagen());
+
+		RecetaDetalle.lblTitle.setText(RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta());
+		RecetaDetalle.lblEstrellas.setText(String.valueOf(RecetaLogic.lstEstrellas.get(iPosicion)));
+		RecetaDetalle.txtTexto.setText(RecetaLogic.lstRecetas.get(iPosicion).getsTextoReceta());
+		RecetaDetalle.txtComensales.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getShComensalesReceta());
+		RecetaDetalle.txtDuracion.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getfDuracionReceta());
+		RecetaDetalle.txtUsuario.setText(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio());
+		RecetaDetalle.cbEnRevision.setSelected(RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision());
+		Ctrl_Imagen.cargarImgReceta(
+				InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(iPosicion).getRutaRelativaImagen());
+		cargarIngredientes();
+		cargarPasos();
+
+
 	}
 
 //	public static void habilitarEdicion() {
@@ -84,7 +95,6 @@ public class Ctrl_RecetaDetalle {
 //	}
 
 	public static void cerrarVentanaDetalle() {
-		oReceta = null;
 		RecetaDetalle.ventana.dispose();
 		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}

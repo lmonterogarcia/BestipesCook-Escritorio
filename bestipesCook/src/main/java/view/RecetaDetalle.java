@@ -12,10 +12,13 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -30,16 +33,20 @@ public class RecetaDetalle extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	public static JDialog ventana;
 	
-	public static JTextField txtTitle;
-	public static JTextField txtTexto;
+	public static JLabel lblTitle;
+	public static JLabel lblEstrellas;
+	public static TextArea txtTexto;
 	public static JTextField txtComensales;
 	public static JTextField txtDuracion;
 	public static JTextField txtUsuario;
+	public static JCheckBox cbEnRevision;
+	public static JLabel lblImg;
 	
 	public static JButton btnEditar;
 	public static JButton btnCancelar;
 	public static JButton btnGuardar;
 	public static JButton btnBorrar;
+	
 	
 
 	public RecetaDetalle() {
@@ -58,16 +65,82 @@ public class RecetaDetalle extends JDialog {
 		contentPanel.add(pnlPrincipal, BorderLayout.CENTER);
 		pnlPrincipal.setLayout(null);
 		
-		txtTitle = new JTextField();
-		txtTitle.setText("Titulo");
-		txtTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		txtTitle.setBackground(InfoData.cNaranja);
-		txtTitle.setFont(new Font("Yu Gothic UI", Font.PLAIN, 22));
-		txtTitle.setEditable(false);
-		txtTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTitle.setBounds(10, 0, 275, 31);
-		pnlPrincipal.add(txtTitle);
-		txtTitle.setColumns(10);
+		lblTitle = new JLabel();
+		lblTitle.setText("Título");
+		lblTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		lblTitle.setBackground(InfoData.cNaranja);
+		lblTitle.setFont(new Font("Yu Gothic UI", Font.PLAIN, 22));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(10, 0, 275, 31);
+		pnlPrincipal.add(lblTitle);
+		
+		JLabel lblComensales = new JLabel("Comensales:");
+		lblComensales.setBounds(38, 43, 85, 16);
+		pnlPrincipal.add(lblComensales);
+		
+		JLabel lblDuracion = new JLabel("Duración (horas):");
+		lblDuracion.setBounds(10, 71, 114, 16);
+		pnlPrincipal.add(lblDuracion);
+		
+		JLabel lblUsuario = new JLabel("Autor:");
+		lblUsuario.setBounds(79, 99, 45, 16);
+		pnlPrincipal.add(lblUsuario);
+		
+		cbEnRevision = new JCheckBox("EN REVISIÓN");
+		cbEnRevision.setBounds(412, 67, 128, 23);
+		cbEnRevision.setEnabled(false);
+		pnlPrincipal.add(cbEnRevision);
+		
+		
+		txtTexto = new TextArea("Descripcion", 3, 100, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		txtTexto.setBounds(136, 127, 772, 112);
+		txtTexto.setEditable(false);
+		pnlPrincipal.add(txtTexto);
+		
+		JLabel lblTexto = new JLabel("Texto: ");
+		lblTexto.setBounds(78, 175, 45, 16);
+		pnlPrincipal.add(lblTexto);
+		
+		lblImg = new JLabel("");
+		lblImg.setIcon(new ImageIcon(
+				"src/recursos/img_add.png"));
+		lblImg.setBounds(748, 11, 160, 104);
+		pnlPrincipal.add(lblImg);
+		
+		txtComensales = new JTextField();
+		txtComensales.setBounds(135, 38, 130, 26);
+		txtComensales.setEnabled(false);
+		pnlPrincipal.add(txtComensales);
+		txtComensales.setColumns(10);
+		
+		txtDuracion = new JTextField();
+		txtDuracion.setBounds(135, 66, 130, 26);
+		txtDuracion.setEnabled(false);
+		pnlPrincipal.add(txtDuracion);
+		txtDuracion.setColumns(10);
+		
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(135, 94, 130, 26);
+		txtUsuario.setEnabled(false);
+		pnlPrincipal.add(txtUsuario);
+		txtUsuario.setColumns(10);
+		
+		lblEstrellas = new JLabel("3.5 ");
+		lblEstrellas.setBounds(297, 0, 29, 31);
+		pnlPrincipal.add(lblEstrellas);
+		
+		JLabel lblEstrella = new JLabel("*");
+		lblEstrella.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
+		lblEstrella.setBounds(323, 7, 61, 31);
+		pnlPrincipal.add(lblEstrella);
+		
+		JLabel lblIngredientes = new JLabel("Ingredientes:");
+		lblIngredientes.setBounds(38, 284, 85, 16);
+		pnlPrincipal.add(lblIngredientes);
+		
+		JLabel lblPasos = new JLabel("Pasos:");
+		lblPasos.setBounds(78, 404, 45, 16);
+		pnlPrincipal.add(lblPasos);
 		
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(InfoData.cNaranja);
@@ -104,7 +177,7 @@ public class RecetaDetalle extends JDialog {
 		setVisible(true);
 
 		// EVENTOS
-		
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
 				Ctrl_RecetaDetalle.cerrarVentanaDetalle();
@@ -114,5 +187,4 @@ public class RecetaDetalle extends JDialog {
 
 		
 	}
-
 }
