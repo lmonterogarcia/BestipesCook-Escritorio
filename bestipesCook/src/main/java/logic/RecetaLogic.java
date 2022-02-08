@@ -24,28 +24,37 @@ public class RecetaLogic implements InfoData, IConstantes {
 	public static ArrayList<Receta> lstRecetas = new ArrayList<Receta>();
 	public static ArrayList<Float> lstEstrellas = new ArrayList<Float>();
 	public static ArrayList<Imagen> lstImagenesPral = new ArrayList<Imagen>();
+	
+	public static ArrayList<Paso> lstPasos = new ArrayList<Paso>();
+	public static ArrayList<IngredienteReceta> lstIngredienteRecetas = new ArrayList<IngredienteReceta>();	
 
 	public static void cargarDatos() {
-
 		try {
-
-//			lstRecetas = getRecetas();
-//			lstRecetas.forEach(r -> {
-//				try {
-//					lstEstrellas.add(getEstrella(r.getiIdReceta()));
-//					lstImagenesPral.add(logic.ImagenLogic.getImagenByIdReceta(r.getiIdReceta()));
-//				} catch (IOException e) {
-//					
-//					e.printStackTrace();
-//				}	
-//			});
 			lstRecetas.clear();
 			lstEstrellas.clear();
 			lstImagenesPral.clear();
+			
 			getRecetas();
+			
 			new RenderListRecetas();
+			
 		} catch (IOException e) {
-
+			e.printStackTrace();
+		}
+	}
+	
+	public static void cargarDatosReceta(int iIdReceta) {
+		try {
+			lstPasos.clear();
+			lstIngredienteRecetas.clear();
+			
+			getRecetaPasos(iIdReceta);
+			getRecetaIngredientes(iIdReceta);
+			
+			new RenderListPasos();
+			new RenderListIngredientes();
+			
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -53,42 +62,82 @@ public class RecetaLogic implements InfoData, IConstantes {
 	private static void getRecetas() throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_LSTRECETAS;
 		String requestHttp = peticionHttp(url);
-		rellenarListas(requestHttp);
+		jsonObjectToListas(obtenerJsonArray(requestHttp));	
+
+	}
+	
+	private static void getRecetaPasos(int iIdReceta) throws IOException {
+		String url = InfoData.URI + URI_RECETA + URI_GETRECETAPASOS + iIdReceta;
+		String requestHttp = peticionHttp(url);
+		jsonObjectToPasos(obtenerJsonArray(requestHttp));	
 
 	}
 
-	private static void rellenarListas(String requestHttp) {
-		JSONArray jsonArr = new JSONArray(requestHttp);
+	private static void getRecetaIngredientes(int iIdReceta) throws IOException {
+		String url = InfoData.URI + URI_RECETA + URI_GETRECETAINGREDIENTES + iIdReceta;
+		String requestHttp = peticionHttp(url);
+		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));		
+
+	}
+
+	private static JSONArray obtenerJsonArray(String requestHttp) {
+		return new JSONArray(requestHttp);	
+	}
+
+	private static void jsonObjectToListas(JSONArray jsonArr) {
+
 		for (int i = 0; i < jsonArr.length(); i++) {
 			JSONObject jsonObj = jsonArr.getJSONObject(i);
-			jsonObjectToListas(jsonObj);
+			Integer iIdReceta = jsonObj.getInt("idReceta");
+			LocalDateTime fechaCreacionReceta = LocalDateTime.parse(jsonObj.getString("fechaCreacionReceta"),
+					dateTimeformatterFromDB);
+			String sTituloReceta = jsonObj.getString("tituloReceta");
+			String sTextoReceta = jsonObj.getString("textoReceta");
+			Short shComensalesReceta = (short) jsonObj.getInt("comensalesReceta");
+			float fDuracionReceta = (float) jsonObj.getDouble("duracionReceta");
+			String sNombreUsuario = jsonObj.getString("usuarionombreUsuario");
+			boolean booEnRevision = intToBoolean(jsonObj.getInt("enRevision"));
+
+			lstRecetas.add(new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision,
+					new Usuario(sNombreUsuario), sTextoReceta, shComensalesReceta, fDuracionReceta));
+
+			lstEstrellas.add((float)(jsonObj.getDouble("puntuacionMedia")));
+
+			Integer iIdImagen = jsonObj.getInt("idImagen");
+			LocalDateTime fechaCreacionImagen = LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"),
+					dateTimeformatterFromDB);
+			String sRuta = jsonObj.getString("rutaRelativaImagen");
+			
+			lstImagenesPral.add(new Imagen(iIdImagen,fechaCreacionImagen,sRuta));
+		}
+
+	}
+	
+	private static void jsonObjectToPasos(JSONArray jsonArr) {
+		for (int i = 0; i < jsonArr.length(); i++) {
+			JSONObject jsonObj = jsonArr.getJSONObject(i);
+			Integer iIdPaso = jsonObj.getInt("idPaso");
+			String sTextoPaso = jsonObj.getString("textoPaso");
+			byte bOrden =(byte) jsonObj.getInt("ordenPaso");
+			Receta oReceta = new Receta(jsonObj.getInt("idReceta"));
+			Imagen oImagen = new Imagen(jsonObj.getInt("idImagen"),LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"),
+					dateTimeformatterFromDB), jsonObj.getString("rutaRelativaImagen"));
+			lstPasos.add(new Paso(iIdPaso,sTextoPaso,bOrden,oReceta,oImagen));
 		}
 	}
 
-	private static void jsonObjectToListas(JSONObject jsonObj) {
-
-		Integer iIdReceta = jsonObj.getInt("idReceta");
-		LocalDateTime fechaCreacionReceta = LocalDateTime.parse(jsonObj.getString("fechaCreacionReceta"),
-				dateTimeformatterFromDB);
-		String sTituloReceta = jsonObj.getString("tituloReceta");
-		String sTextoReceta = jsonObj.getString("textoReceta");
-		Short shComensalesReceta = (short) jsonObj.getInt("comensalesReceta");
-		float fDuracionReceta = (float) jsonObj.getDouble("duracionReceta");
-		String sNombreUsuario = jsonObj.getString("usuarionombreUsuario");
-		boolean booEnRevision = intToBoolean(jsonObj.getInt("enRevision"));
-
-		lstRecetas.add(new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision,
-				new Usuario(sNombreUsuario), sTextoReceta, shComensalesReceta, fDuracionReceta));
-
-		lstEstrellas.add((float)(jsonObj.getDouble("puntuacionMedia")));
-
-		Integer iIdImagen = jsonObj.getInt("idImagen");
-		LocalDateTime fechaCreacionImagen = LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"),
-				dateTimeformatterFromDB);
-		String sRuta = jsonObj.getString("rutaRelativaImagen");
-		
-		lstImagenesPral.add(new Imagen(iIdImagen,fechaCreacionImagen,sRuta));
-
+	private static void jsonObjectToIngredientes(JSONArray jsonArr) {
+		for (int i = 0; i < jsonArr.length(); i++) {
+			JSONObject jsonObj = jsonArr.getJSONObject(i);
+			Integer iIdReceta = jsonObj.getInt("idReceta");
+			Integer iIdIngrediente = jsonObj.getInt("idIngrediente");
+			String sNombreIngrediente = jsonObj.getString("nombreIngrediente");
+			Integer iCantidadIngrediente = jsonObj.getInt("cantidadIngrediente");
+			Integer iMedida = jsonObj.getInt("medida");
+			
+			lstIngredienteRecetas.add(new IngredienteReceta(new Receta(iIdReceta), new Ingrediente(iIdIngrediente, sNombreIngrediente), iCantidadIngrediente, iMedida));
+			
+		}
 	}
 	
 	private static boolean intToBoolean(int i) {
@@ -103,7 +152,6 @@ public class RecetaLogic implements InfoData, IConstantes {
 		StringBuilder resultado = new StringBuilder();
 
 		// Realizar la petición HTTP
-
 		URL url = new URL(urlWebService);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
@@ -117,60 +165,5 @@ public class RecetaLogic implements InfoData, IConstantes {
 		conn.disconnect();
 		return resultado.toString();
 	}
-
 	
-	/*
-	private static ArrayList<Receta> getRecetas() throws IOException {
-		String url = InfoData.URI + URI_RECETA + URI_LSTRECETAS;
-		String requestHttp = peticionHttp(url);
-		return stringToListReceta(requestHttp);
-	}
-
-	private static Float getEstrella(int idReceta) throws IOException {
-		String url = InfoData.URI + URI_RECETA + URI_GETPUNTUACIONESTRELLA + idReceta;
-		String requestHttp = peticionHttp(url);
-		return stringToFloat(requestHttp);
-	}
-
-
-	private static Float stringToFloat(String requestHttp) {
-
-		float fN;
-
-		JSONObject jsonObj = new JSONObject(requestHttp);
-
-		fN = (float) jsonObj.getDouble("puntuacionMedia");
-
-		return fN;
-	}
-
-	private static ArrayList<Receta> stringToListReceta(String requestHttp) {
-		ArrayList<Receta> lstRecetas = new ArrayList<Receta>();
-		JSONArray jsonArr = new JSONArray(requestHttp);
-
-		for (int i = 0; i < jsonArr.length(); i++) {
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
-			lstRecetas.add(objJsonParseReceta(jsonObj));
-		}
-
-		return lstRecetas;
-	}
-
-	private static Receta objJsonParseReceta(JSONObject jsonObj) {
-		// Extraer los values del objeto JSON
-		Integer iIdReceta = jsonObj.getInt("idReceta");
-		LocalDateTime fechaCreacionReceta = LocalDateTime.parse(jsonObj.getString("fechaCreacionReceta"),
-				dateTimeformatterFromDB);
-		String sTituloReceta = jsonObj.getString("tituloReceta");
-		String sTextoReceta = jsonObj.getString("textoReceta");
-		Short shComensalesReceta = (short) jsonObj.getInt("comensalesReceta");
-		float fDuracionReceta = (float) jsonObj.getDouble("duracionReceta");
-		String sNombreUsuario = jsonObj.getString("usuarionombreUsuario");
-		boolean booEnRevision = intToBoolean(jsonObj.getInt("enRevision"));
-
-		return new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision, new Usuario(sNombreUsuario),
-				sTextoReceta, shComensalesReceta, fDuracionReceta);
-	}
-	*/
-
 }

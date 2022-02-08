@@ -20,4 +20,6 @@ public interface InfoData {
 	public final String URI_LSTRECETAS = "lst-recetas.php";
 	public final String URI_GETPUNTUACIONESTRELLA = "get-puntuacionestrella.php?txtIdReceta=";
 	public final String URI_GETIMAGENBYIDRECETA = "get-imagenbyidreceta.php?txtIdReceta=";
+	public final String URI_GETRECETAPASOS = "get-receta-paso.php?txtIdReceta=";
+	public final String URI_GETRECETAINGREDIENTES = "get-receta-ingrediente.php?txtIdReceta=";
 }
