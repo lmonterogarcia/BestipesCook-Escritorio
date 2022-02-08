@@ -51,8 +51,8 @@ public class RecetaLogic implements InfoData, IConstantes {
 			getRecetaPasos(iIdReceta);
 			getRecetaIngredientes(iIdReceta);
 			
-			new RenderListPasos();
-			new RenderListIngredientes();
+			//new RenderListPasos();
+			//new RenderListIngredientes();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
