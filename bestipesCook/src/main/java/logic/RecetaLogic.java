@@ -12,6 +12,8 @@ import org.jdesktop.swingworker.SwingWorker;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ctrl.RenderListIngredientes;
+import ctrl.RenderListPasos;
 import ctrl.RenderListRecetas;
 import model.receta.*;
 import model.usuario.Usuario;
@@ -24,36 +26,39 @@ public class RecetaLogic implements InfoData, IConstantes {
 	public static ArrayList<Receta> lstRecetas = new ArrayList<Receta>();
 	public static ArrayList<Float> lstEstrellas = new ArrayList<Float>();
 	public static ArrayList<Imagen> lstImagenesPral = new ArrayList<Imagen>();
-	
+
 	public static ArrayList<Paso> lstPasos = new ArrayList<Paso>();
-	public static ArrayList<IngredienteReceta> lstIngredienteRecetas = new ArrayList<IngredienteReceta>();	
+	public static ArrayList<IngredienteReceta> lstIngredienteRecetas = new ArrayList<IngredienteReceta>();
 
 	public static void cargarDatos() {
 		try {
 			lstRecetas.clear();
 			lstEstrellas.clear();
 			lstImagenesPral.clear();
-			
+
 			getRecetas();
-			
+
 			new RenderListRecetas();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void cargarDatosReceta(int iIdReceta) {
+
+	public static void cargarDatosReceta(int iPosicion) {
+		
+		int iIdReceta = lstRecetas.get(iPosicion).getiIdReceta();
+		
 		try {
 			lstPasos.clear();
 			lstIngredienteRecetas.clear();
-			
+
 			getRecetaPasos(iIdReceta);
 			getRecetaIngredientes(iIdReceta);
-			
-			//new RenderListPasos();
-			//new RenderListIngredientes();
-			
+
+			new RenderListIngredientes();
+			new RenderListPasos();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -62,32 +67,34 @@ public class RecetaLogic implements InfoData, IConstantes {
 	private static void getRecetas() throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_LSTRECETAS;
 		String requestHttp = peticionHttp(url);
-		jsonObjectToListas(obtenerJsonArray(requestHttp));	
+		jsonObjectToRecetas(obtenerJsonArray(requestHttp));
 
 	}
-	
+
 	private static void getRecetaPasos(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAPASOS + iIdReceta;
 		String requestHttp = peticionHttp(url);
-		jsonObjectToPasos(obtenerJsonArray(requestHttp));	
+		jsonObjectToPasos(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static void getRecetaIngredientes(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAINGREDIENTES + iIdReceta;
 		String requestHttp = peticionHttp(url);
-		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));		
+		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static JSONArray obtenerJsonArray(String requestHttp) {
-		return new JSONArray(requestHttp);	
+		return new JSONArray(requestHttp);
 	}
 
-	private static void jsonObjectToListas(JSONArray jsonArr) {
+	private static void jsonObjectToRecetas(JSONArray jsonArr) {
 
 		for (int i = 0; i < jsonArr.length(); i++) {
+
 			JSONObject jsonObj = jsonArr.getJSONObject(i);
+
 			Integer iIdReceta = jsonObj.getInt("idReceta");
 			LocalDateTime fechaCreacionReceta = LocalDateTime.parse(jsonObj.getString("fechaCreacionReceta"),
 					dateTimeformatterFromDB);
@@ -101,45 +108,51 @@ public class RecetaLogic implements InfoData, IConstantes {
 			lstRecetas.add(new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision,
 					new Usuario(sNombreUsuario), sTextoReceta, shComensalesReceta, fDuracionReceta));
 
-			lstEstrellas.add((float)(jsonObj.getDouble("puntuacionMedia")));
+			lstEstrellas.add((float) (jsonObj.getDouble("puntuacionMedia")));
 
 			Integer iIdImagen = jsonObj.getInt("idImagen");
 			LocalDateTime fechaCreacionImagen = LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"),
 					dateTimeformatterFromDB);
 			String sRuta = jsonObj.getString("rutaRelativaImagen");
-			
-			lstImagenesPral.add(new Imagen(iIdImagen,fechaCreacionImagen,sRuta));
+
+			lstImagenesPral.add(new Imagen(iIdImagen, fechaCreacionImagen, sRuta));
 		}
 
 	}
-	
+
 	private static void jsonObjectToPasos(JSONArray jsonArr) {
 		for (int i = 0; i < jsonArr.length(); i++) {
+
 			JSONObject jsonObj = jsonArr.getJSONObject(i);
+
 			Integer iIdPaso = jsonObj.getInt("idPaso");
 			String sTextoPaso = jsonObj.getString("textoPaso");
-			byte bOrden =(byte) jsonObj.getInt("ordenPaso");
+			byte bOrden = (byte) jsonObj.getInt("ordenPaso");
 			Receta oReceta = new Receta(jsonObj.getInt("idReceta"));
-			Imagen oImagen = new Imagen(jsonObj.getInt("idImagen"),LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"),
-					dateTimeformatterFromDB), jsonObj.getString("rutaRelativaImagen"));
-			lstPasos.add(new Paso(iIdPaso,sTextoPaso,bOrden,oReceta,oImagen));
+			Imagen oImagen = new Imagen(jsonObj.getInt("idImagen"),
+					LocalDateTime.parse(jsonObj.getString("fechaCreacionImagen"), dateTimeformatterFromDB),
+					jsonObj.getString("rutaRelativaImagen"));
+			lstPasos.add(new Paso(iIdPaso, sTextoPaso, bOrden, oReceta, oImagen));
 		}
 	}
 
 	private static void jsonObjectToIngredientes(JSONArray jsonArr) {
 		for (int i = 0; i < jsonArr.length(); i++) {
+
 			JSONObject jsonObj = jsonArr.getJSONObject(i);
+
 			Integer iIdReceta = jsonObj.getInt("idReceta");
 			Integer iIdIngrediente = jsonObj.getInt("idIngrediente");
 			String sNombreIngrediente = jsonObj.getString("nombreIngrediente");
 			Integer iCantidadIngrediente = jsonObj.getInt("cantidadIngrediente");
 			Integer iMedida = jsonObj.getInt("medida");
-			
-			lstIngredienteRecetas.add(new IngredienteReceta(new Receta(iIdReceta), new Ingrediente(iIdIngrediente, sNombreIngrediente), iCantidadIngrediente, iMedida));
-			
+
+			lstIngredienteRecetas.add(new IngredienteReceta(new Receta(iIdReceta),
+					new Ingrediente(iIdIngrediente, sNombreIngrediente), iCantidadIngrediente, iMedida));
+
 		}
 	}
-	
+
 	private static boolean intToBoolean(int i) {
 		boolean boo = false;
 		if (i == 1) {
@@ -147,7 +160,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 		}
 		return boo;
 	}
-	
+
 	private static String peticionHttp(String urlWebService) throws IOException {
 		StringBuilder resultado = new StringBuilder();
 
@@ -165,5 +178,5 @@ public class RecetaLogic implements InfoData, IConstantes {
 		conn.disconnect();
 		return resultado.toString();
 	}
-	
+
 }

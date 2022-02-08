@@ -16,6 +16,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -27,11 +28,15 @@ import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
 import ctrl.Ctrl_RecetaDetalle;
 import model.constantes.InfoData;
+import java.awt.Color;
 
 public class RecetaDetalle extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public static JDialog ventana;
+	
+	public static JList<Object> listIngredientes;
+	public static JList<Object> listPasos;
 	
 	public static JLabel lblTitle;
 	public static JLabel lblEstrellas;
@@ -93,6 +98,7 @@ public class RecetaDetalle extends JDialog {
 		
 		
 		txtTexto = new TextArea("Descripcion", 3, 100, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		txtTexto.setForeground(Color.DARK_GRAY);
 		txtTexto.setBounds(136, 127, 772, 112);
 		txtTexto.setEditable(false);
 		pnlPrincipal.add(txtTexto);
@@ -134,13 +140,33 @@ public class RecetaDetalle extends JDialog {
 		lblEstrella.setBounds(323, 7, 61, 31);
 		pnlPrincipal.add(lblEstrella);
 		
-		JLabel lblIngredientes = new JLabel("Ingredientes:");
-		lblIngredientes.setBounds(38, 284, 85, 16);
+		JLabel lblIngredientes = new JLabel("Ingredientes");
+		lblIngredientes.setBounds(146, 245, 85, 16);
 		pnlPrincipal.add(lblIngredientes);
 		
-		JLabel lblPasos = new JLabel("Pasos:");
-		lblPasos.setBounds(78, 404, 45, 16);
+		JLabel lblPasos = new JLabel("Pasos");
+		lblPasos.setBounds(363, 245, 45, 16);
 		pnlPrincipal.add(lblPasos);
+		
+		JPanel pnlIngredientes = new JPanel();
+		pnlIngredientes.setBounds(136, 269, 210, 243);
+		pnlPrincipal.add(pnlIngredientes);
+		pnlIngredientes.setLayout(new BorderLayout(0, 0));
+		
+		listIngredientes = new JList<Object>();
+        JScrollPane psIngredientes = new JScrollPane(listIngredientes);
+        listIngredientes.setBackground(new Color(255, 255, 204));    
+        pnlIngredientes.add(psIngredientes, BorderLayout.CENTER);
+		
+		JPanel pnlPasos = new JPanel();
+		pnlPasos.setBounds(363, 269, 545, 243);
+		pnlPrincipal.add(pnlPasos);
+		pnlPasos.setLayout(new BorderLayout(0, 0));
+		
+		listPasos = new JList<Object>();
+        JScrollPane panelScroll = new JScrollPane(listPasos);
+        listPasos.setBackground(new Color(255, 255, 204));    
+        pnlPasos.add(panelScroll, BorderLayout.CENTER);
 		
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(InfoData.cNaranja);

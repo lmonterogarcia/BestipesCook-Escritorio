@@ -17,6 +17,7 @@ public class Ctrl_RecetaDetalle {
 		new RecetaDetalle();
 		iPosicion = FrmPrincipal.list.getSelectedIndex();
 		cargarDatos();
+		logic.RecetaLogic.cargarDatosReceta(iPosicion);
 	}
 
 	private static void cargarDatos() {
