@@ -3,6 +3,7 @@ package model.receta;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import model.categoria.Categoria;
 import model.usuario.Usuario;
 
 public class Receta {
@@ -14,6 +15,7 @@ public class Receta {
 	private String sTituloReceta;
 	private boolean booEnRevision;
 	private Usuario usuario;
+	private Categoria categoria;
 	// N
 	private String sTextoReceta;
 	private short shComensalesReceta;
@@ -27,21 +29,23 @@ public class Receta {
 	}
 
 	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnRevision,
-			Usuario usuario) {
+			Usuario usuario, Categoria categoria) {
 		this.iIdReceta = iIdReceta;
 		this.fechaCreacionReceta = fechaCreacionReceta;
 		this.sTituloReceta = sTituloReceta;
 		this.booEnRevision = booEnRevision;
 		this.usuario = usuario;
+		this.categoria = categoria;
 	}
 
 	public Receta(int iIdReceta, LocalDateTime fechaCreacionReceta, String sTituloReceta, boolean booEnRevision,
-			Usuario usuario, String sTextoReceta, short shComensalesReceta, float fDuracionReceta) {
+			Usuario usuario, Categoria categoria, String sTextoReceta, short shComensalesReceta, float fDuracionReceta) {
 		this.iIdReceta = iIdReceta;
 		this.fechaCreacionReceta = fechaCreacionReceta;
 		this.sTituloReceta = sTituloReceta;
 		this.booEnRevision = booEnRevision;
 		this.usuario = usuario;
+		this.categoria = categoria;
 		this.sTextoReceta = sTextoReceta;
 		this.shComensalesReceta = shComensalesReceta;
 		this.fDuracionReceta = fDuracionReceta;
@@ -85,6 +89,14 @@ public class Receta {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public boolean isBooEnRevision() {

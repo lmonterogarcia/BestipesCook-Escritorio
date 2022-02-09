@@ -5,26 +5,25 @@ import java.util.Objects;
 public class Categoria {
 	private int idCategoria;
 	private String nombreCategoria;
-	private boolean challengue;
+	private boolean booChallenge;
 	
 	public Categoria(int idCategoria) {
 		this.idCategoria = idCategoria;
 		this.nombreCategoria = "";
-		this.challengue = false;
+		this.booChallenge = false;
 	}
 	
 	public Categoria(int idCategoria, String nombreCategoria) {
 		this.idCategoria = idCategoria;
 		this.nombreCategoria = nombreCategoria;
-		this.challengue = false;
+		this.booChallenge = false;
 	}
 	
 	public Categoria(int idCategoria, String nombreCategoria, boolean challengue) {
 		this.idCategoria = idCategoria;
 		this.nombreCategoria = nombreCategoria;
-		this.challengue = challengue;
+		this.booChallenge = challengue;
 	}
-
 
 	public int getIdCategoria() {
 		return idCategoria;
@@ -43,17 +42,17 @@ public class Categoria {
 	}
 
 	public boolean isChallengue() {
-		return challengue;
+		return booChallenge;
 	}
 
 	public void setChallengue(boolean challengue) {
-		this.challengue = challengue;
+		this.booChallenge = challengue;
 	}
 
 	@Override
 	public String toString() {
 		return "Categoria [idCategoria=" + idCategoria + ", nombreCategoria=" + nombreCategoria + ", challengue="
-				+ challengue + "]";
+				+ booChallenge + "]";
 	}
 
 	@Override

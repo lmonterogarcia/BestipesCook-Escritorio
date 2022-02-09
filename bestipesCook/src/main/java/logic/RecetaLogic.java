@@ -18,6 +18,7 @@ import ctrl.RenderListRecetas;
 import model.receta.*;
 import model.usuario.Usuario;
 import model.Imagen;
+import model.categoria.Categoria;
 import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
@@ -46,9 +47,9 @@ public class RecetaLogic implements InfoData, IConstantes {
 	}
 
 	public static void cargarDatosReceta(int iPosicion) {
-		
+
 		int iIdReceta = lstRecetas.get(iPosicion).getiIdReceta();
-		
+
 		try {
 			lstPasos.clear();
 			lstIngredienteRecetas.clear();
@@ -103,10 +104,14 @@ public class RecetaLogic implements InfoData, IConstantes {
 			Short shComensalesReceta = (short) jsonObj.getInt("comensalesReceta");
 			float fDuracionReceta = (float) jsonObj.getDouble("duracionReceta");
 			String sNombreUsuario = jsonObj.getString("usuarionombreUsuario");
+			Integer idCategoria = jsonObj.getInt("idCategoria");
+			String sNombreCategoria = jsonObj.getString("nombreCategoria");
+			boolean booChallenge = intToBoolean(jsonObj.getInt("challenge"));
 			boolean booEnRevision = intToBoolean(jsonObj.getInt("enRevision"));
 
 			lstRecetas.add(new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision,
-					new Usuario(sNombreUsuario), sTextoReceta, shComensalesReceta, fDuracionReceta));
+					new Usuario(sNombreUsuario), new Categoria(idCategoria, sNombreCategoria, booChallenge),
+					sTextoReceta, shComensalesReceta, fDuracionReceta));
 
 			lstEstrellas.add((float) (jsonObj.getDouble("puntuacionMedia")));
 

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import static javax.swing.ScrollPaneConstants.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -47,9 +49,9 @@ public class RecetaDetalle extends JDialog {
 	public static JCheckBox cbEnRevision;
 	public static JLabel lblImg;
 	
-	public static JButton btnEditar;
+	public static JButton btnEnRevision;
 	public static JButton btnCancelar;
-	public static JButton btnGuardar;
+	public static JButton btnQuitarEnRevision;
 	public static JButton btnBorrar;
 	
 	
@@ -164,34 +166,33 @@ public class RecetaDetalle extends JDialog {
 		pnlPasos.setLayout(new BorderLayout(0, 0));
 		
 		listPasos = new JList<Object>();
-        JScrollPane panelScroll = new JScrollPane(listPasos);
+		JScrollPane psPasos = new JScrollPane(listPasos);
         listPasos.setBackground(new Color(255, 255, 204));    
-        pnlPasos.add(panelScroll, BorderLayout.CENTER);
+        pnlPasos.add(psPasos, BorderLayout.CENTER);
 		
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(InfoData.cNaranja);
 		contentPanel.add(pnlInferior, BorderLayout.SOUTH);
-		
-		btnGuardar = new JButton("GUARDAR");
-		btnGuardar.setVisible(false);
-		btnGuardar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
-		btnGuardar.setContentAreaFilled(false);
-		btnGuardar.setBorderPainted(false);
-		pnlInferior.add(btnGuardar);
 
 		btnBorrar = new JButton("BORRAR");
-		btnBorrar.setVisible(false);
 		btnBorrar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
 		btnBorrar.setContentAreaFilled(false);
 		btnBorrar.setBorderPainted(false);
 		pnlInferior.add(btnBorrar);
+		
+		btnEnRevision = new JButton("PONER EN REVISION");
+		btnEnRevision.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		btnEnRevision.setContentAreaFilled(false);
+		btnEnRevision.setBorderPainted(false);
+		pnlInferior.add(btnEnRevision);
+		getRootPane().setDefaultButton(btnEnRevision);
 
-		btnEditar = new JButton("EDITAR");
-		btnEditar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
-		btnEditar.setContentAreaFilled(false);
-		btnEditar.setBorderPainted(false);
-		pnlInferior.add(btnEditar);
-		getRootPane().setDefaultButton(btnEditar);
+		btnQuitarEnRevision = new JButton("PONER EN REVISION");
+		btnQuitarEnRevision.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
+		btnQuitarEnRevision.setContentAreaFilled(false);
+		btnQuitarEnRevision.setBorderPainted(false);
+		pnlInferior.add(btnQuitarEnRevision);
+		getRootPane().setDefaultButton(btnQuitarEnRevision);
 
 		btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));

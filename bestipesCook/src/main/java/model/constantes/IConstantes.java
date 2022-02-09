@@ -20,4 +20,11 @@ public interface IConstantes {
     public static DateTimeFormatter timeformatter = DateTimeFormatter.ofPattern("HH:mm");
     
     Font FONTLISTASDETALLE = new Font("Yu Gothic UI Light", Font.BOLD , 13);
+    
+    // MAIL INFO
+    public final String MAIL_SERVER_HOST = "smtp.gmail.com";
+    public final String USER = "bestipescook@gmail.com";
+    public final String PASSWORD = "Informedac2021";
+    public final String MAIL_FROM = "bestipescook@gmail.com";
+    public final String MAIL_SUBJECT = "Hemos encontrado errores en tu receta";
 }
