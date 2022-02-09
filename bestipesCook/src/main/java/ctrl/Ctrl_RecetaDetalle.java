@@ -17,7 +17,16 @@ public class Ctrl_RecetaDetalle {
 		new RecetaDetalle();
 		iPosicion = FrmPrincipal.list.getSelectedIndex();
 		cargarDatos();
-		logic.RecetaLogic.cargarDatosReceta(iPosicion);
+		if (RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision()) {
+			RecetaDetalle.lblEnRevision.setVisible(true);
+			RecetaDetalle.btnQuitarEnRevision.setVisible(true);
+			RecetaDetalle.btnEnRevision.setVisible(false);
+		} else {
+			RecetaDetalle.lblEnRevision.setVisible(false);
+			RecetaDetalle.btnQuitarEnRevision.setVisible(false);
+			RecetaDetalle.btnEnRevision.setVisible(true);
+		}
+		
 	}
 
 	private static void cargarDatos() {
@@ -28,80 +37,28 @@ public class Ctrl_RecetaDetalle {
 		RecetaDetalle.txtComensales.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getShComensalesReceta());
 		RecetaDetalle.txtDuracion.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getfDuracionReceta());
 		RecetaDetalle.txtUsuario.setText(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio());
-		RecetaDetalle.cbEnRevision.setSelected(RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision());
+		RecetaDetalle.lblCategoria.setText(RecetaLogic.lstRecetas.get(iPosicion).getCategoria().getNombreCategoria());
 		Ctrl_Imagen.cargarImgReceta(
 				InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(iPosicion).getRutaRelativaImagen());
-//		cargarIngredientes();
-//		cargarPasos();
+		logic.RecetaLogic.cargarDatosReceta(iPosicion);
+		new RenderListIngredientes();
+		new RenderListPasos();
 
 
 	}
-
-//	public static void habilitarEdicion() {
-//		RecetaDetalle.boEdit = true;
-//		RecetaDetalle.txtTitle.setEditable(true);
-//		RecetaDetalle.txtSubTitle.setEditable(true);
-//		RecetaDetalle.txtDescripcion.setEditable(true);
-//		RecetaDetalle.btnEditar.setVisible(false);
-//
-//		RecetaDetalle.txtTitle.setBackground(InfoData.cWhite);
-//		RecetaDetalle.txtSubTitle.setBackground(InfoData.cWhite);
-//		RecetaDetalle.txtDescripcion.setBackground(InfoData.cWhite);
-//
-//		RecetaDetalle.btnGuardar.setVisible(true);
-//		if(oReceta != null) {
-//			RecetaDetalle.btnBorrar.setVisible(true);
-//		}
-//
-//	}
-
-//	public static void deshabilitarEdicion() {
-//		if(oReceta != null && RecetaDetalle.txtTitle.isEditable()) {
-//			RecetaDetalle.boEdit = false;
-//			RecetaDetalle.txtTitle.setEditable(false);
-//			RecetaDetalle.txtSubTitle.setEditable(false);
-//			RecetaDetalle.txtDescripcion.setEditable(false);
-//			RecetaDetalle.btnEditar.setVisible(true);
-//
-//			RecetaDetalle.txtTitle.setBackground(InfoData.cNaranja);
-//			RecetaDetalle.txtSubTitle.setBackground(InfoData.cNaranja);
-//			RecetaDetalle.txtDescripcion.setBackground(InfoData.cRositaPalo);
-//
-//			RecetaDetalle.btnGuardar.setVisible(false);
-//			RecetaDetalle.btnBorrar.setVisible(false);
-//		}else{
-//			cerrarVentanaDetalle();
-//		}
-//	}
-
-//	public static void updReceta() {
-//		if(oReceta == null) {
-//			try {
-//				if(Ctrl_Imagen.rutaImagenCargada.equals("") || RecetaDetalle.txtTitle.getText().equals("")
-//						|| RecetaDetalle.txtSubTitle.getText().equals("")
-//						|| RecetaDetalle.txtDescripcion.getText().equals("")){
-//					System.err.println("Hay que completar todos los campos");
-//				}else {
-//					RecetaLogic.insRecetaPHP();
-//					cerrarVentanaDetalle();
-//				}
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}else {
-//			RecetaLogic.updRecetaPHP(oReceta);
-//			cerrarVentanaDetalle();
-//		}
-//		
-//	}
 
 	public static void cerrarVentanaDetalle() {
 		RecetaDetalle.ventana.dispose();
 		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
-//	public static void delReceta() {
-//		RecetaLogic.delRecetaPHP(oReceta);
-//		cerrarVentanaDetalle();
-//	}
+	public static void delReceta() {
+		RecetaLogic.delReceta(RecetaLogic.lstRecetas.get(iPosicion).getiIdReceta());
+		cerrarVentanaDetalle();
+	}
+
+	public static Object cambiarEstadoRevision(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

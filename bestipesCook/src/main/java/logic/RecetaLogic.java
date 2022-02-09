@@ -57,8 +57,8 @@ public class RecetaLogic implements InfoData, IConstantes {
 			getRecetaPasos(iIdReceta);
 			getRecetaIngredientes(iIdReceta);
 
-			new RenderListIngredientes();
-			new RenderListPasos();
+//			new RenderListIngredientes();
+//			new RenderListPasos();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,6 +84,16 @@ public class RecetaLogic implements InfoData, IConstantes {
 		String requestHttp = peticionHttp(url);
 		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));
 
+	}
+	
+	public static void delReceta(int getiIdReceta) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void updReceta(int getiIdReceta, boolean enRevision) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static JSONArray obtenerJsonArray(String requestHttp) {
@@ -183,5 +193,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 		conn.disconnect();
 		return resultado.toString();
 	}
+
+	
 
 }

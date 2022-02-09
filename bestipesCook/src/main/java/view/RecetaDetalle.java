@@ -32,7 +32,7 @@ import ctrl.Ctrl_RecetaDetalle;
 import model.constantes.InfoData;
 import java.awt.Color;
 
-public class RecetaDetalle extends JDialog {
+public class RecetaDetalle extends JDialog implements InfoData{
 
 	private final JPanel contentPanel = new JPanel();
 	public static JDialog ventana;
@@ -42,6 +42,8 @@ public class RecetaDetalle extends JDialog {
 	
 	public static JLabel lblTitle;
 	public static JLabel lblEstrellas;
+	public static JLabel lblEnRevision;
+	public static JLabel lblCategoria;
 	public static TextArea txtTexto;
 	public static JTextField txtComensales;
 	public static JTextField txtDuracion;
@@ -93,14 +95,10 @@ public class RecetaDetalle extends JDialog {
 		lblUsuario.setBounds(79, 99, 45, 16);
 		pnlPrincipal.add(lblUsuario);
 		
-		cbEnRevision = new JCheckBox("EN REVISIÓN");
-		cbEnRevision.setBounds(412, 67, 128, 23);
-		cbEnRevision.setEnabled(false);
-		pnlPrincipal.add(cbEnRevision);
-		
-		
 		txtTexto = new TextArea("Descripcion", 3, 100, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		txtTexto.setForeground(Color.DARK_GRAY);
+		txtTexto.setFont(new Font("Yu Gothic UI", Font.PLAIN, 12));
+		txtTexto.setBackground(cNaranjaPalo);
 		txtTexto.setBounds(136, 127, 772, 112);
 		txtTexto.setEditable(false);
 		pnlPrincipal.add(txtTexto);
@@ -118,18 +116,21 @@ public class RecetaDetalle extends JDialog {
 		txtComensales = new JTextField();
 		txtComensales.setBounds(135, 38, 130, 26);
 		txtComensales.setEnabled(false);
+		txtComensales.setBackground(cNaranjaPalo);
 		pnlPrincipal.add(txtComensales);
 		txtComensales.setColumns(10);
 		
 		txtDuracion = new JTextField();
 		txtDuracion.setBounds(135, 66, 130, 26);
 		txtDuracion.setEnabled(false);
+		txtDuracion.setBackground(cNaranjaPalo);
 		pnlPrincipal.add(txtDuracion);
 		txtDuracion.setColumns(10);
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(135, 94, 130, 26);
 		txtUsuario.setEnabled(false);
+		txtUsuario.setBackground(cNaranjaPalo);
 		pnlPrincipal.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -138,7 +139,7 @@ public class RecetaDetalle extends JDialog {
 		pnlPrincipal.add(lblEstrellas);
 		
 		JLabel lblEstrella = new JLabel("*");
-		lblEstrella.setFont(new Font("Lucida Grande", Font.PLAIN, 40));
+		lblEstrella.setFont(new Font("Yu Gothic UI", Font.PLAIN, 40));
 		lblEstrella.setBounds(323, 7, 61, 31);
 		pnlPrincipal.add(lblEstrella);
 		
@@ -169,6 +170,19 @@ public class RecetaDetalle extends JDialog {
 		JScrollPane psPasos = new JScrollPane(listPasos);
         listPasos.setBackground(new Color(255, 255, 204));    
         pnlPasos.add(psPasos, BorderLayout.CENTER);
+        
+        lblEnRevision = new JLabel("EN REVISIÓN");
+        lblEnRevision.setForeground(Color.RED);
+        lblEnRevision.setFont(new Font("Yu Gothic UI", Font.BOLD, 35));
+        lblEnRevision.setHorizontalAlignment(SwingConstants.CENTER);
+        lblEnRevision.setBounds(297, 43, 407, 72);
+        pnlPrincipal.add(lblEnRevision);
+        
+        lblCategoria = new JLabel("Categoria");
+        lblCategoria.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCategoria.setFont(new Font("Yu Gothic UI", Font.BOLD, 15));
+        lblCategoria.setBounds(363, 0, 160, 31);
+        pnlPrincipal.add(lblCategoria);
 		
 		JPanel pnlInferior = new JPanel();
 		pnlInferior.setBackground(InfoData.cNaranja);
@@ -180,14 +194,14 @@ public class RecetaDetalle extends JDialog {
 		btnBorrar.setBorderPainted(false);
 		pnlInferior.add(btnBorrar);
 		
-		btnEnRevision = new JButton("PONER EN REVISION");
+		btnEnRevision = new JButton("PONER EN REVISIÓN");
 		btnEnRevision.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
 		btnEnRevision.setContentAreaFilled(false);
 		btnEnRevision.setBorderPainted(false);
 		pnlInferior.add(btnEnRevision);
 		getRootPane().setDefaultButton(btnEnRevision);
 
-		btnQuitarEnRevision = new JButton("PONER EN REVISION");
+		btnQuitarEnRevision = new JButton("QUITAR DE REVISIÓN");
 		btnQuitarEnRevision.setFont(new Font("Yu Gothic UI", Font.BOLD, 12));
 		btnQuitarEnRevision.setContentAreaFilled(false);
 		btnQuitarEnRevision.setBorderPainted(false);
@@ -204,6 +218,12 @@ public class RecetaDetalle extends JDialog {
 		setVisible(true);
 
 		// EVENTOS
+		
+		btnCancelar.addActionListener(e -> Ctrl_RecetaDetalle.cerrarVentanaDetalle());
+		btnBorrar.addActionListener(e -> Ctrl_RecetaDetalle.delReceta());
+		btnEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(1));
+		btnQuitarEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(0));
+		
 
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
