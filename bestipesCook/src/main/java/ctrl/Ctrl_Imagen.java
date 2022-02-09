@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import model.Reto;
 import view.NoticiaDetalle;
+import view.RecetaDetalle;
 import view.RetoDetalle;
 
 public class Ctrl_Imagen {
@@ -22,6 +23,19 @@ public class Ctrl_Imagen {
 			ImageIcon imgIcon = new ImageIcon(image);
 			imgIcon = optimizarImagen(imgIcon);
 			NoticiaDetalle.lblImg.setIcon(imgIcon);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void cargarImgReceta(String direccion) {
+		try {
+			URL url = new URL(direccion);
+			Image image = ImageIO.read(url);
+			ImageIcon imgIcon = new ImageIcon(image);
+			imgIcon = optimizarImagen(imgIcon);
+			RecetaDetalle.lblImg.setIcon(imgIcon);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

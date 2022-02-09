@@ -54,7 +54,7 @@ public class NoticiaDetalle extends JDialog {
 
 		lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(
-				"C:\\Users\\Usuario\\Documents\\BestipesCook-Escritorio\\bestipesCook\\src\\recursos\\img_add.png"));
+				"src/recursos/img_add.png"));
 		lblImg.setBounds(295, 10, 129, 100);
 		contentPanel.add(lblImg);
 

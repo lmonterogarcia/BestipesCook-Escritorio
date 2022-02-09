@@ -8,9 +8,15 @@ public class Ctrl_FrmPrincipal {
 	
 	@SuppressWarnings("static-access")
 	public static void ventanaPrincipal(byte i) {
+		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
+		eleccionElemento(i);
+		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getDefaultCursor());
+	}
+	
+	public static void eleccionElemento(byte i) {
 		bMenu = i;
 		FrmPrincipal.list.removeAll();
-		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getPredefinedCursor(FrmPrincipal.ventana.getCursor().WAIT_CURSOR));
+		FrmPrincipal.btnAdd.setVisible(true);
 		switch(i) {
 		case 0:
 			FrmPrincipal.ventana.setTitle("Noticias");
@@ -25,11 +31,11 @@ public class Ctrl_FrmPrincipal {
 			CategoriaLogic.cargarDatos();
 			break;
 		case 3:
+			FrmPrincipal.btnAdd.setVisible(false);
 			FrmPrincipal.ventana.setTitle("Recetas");
 			RecetaLogic.cargarDatos();
 			break;
 		}
-		FrmPrincipal.ventana.setCursor(FrmPrincipal.ventana.getCursor().getDefaultCursor());
 	}
 
 
@@ -45,7 +51,7 @@ public class Ctrl_FrmPrincipal {
 			Ctrl_CategoriaDetalle.inicio(boNuevaFila);
 			break;
 		case 3:
-			Ctrl_RecetaDetalle.inicio(boNuevaFila);
+			Ctrl_RecetaDetalle.inicio();
 			break;
 		}
 	}
