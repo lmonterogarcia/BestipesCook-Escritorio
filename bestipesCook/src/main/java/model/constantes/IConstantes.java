@@ -26,5 +26,5 @@ public interface IConstantes {
     public final String USER = "bestipescook@gmail.com";
     public final String PASSWORD = "Informedac2021";
     public final String MAIL_FROM = "bestipescook@gmail.com";
-    public final String MAIL_SUBJECT = "Hemos encontrado errores en tu receta";
+    public final String MAIL_SUBJECT = "BestipesCook te envia un mensaje";
 }

@@ -34,10 +34,10 @@ public class Ctrl_FrmPrincipal {
 			FrmPrincipal.btnAdd.setVisible(false);
 			FrmPrincipal.ventana.setTitle("Recetas");
 			RecetaLogic.cargarDatos();
+			new RenderListRecetas();
 			break;
 		}
 	}
-
 
 	public static void ventanaDetalle(boolean boNuevaFila) {
 		switch(bMenu) {

@@ -221,8 +221,8 @@ public class RecetaDetalle extends JDialog implements InfoData{
 		
 		btnCancelar.addActionListener(e -> Ctrl_RecetaDetalle.cerrarVentanaDetalle());
 		btnBorrar.addActionListener(e -> Ctrl_RecetaDetalle.delReceta());
-		btnEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(1));
-		btnQuitarEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(0));
+		btnEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(true));
+		btnQuitarEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(false));
 		
 
 		addWindowListener(new WindowAdapter() {

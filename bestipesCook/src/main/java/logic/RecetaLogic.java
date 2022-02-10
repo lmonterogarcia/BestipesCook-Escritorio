@@ -8,13 +8,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.jdesktop.swingworker.SwingWorker;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ctrl.RenderListIngredientes;
-import ctrl.RenderListPasos;
-import ctrl.RenderListRecetas;
 import model.receta.*;
 import model.usuario.Usuario;
 import model.Imagen;
@@ -39,8 +35,6 @@ public class RecetaLogic implements InfoData, IConstantes {
 
 			getRecetas();
 
-			new RenderListRecetas();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,8 +51,6 @@ public class RecetaLogic implements InfoData, IConstantes {
 			getRecetaPasos(iIdReceta);
 			getRecetaIngredientes(iIdReceta);
 
-//			new RenderListIngredientes();
-//			new RenderListPasos();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,15 +77,33 @@ public class RecetaLogic implements InfoData, IConstantes {
 		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));
 
 	}
-	
-	public static void delReceta(int getiIdReceta) {
-		// TODO Auto-generated method stub
+
+	public static boolean delReceta(int iIdReceta) throws IOException {
+		boolean booRespuesta = false;
+		String url = InfoData.URI + URI_RECETA + URI_DEL_RECETA + iIdReceta;
+		String requestHttp = peticionHttp(url);
 		
+		if (requestHttp.equals("200")) {
+			booRespuesta = true;
+		}
+		
+		return booRespuesta;
+
 	}
-	
-	public static void updReceta(int getiIdReceta, boolean enRevision) {
-		// TODO Auto-generated method stub
+
+	public static boolean updReceta(int iIdReceta, boolean booEnRevision) throws IOException {
+		boolean booRespuesta = false;
+		byte bEnRevision = booleanToInt(booEnRevision);
 		
+		String url = InfoData.URI + URI_RECETA + URI_UPD_RECETA + iIdReceta + URI_ENREVISION + bEnRevision;
+		String requestHttp = peticionHttp(url);
+		
+		if (requestHttp.equals("200")) {
+			booRespuesta = true;
+		}
+		
+		return booRespuesta;
+
 	}
 
 	private static JSONArray obtenerJsonArray(String requestHttp) {
@@ -175,6 +185,14 @@ public class RecetaLogic implements InfoData, IConstantes {
 		}
 		return boo;
 	}
+	
+	private static byte booleanToInt(boolean boo) {
+		byte bEnRevision = 0;
+		if (boo) {
+			bEnRevision = 1;
+		}
+		return bEnRevision;
+	}
 
 	private static String peticionHttp(String urlWebService) throws IOException {
 		StringBuilder resultado = new StringBuilder();
@@ -193,7 +211,5 @@ public class RecetaLogic implements InfoData, IConstantes {
 		conn.disconnect();
 		return resultado.toString();
 	}
-
-	
 
 }
