@@ -97,19 +97,20 @@ public class Ctrl_RecetaDetalle {
 				RecetaLogic.lstRecetas.get(iPosicion).setBooEnRevision(booEnRevision);
 				cambioEnRevision();
 				try {
-					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(), RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(), "lmongarman@gmail.com", "Tipo de errores", booEnRevision).sendEmail();
+					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(), RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(), RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), null, booEnRevision).sendEmail();
 				} catch (MessagingException e) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al enviar el email al usuario", "Gestión de Recetas",
+							JOptionPane.PLAIN_MESSAGE);
 					e.printStackTrace();
 				}
-				JOptionPane.showMessageDialog(null, "Se ha cambiado el estado de la revisión y se ha enviado un email al usuario", "Gestión de Recetas",
+				JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Se ha cambiado el estado de la revisión y se ha enviado un email al usuario", "Gestión de Recetas",
 						JOptionPane.PLAIN_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "Error al cambiar el estado de revisión", "Gestión de Recetas",
+				JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al cambiar el estado de revisión", "Gestión de Recetas",
 						JOptionPane.PLAIN_MESSAGE);
 			}
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Error al cambiar el estado de revisión", "Gestión de Recetas",
+			JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al cambiar el estado de revisión", "Gestión de Recetas",
 					JOptionPane.PLAIN_MESSAGE);
 			e.printStackTrace();
 		}
