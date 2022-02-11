@@ -41,6 +41,7 @@ public class ClienteSMTP implements IConstantes {
 		if (booTipoEmail) {
 			this.sMainText = "Hola " + sUsuario + ",\n\n" + "Despues de revisar tu receta \"" + sTituloReceta
 					+ "\", hemos detectado algunos errores por lo que ahora no aparece en las busquedas de la app.\n\n"
+					+ sMainText
 					+ "Por favor revisela para que un administrador pueda volver a publicarla.\n\nMuchas gracias, y a seguir llenando el mundo de buenas recetas.\n\nBestipes Cook Team.";
 		} else {
 			this.sMainText = "Hola " + sUsuario + ",\n\n" + "Despues de revisar de nuevo tu receta \"" + sTituloReceta
