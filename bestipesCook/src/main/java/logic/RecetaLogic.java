@@ -8,13 +8,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.jdesktop.swingworker.SwingWorker;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ctrl.RenderListIngredientes;
-import ctrl.RenderListPasos;
-import ctrl.RenderListRecetas;
 import model.receta.*;
 import model.usuario.Usuario;
 import model.Imagen;
@@ -39,8 +35,6 @@ public class RecetaLogic implements InfoData, IConstantes {
 
 			getRecetas();
 
-			new RenderListRecetas();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,8 +51,6 @@ public class RecetaLogic implements InfoData, IConstantes {
 			getRecetaPasos(iIdReceta);
 			getRecetaIngredientes(iIdReceta);
 
-			new RenderListIngredientes();
-			new RenderListPasos();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -86,6 +78,34 @@ public class RecetaLogic implements InfoData, IConstantes {
 
 	}
 
+	public static boolean delReceta(int iIdReceta) throws IOException {
+		boolean booRespuesta = false;
+		String url = InfoData.URI + URI_RECETA + URI_DEL_RECETA + iIdReceta;
+		String requestHttp = peticionHttp(url);
+		
+		if (requestHttp.equals("200")) {
+			booRespuesta = true;
+		}
+		
+		return booRespuesta;
+
+	}
+
+	public static boolean updReceta(int iIdReceta, boolean booEnRevision) throws IOException {
+		boolean booRespuesta = false;
+		byte bEnRevision = booleanToInt(booEnRevision);
+		
+		String url = InfoData.URI + URI_RECETA + URI_UPD_RECETA + iIdReceta + URI_ENREVISION + bEnRevision;
+		String requestHttp = peticionHttp(url);
+		
+		if (requestHttp.equals("200")) {
+			booRespuesta = true;
+		}
+		
+		return booRespuesta;
+
+	}
+
 	private static JSONArray obtenerJsonArray(String requestHttp) {
 		return new JSONArray(requestHttp);
 	}
@@ -104,13 +124,14 @@ public class RecetaLogic implements InfoData, IConstantes {
 			Short shComensalesReceta = (short) jsonObj.getInt("comensalesReceta");
 			float fDuracionReceta = (float) jsonObj.getDouble("duracionReceta");
 			String sNombreUsuario = jsonObj.getString("usuarionombreUsuario");
+			String sEmailUsuario = jsonObj.getString("emailUsuario");
 			Integer idCategoria = jsonObj.getInt("idCategoria");
 			String sNombreCategoria = jsonObj.getString("nombreCategoria");
 			boolean booChallenge = intToBoolean(jsonObj.getInt("challenge"));
 			boolean booEnRevision = intToBoolean(jsonObj.getInt("enRevision"));
 
 			lstRecetas.add(new Receta(iIdReceta, fechaCreacionReceta, sTituloReceta, booEnRevision,
-					new Usuario(sNombreUsuario), new Categoria(idCategoria, sNombreCategoria, booChallenge),
+					new Usuario(sNombreUsuario, sEmailUsuario), new Categoria(idCategoria, sNombreCategoria, booChallenge),
 					sTextoReceta, shComensalesReceta, fDuracionReceta));
 
 			lstEstrellas.add((float) (jsonObj.getDouble("puntuacionMedia")));
@@ -164,6 +185,14 @@ public class RecetaLogic implements InfoData, IConstantes {
 			boo = true;
 		}
 		return boo;
+	}
+	
+	private static byte booleanToInt(boolean boo) {
+		byte bEnRevision = 0;
+		if (boo) {
+			bEnRevision = 1;
+		}
+		return bEnRevision;
 	}
 
 	private static String peticionHttp(String urlWebService) throws IOException {

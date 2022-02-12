@@ -30,13 +30,24 @@ public class RenderListRecetas {
 
 		for (int i = 0; i < recetaList.length; i++) {
 			listModel.addElement(
-					"  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - " + RecetaLogic.lstEstrellas.get(i));
+					"  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - " + RecetaLogic.lstEstrellas.get(i)
+							+ estaEnRevision(RecetaLogic.lstRecetas.get(i).isBooEnRevision()));
 		}
 
 		imageMap = createImageMap();
 
 		FrmPrincipal.list.setModel(listModel);
 		FrmPrincipal.list.setCellRenderer(new ListRenderer());
+	}
+
+	private String estaEnRevision(boolean booEnRevision) {
+		String sMensaje = "";
+
+		if (booEnRevision) {
+			sMensaje = " - EN REVISION";
+		}
+
+		return sMensaje;
 	}
 
 	public class ListRenderer extends DefaultListCellRenderer {
@@ -70,7 +81,8 @@ public class RenderListRecetas {
 		for (int i = 0; i < RecetaLogic.lstRecetas.size(); i++) {
 			try {
 				map.put("  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - "
-						+ RecetaLogic.lstEstrellas.get(i),
+						+ RecetaLogic.lstEstrellas.get(i)
+						+ estaEnRevision(RecetaLogic.lstRecetas.get(i).isBooEnRevision()),
 						new ImageIcon(new URL(
 								InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(i).getRutaRelativaImagen())));
 			} catch (MalformedURLException e) {

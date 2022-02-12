@@ -1,5 +1,11 @@
 package ctrl;
 
+import java.awt.HeadlessException;
+import java.io.IOException;
+
+import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
+
 import logic.RecetaLogic;
 import model.constantes.InfoData;
 import view.FrmPrincipal;
@@ -17,7 +23,22 @@ public class Ctrl_RecetaDetalle {
 		new RecetaDetalle();
 		iPosicion = FrmPrincipal.list.getSelectedIndex();
 		cargarDatos();
-		logic.RecetaLogic.cargarDatosReceta(iPosicion);
+		cambioEnRevision();
+
+	}
+
+	private static void cambioEnRevision() {
+		if (RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision()) {
+			RecetaDetalle.lblEnRevision.setVisible(true);
+			RecetaDetalle.btnQuitarEnRevision.setVisible(true);
+			RecetaDetalle.btnEnRevision.setVisible(false);
+			RecetaDetalle.btnBorrar.setVisible(true);
+		} else {
+			RecetaDetalle.lblEnRevision.setVisible(false);
+			RecetaDetalle.btnQuitarEnRevision.setVisible(false);
+			RecetaDetalle.btnEnRevision.setVisible(true);
+			RecetaDetalle.btnBorrar.setVisible(false);
+		}
 	}
 
 	private static void cargarDatos() {
@@ -28,80 +49,92 @@ public class Ctrl_RecetaDetalle {
 		RecetaDetalle.txtComensales.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getShComensalesReceta());
 		RecetaDetalle.txtDuracion.setText("" + RecetaLogic.lstRecetas.get(iPosicion).getfDuracionReceta());
 		RecetaDetalle.txtUsuario.setText(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio());
-		RecetaDetalle.cbEnRevision.setSelected(RecetaLogic.lstRecetas.get(iPosicion).isBooEnRevision());
+		RecetaDetalle.lblCategoria.setText(RecetaLogic.lstRecetas.get(iPosicion).getCategoria().getNombreCategoria());
 		Ctrl_Imagen.cargarImgReceta(
 				InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(iPosicion).getRutaRelativaImagen());
-//		cargarIngredientes();
-//		cargarPasos();
-
+		logic.RecetaLogic.cargarDatosReceta(iPosicion);
+		new RenderListIngredientes();
+		new RenderListPasos();
 
 	}
-
-//	public static void habilitarEdicion() {
-//		RecetaDetalle.boEdit = true;
-//		RecetaDetalle.txtTitle.setEditable(true);
-//		RecetaDetalle.txtSubTitle.setEditable(true);
-//		RecetaDetalle.txtDescripcion.setEditable(true);
-//		RecetaDetalle.btnEditar.setVisible(false);
-//
-//		RecetaDetalle.txtTitle.setBackground(InfoData.cWhite);
-//		RecetaDetalle.txtSubTitle.setBackground(InfoData.cWhite);
-//		RecetaDetalle.txtDescripcion.setBackground(InfoData.cWhite);
-//
-//		RecetaDetalle.btnGuardar.setVisible(true);
-//		if(oReceta != null) {
-//			RecetaDetalle.btnBorrar.setVisible(true);
-//		}
-//
-//	}
-
-//	public static void deshabilitarEdicion() {
-//		if(oReceta != null && RecetaDetalle.txtTitle.isEditable()) {
-//			RecetaDetalle.boEdit = false;
-//			RecetaDetalle.txtTitle.setEditable(false);
-//			RecetaDetalle.txtSubTitle.setEditable(false);
-//			RecetaDetalle.txtDescripcion.setEditable(false);
-//			RecetaDetalle.btnEditar.setVisible(true);
-//
-//			RecetaDetalle.txtTitle.setBackground(InfoData.cNaranja);
-//			RecetaDetalle.txtSubTitle.setBackground(InfoData.cNaranja);
-//			RecetaDetalle.txtDescripcion.setBackground(InfoData.cRositaPalo);
-//
-//			RecetaDetalle.btnGuardar.setVisible(false);
-//			RecetaDetalle.btnBorrar.setVisible(false);
-//		}else{
-//			cerrarVentanaDetalle();
-//		}
-//	}
-
-//	public static void updReceta() {
-//		if(oReceta == null) {
-//			try {
-//				if(Ctrl_Imagen.rutaImagenCargada.equals("") || RecetaDetalle.txtTitle.getText().equals("")
-//						|| RecetaDetalle.txtSubTitle.getText().equals("")
-//						|| RecetaDetalle.txtDescripcion.getText().equals("")){
-//					System.err.println("Hay que completar todos los campos");
-//				}else {
-//					RecetaLogic.insRecetaPHP();
-//					cerrarVentanaDetalle();
-//				}
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}else {
-//			RecetaLogic.updRecetaPHP(oReceta);
-//			cerrarVentanaDetalle();
-//		}
-//		
-//	}
 
 	public static void cerrarVentanaDetalle() {
 		RecetaDetalle.ventana.dispose();
 		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
-//	public static void delReceta() {
-//		RecetaLogic.delRecetaPHP(oReceta);
-//		cerrarVentanaDetalle();
-//	}
+	public static void delReceta(byte bTipoEmail) {
+
+		try {
+			if (RecetaLogic.delReceta(RecetaLogic.lstRecetas.get(iPosicion).getiIdReceta())) {
+				Ctrl_Imagen.rutaImagenCargada = InfoData.PATH_IMG + "/"
+						+ RecetaLogic.lstImagenesPral.get(iPosicion).getRutaRelativaImagen();
+				ClienteFTP.start(false);
+				RecetaLogic.lstPasos.forEach(p -> {
+					Ctrl_Imagen.rutaImagenCargada = InfoData.PATH_IMG + "/" + p.getImagen().getRutaRelativaImagen();
+					ClienteFTP.start(false);
+				});
+				try {
+					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(),
+							RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(),
+							RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), "", bTipoEmail)
+									.sendEmail();
+				} catch (MessagingException e) {
+					JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al enviar el email al usuario",
+							"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+					e.printStackTrace();
+				}
+				cerrarVentanaDetalle();
+			} else {
+				msgErrorDel();
+			}
+		} catch (HeadlessException e) {
+			msgErrorDel();
+			e.printStackTrace();
+		} catch (IOException e) {
+			msgErrorDel();
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void msgErrorDel() {
+		JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al eliminar la receta", "Gestión de Recetas",
+				JOptionPane.PLAIN_MESSAGE);
+		
+	}
+
+	public static void cambiarEstadoRevision(boolean booEnRevision, byte bTipoEmail) {
+		String sCuerpoMail = "";
+		try {
+			if (RecetaLogic.updReceta(RecetaLogic.lstRecetas.get(iPosicion).getiIdReceta(), booEnRevision)) {
+				RecetaLogic.lstRecetas.get(iPosicion).setBooEnRevision(booEnRevision);
+				cambioEnRevision();
+				try {
+					if (booEnRevision) {
+						sCuerpoMail = JOptionPane.showInputDialog(RecetaDetalle.ventana,"Explique los errores al usuario", "Gestion de Recetas", JOptionPane.WARNING_MESSAGE) + "\n\n";
+					}
+					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(),
+							RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(),
+							RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), sCuerpoMail, bTipoEmail)
+									.sendEmail();
+				} catch (MessagingException e) {
+					JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al enviar el email al usuario",
+							"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+					e.printStackTrace();
+				}
+				JOptionPane.showMessageDialog(RecetaDetalle.ventana,
+						"Se ha cambiado el estado de la revisión y se ha enviado un email al usuario",
+						"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al cambiar el estado de revisión",
+						"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+			}
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al cambiar el estado de revisión",
+					"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+			e.printStackTrace();
+		}
+	}
+
 }
