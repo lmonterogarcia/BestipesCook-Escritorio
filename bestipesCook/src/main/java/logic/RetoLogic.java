@@ -31,7 +31,7 @@ public class RetoLogic implements InfoData{
 
 		private static ArrayList<Reto> getRetos() throws IOException {
 			String url = InfoData.URI + "reto/lst-retos.php";
-			String requestHttp = peticionHttp(url);
+			String requestHttp = Libreria.peticionHttp(url);
 			return stringToListRetos(requestHttp);
 		}
 
@@ -47,14 +47,14 @@ public class RetoLogic implements InfoData{
 			return lstRetos;
 		}
 		
-		private static String peticionHttp(String urlWebService) throws IOException{
-			OkHttpClient client = new OkHttpClient();
-			Request request = new Request.Builder().url(urlWebService).build();
-
-			Response response = client.newCall(request).execute();
-			
-			return response.body().string();
-		}
+//		private static String peticionHttp(String urlWebService) throws IOException{
+//			OkHttpClient client = new OkHttpClient();
+//			Request request = new Request.Builder().url(urlWebService).build();
+//
+//			Response response = client.newCall(request).execute();
+//			
+//			return response.body().string();
+//		}
 
 		private static Reto objJsonParseRetos(JSONObject jsonObj) throws IOException {
 			//Extraer los values del objeto JSON
@@ -80,7 +80,7 @@ public class RetoLogic implements InfoData{
 				+"&txtidImagen="+oReto.getoImagen().getIdImagen();
 				
 				try {
-					peticionHttp(url);
+					Libreria.peticionHttp(url);
 				} catch (IOException e) {
 					System.err.println(e.getMessage());
 				}
@@ -112,7 +112,7 @@ public class RetoLogic implements InfoData{
 				+"&txtidImagen="+oImagen.getIdImagen();
 
 				try {
-					peticionHttp(url);
+					Libreria.peticionHttp(url);
 				} catch (IOException e) {
 					System.err.println(e.getMessage());
 				}
@@ -151,7 +151,7 @@ public class RetoLogic implements InfoData{
 			
 			System.out.println(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker));
 			try {
-				peticionHttp(url);
+				Libreria.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -160,7 +160,7 @@ public class RetoLogic implements InfoData{
 		public static void delRetoPHP(Reto oReto) {
 			String url = InfoData.URI + "reto/del-reto.php?txtIdReto="+oReto.getIdReto();
 			try {
-				peticionHttp(url);
+				Libreria.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}

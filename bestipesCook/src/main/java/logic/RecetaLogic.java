@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ctrl.Libreria;
 import model.receta.*;
 import model.usuario.Usuario;
 import model.Imagen;
@@ -59,21 +60,21 @@ public class RecetaLogic implements InfoData, IConstantes {
 
 	private static void getRecetas() throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_LSTRECETAS;
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp2(url);
 		jsonObjectToRecetas(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static void getRecetaPasos(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAPASOS + iIdReceta;
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp2(url);
 		jsonObjectToPasos(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static void getRecetaIngredientes(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAINGREDIENTES + iIdReceta;
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp2(url);
 		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));
 
 	}
@@ -81,7 +82,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 	public static boolean delReceta(int iIdReceta) throws IOException {
 		boolean booRespuesta = false;
 		String url = InfoData.URI + URI_RECETA + URI_DEL_RECETA + iIdReceta;
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp2(url);
 		
 		if (requestHttp.equals("200")) {
 			booRespuesta = true;
@@ -96,7 +97,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 		byte bEnRevision = booleanToInt(booEnRevision);
 		
 		String url = InfoData.URI + URI_RECETA + URI_UPD_RECETA + iIdReceta + URI_ENREVISION + bEnRevision;
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp2(url);
 		
 		if (requestHttp.equals("200")) {
 			booRespuesta = true;
@@ -195,22 +196,22 @@ public class RecetaLogic implements InfoData, IConstantes {
 		return bEnRevision;
 	}
 
-	private static String peticionHttp(String urlWebService) throws IOException {
-		StringBuilder resultado = new StringBuilder();
-
-		// Realizar la petición HTTP
-		URL url = new URL(urlWebService);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-
-		// Recoger los datos de respuesta
-		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		String linea;
-		while ((linea = rd.readLine()) != null) {
-			resultado.append(linea);
-		}
-		conn.disconnect();
-		return resultado.toString();
-	}
+//	private static String peticionHttp2(String urlWebService) throws IOException {
+//		StringBuilder resultado = new StringBuilder();
+//
+//		// Realizar la petición HTTP
+//		URL url = new URL(urlWebService);
+//		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//		conn.setRequestMethod("GET");
+//
+//		// Recoger los datos de respuesta
+//		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//		String linea;
+//		while ((linea = rd.readLine()) != null) {
+//			resultado.append(linea);
+//		}
+//		conn.disconnect();
+//		return resultado.toString();
+//	}
 
 }

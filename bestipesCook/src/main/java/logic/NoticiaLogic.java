@@ -10,15 +10,11 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
+import ctrl.Libreria;
 import ctrl.RenderListNoticias;
 import model.Imagen;
 import model.Noticia;
 import model.constantes.InfoData;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import view.NoticiaDetalle;
 
 public class NoticiaLogic implements InfoData{
@@ -37,7 +33,7 @@ public class NoticiaLogic implements InfoData{
 
 	private static ArrayList<Noticia> getNoticias() throws IOException {
 		String url = InfoData.URI + "noticia/lst-noticias.php";
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp(url);
 		return stringToListNoticia(requestHttp);
 	}
 
@@ -51,28 +47,6 @@ public class NoticiaLogic implements InfoData{
 		}
 
 		return lstNoticias;
-	}
-	
-	private static String peticionHttp(String urlWebService) throws IOException{
-		OkHttpClient client = new OkHttpClient();
-		
-		
-		// #################### POST #################
-		
-		//RequestBody formBody = new FormBody.Builder().add("hola", "qwerty").build();
-		
-		
-		//Request request = new Request.Builder().url(urlWebService).post(formBody).build();
-		
-		
-		// #################### POST #################
-		
-		
-		Request request = new Request.Builder().url(urlWebService).build();
-
-		Response response = client.newCall(request).execute();
-		
-		return response.body().string();
 	}
 
 	private static Noticia objJsonParseNoticia(JSONObject jsonObj) throws IOException {
@@ -97,7 +71,7 @@ public class NoticiaLogic implements InfoData{
 			+"&txtidImagen="+oNoticia.getoImagen().getIdImagen();
 			
 			try {
-				peticionHttp(url);
+				Libreria.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -128,7 +102,7 @@ public class NoticiaLogic implements InfoData{
 			+"&txtidImagen="+oImagen.getIdImagen();
 
 			try {
-				peticionHttp(url);
+				Libreria.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -162,7 +136,7 @@ public class NoticiaLogic implements InfoData{
 		+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
 		+"&txtImg="+oImagen.getIdImagen();
 		try {
-			peticionHttp(url);
+			Libreria.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -185,7 +159,7 @@ public class NoticiaLogic implements InfoData{
 	public static void delNoticiaPHP(Noticia oNoticia) {
 		String url = InfoData.URI + "noticia/del-noticia.php?txtIdNoticia="+oNoticia.getIdNoticia();
 		try {
-			peticionHttp(url);
+			Libreria.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}

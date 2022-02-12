@@ -50,7 +50,7 @@ public interface IConstantes {
     public final String MAILGRACIAS = "<p>Muchas gracias, y a seguir llenando el mundo de recetas maravillosas.</p>";
     
     
-    public final String PREMAILBODY = "<html lang=\"en\" xmlns=\"https://www.w3.org/1999/xhtml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n"
+    public final String PREMAILBODY = "<html lang=\"es\" xmlns=\"https://www.w3.org/1999/xhtml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n"
     		+ "<head>\n"
     		+ "    <meta charset=\"UTF-8\">\n"
     		+ "    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n"
