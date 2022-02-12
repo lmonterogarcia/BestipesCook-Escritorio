@@ -63,7 +63,7 @@ public class Ctrl_RecetaDetalle {
 		Ctrl_FrmPrincipal.ventanaPrincipal(Ctrl_FrmPrincipal.bMenu);
 	}
 
-	public static void delReceta() {
+	public static void delReceta(byte bTipoEmail) {
 
 		try {
 			if (RecetaLogic.delReceta(RecetaLogic.lstRecetas.get(iPosicion).getiIdReceta())) {
@@ -74,6 +74,16 @@ public class Ctrl_RecetaDetalle {
 					Ctrl_Imagen.rutaImagenCargada = InfoData.PATH_IMG + "/" + p.getImagen().getRutaRelativaImagen();
 					ClienteFTP.start(false);
 				});
+				try {
+					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(),
+							RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(),
+							RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), "", bTipoEmail)
+									.sendEmail();
+				} catch (MessagingException e) {
+					JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al enviar el email al usuario",
+							"Gestión de Recetas", JOptionPane.PLAIN_MESSAGE);
+					e.printStackTrace();
+				}
 				cerrarVentanaDetalle();
 			} else {
 				msgErrorDel();
@@ -91,9 +101,10 @@ public class Ctrl_RecetaDetalle {
 	private static void msgErrorDel() {
 		JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al eliminar la receta", "Gestión de Recetas",
 				JOptionPane.PLAIN_MESSAGE);
+		
 	}
 
-	public static void cambiarEstadoRevision(boolean booEnRevision) {
+	public static void cambiarEstadoRevision(boolean booEnRevision, byte bTipoEmail) {
 		String sCuerpoMail = "";
 		try {
 			if (RecetaLogic.updReceta(RecetaLogic.lstRecetas.get(iPosicion).getiIdReceta(), booEnRevision)) {
@@ -105,7 +116,7 @@ public class Ctrl_RecetaDetalle {
 					}
 					new ClienteSMTP(RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsNombreUsuraio(),
 							RecetaLogic.lstRecetas.get(iPosicion).getsTituloReceta(),
-							RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), sCuerpoMail, booEnRevision)
+							RecetaLogic.lstRecetas.get(iPosicion).getUsuario().getsEmailUsuario(), sCuerpoMail, bTipoEmail)
 									.sendEmail();
 				} catch (MessagingException e) {
 					JOptionPane.showMessageDialog(RecetaDetalle.ventana, "Error al enviar el email al usuario",

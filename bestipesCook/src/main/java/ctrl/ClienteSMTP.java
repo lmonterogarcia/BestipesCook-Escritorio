@@ -18,10 +18,11 @@ public class ClienteSMTP implements IConstantes {
 	private String sTituloReceta;
 	private String sMailTo;
 	private String sMainText;
+	
 
-	public ClienteSMTP(String sUsuario, String sTituloReceta, String sMailTo, String sMainText, boolean booTipoEmail) {
+	public ClienteSMTP(String sUsuario, String sTituloReceta, String sMailTo, String sMainText, byte bTipoEmail) {
 		this.sMailTo = sMailTo;
-		setsMainText(sUsuario, sTituloReceta, sMainText, booTipoEmail);
+		setsMainText(sUsuario, sTituloReceta, sMainText, bTipoEmail);
 	}
 
 	public String getsMailTo() {
@@ -36,18 +37,35 @@ public class ClienteSMTP implements IConstantes {
 		return sMainText;
 	}
 
-	public void setsMainText(String sUsuario, String sTituloReceta, String sMainText, boolean booTipoEmail) {
+	public void setsMainText(String sUsuario, String sTituloReceta, String sMainText, byte bTipoEmail) {
 
-		if (booTipoEmail) {
-			this.sMainText = "Hola " + sUsuario + ",\n\n" + "Despues de revisar tu receta \"" + sTituloReceta
-					+ "\", hemos detectado algunos errores por lo que ahora no aparece en las busquedas de la app.\n\n"
-					+ sMainText
-					+ "Por favor revisela para que un administrador pueda volver a publicarla.\n\nMuchas gracias, y a seguir llenando el mundo de buenas recetas.\n\nBestipes Cook Team.";
-		} else {
-			this.sMainText = "Hola " + sUsuario + ",\n\n" + "Despues de revisar de nuevo tu receta \"" + sTituloReceta
-					+ "\", hemos detectado que han arreglado los errores y volvera a aparecer en las busquedas de la app.\n\n"
-					+ "Muchas gracias, y a seguir llenando el mundo de buenas recetas.\n\nBestipes Cook Team.";
+		
+		this.sMainText = PREMAILBODY + saludoMail(sUsuario) + nombreRecetaMail(sTituloReceta);
+		switch (bTipoEmail) {
+		case BMAILPONERREVISION:
+			this.sMainText += MAILMSGPONERREVISION + "<p>" + sMainText + "</p>" + MAILMSGPOSTPONERREVISION;
+			break;
+		case BMAILQUITARREVISION:
+			this.sMainText += MAILMSGQUITARENREVISION;
+			break;
+		case BMAILBORRAR:
+			this.sMainText += MAILMSGBORRAR;
+			break;
+
+		default:
+			this.sMainText = PREMAILBODY + MAILDEFAULT + POSTMAILBODY;
+			break;
 		}
+		this.sMainText += MAILGRACIAS + POSTMAILBODY;
+
+	}
+
+	private String saludoMail(String sUsuario) {
+		return MAILHOLA + sUsuario + MAILPOSTHOLA;
+	}
+	
+	private String nombreRecetaMail(String sReceta) {
+		return MAILRECETANOMBRE + sReceta + MAILPOSTRECETANOMBRE;
 	}
 
 	public void sendEmail() throws MessagingException {
@@ -82,7 +100,7 @@ public class ClienteSMTP implements IConstantes {
 		message.setRecipient(Message.RecipientType.TO, new InternetAddress(sMailTo)); // El destinatario del mensaje
 		message.setSubject(MAIL_SUBJECT); // Asunto del mensaje
 		// Cuerpo del mensaje de correo electrónico
-		message.setText(sMainText);
+		message.setContent(sMainText, "text/html");
 		// 5. Enviar correo
 		ts.sendMessage(message, message.getAllRecipients());
 		ts.close();

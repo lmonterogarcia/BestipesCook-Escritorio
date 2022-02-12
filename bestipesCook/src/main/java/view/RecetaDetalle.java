@@ -29,10 +29,11 @@ import javax.swing.border.EmptyBorder;
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
 import ctrl.Ctrl_RecetaDetalle;
+import model.constantes.IConstantes;
 import model.constantes.InfoData;
 import java.awt.Color;
 
-public class RecetaDetalle extends JDialog implements InfoData{
+public class RecetaDetalle extends JDialog implements InfoData, IConstantes{
 
 	private final JPanel contentPanel = new JPanel();
 	public static JDialog ventana;
@@ -220,9 +221,9 @@ public class RecetaDetalle extends JDialog implements InfoData{
 		// EVENTOS
 		
 		btnCancelar.addActionListener(e -> Ctrl_RecetaDetalle.cerrarVentanaDetalle());
-		btnBorrar.addActionListener(e -> Ctrl_RecetaDetalle.delReceta());
-		btnEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(true));
-		btnQuitarEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(false));
+		btnBorrar.addActionListener(e -> Ctrl_RecetaDetalle.delReceta(BMAILBORRAR));
+		btnEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(true, BMAILPONERREVISION));
+		btnQuitarEnRevision.addActionListener(e -> Ctrl_RecetaDetalle.cambiarEstadoRevision(false, BMAILQUITARREVISION));
 		
 
 		addWindowListener(new WindowAdapter() {
