@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ctrl.Libreria;
 import ctrl.RenderListCategoria;
 import model.categoria.Categoria;
 import model.constantes.InfoData;
@@ -30,7 +31,7 @@ public class CategoriaLogic implements InfoData{
 
 	private static ArrayList<Categoria> getCategorias() throws IOException {
 		String url = InfoData.URI + "categoria/lst-categorias.php";
-		String requestHttp = peticionHttp(url);
+		String requestHttp = Libreria.peticionHttp(url);
 		return stringToListCategoria(requestHttp);
 	}
 
@@ -47,14 +48,6 @@ public class CategoriaLogic implements InfoData{
 		return lstCategorias;
 	}
 	
-	private static String peticionHttp(String urlWebService) throws IOException{
-		OkHttpClient client = new OkHttpClient();
-		Request request = new Request.Builder().url(urlWebService).build();
-
-		Response response = client.newCall(request).execute();
-		
-		return response.body().string();
-	}
 
 	private static Categoria objJsonParseCategoria(JSONObject jsonObj) {
 		//Extraer los values del objeto JSON
@@ -84,7 +77,7 @@ public class CategoriaLogic implements InfoData{
 		+"&txtChallenge="+sChallenge
 		+"&txtIdCategoria="+oCategoria.getIdCategoria();
 		try {
-			peticionHttp(url);
+			Libreria.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -102,7 +95,7 @@ public class CategoriaLogic implements InfoData{
 		String url = InfoData.URI + "categoria/ins-categoria.php?txtNombreCategoria="+CategoriaDetalle.txtTitle.getText()
 		+"&txtChallenge="+sChallenge;
 		try {
-			peticionHttp(url);
+			Libreria.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -111,7 +104,7 @@ public class CategoriaLogic implements InfoData{
 	public static void delCategoriaPHP(Categoria oCategoria) {
 		String url = InfoData.URI + "categoria/del-categoria.php?txtIdCategoria="+oCategoria.getIdCategoria();
 		try {
-			peticionHttp(url);
+			Libreria.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
