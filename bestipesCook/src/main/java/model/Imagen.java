@@ -1,8 +1,11 @@
 package model;
 
+import java.time.LocalDateTime;
+
 public class Imagen {
 	private Integer idImagen;
 	private String fechaCreacionImagen;
+	private LocalDateTime fechaCreacionImagenldt;
 	private String rutaRelativaImagen;
 	
 	public Imagen() {
@@ -11,6 +14,12 @@ public class Imagen {
 	public Imagen(Integer idImagen, String fechaCreacionImagen, String rutaRelativaImagen) {
 		this.idImagen = idImagen;
 		this.fechaCreacionImagen = fechaCreacionImagen;
+		this.rutaRelativaImagen = rutaRelativaImagen;
+	}
+	
+	public Imagen(Integer idImagen, LocalDateTime fechacreacionImagenldt, String rutaRelativaImagen) {
+		this.idImagen = idImagen;
+		this.fechaCreacionImagenldt = fechacreacionImagenldt;
 		this.rutaRelativaImagen = rutaRelativaImagen;
 	}
 

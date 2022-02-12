@@ -14,8 +14,10 @@ import ctrl.RenderListNoticias;
 import model.Imagen;
 import model.Noticia;
 import model.constantes.InfoData;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import view.NoticiaDetalle;
 
@@ -27,6 +29,7 @@ public class NoticiaLogic implements InfoData{
 		try {
 			lstNoticias = getNoticias();
 			new RenderListNoticias();
+			//ONSUCCESS
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,6 +55,19 @@ public class NoticiaLogic implements InfoData{
 	
 	private static String peticionHttp(String urlWebService) throws IOException{
 		OkHttpClient client = new OkHttpClient();
+		
+		
+		// #################### POST #################
+		
+		//RequestBody formBody = new FormBody.Builder().add("hola", "qwerty").build();
+		
+		
+		//Request request = new Request.Builder().url(urlWebService).post(formBody).build();
+		
+		
+		// #################### POST #################
+		
+		
 		Request request = new Request.Builder().url(urlWebService).build();
 
 		Response response = client.newCall(request).execute();
@@ -151,6 +167,20 @@ public class NoticiaLogic implements InfoData{
 			System.err.println(e.getMessage());
 		}
 	}
+	
+//	public static void insNoticiaPHP() throws IOException {
+//
+//
+//		//Insertar noticia
+//		String url = "http://10.192.120.86/holamundo/ws.php?txtTituloNoticia="+NoticiaDetalle.txtTitle.getText()
+//		+"&txtSubtituloNoticia="+NoticiaDetalle.txtSubTitle.getText()
+//		+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText();
+//		try {
+//			System.out.println(peticionHttp(url));
+//		} catch (IOException e) {
+//			System.err.println(e.getMessage());
+//		}
+//	}
 
 	public static void delNoticiaPHP(Noticia oNoticia) {
 		String url = InfoData.URI + "noticia/del-noticia.php?txtIdNoticia="+oNoticia.getIdNoticia();

@@ -27,6 +27,7 @@ public class FrmPrincipal extends JFrame {
 	private JPanel contentPane;
 	public static JList<Object> list;
 	public static JFrame ventana;
+	public static JButton btnAdd;
 	
 	
 	public FrmPrincipal() {
@@ -113,7 +114,7 @@ public class FrmPrincipal extends JFrame {
         center_pnl.add(panelScroll, BorderLayout.CENTER);
 		
 		
-		JButton btnAdd = new JButton("");
+		btnAdd = new JButton("");
 		btnAdd.setIcon(new ImageIcon("src/recursos/add_icon.png"));
 		btnAdd.setFont(new Font("Yu Gothic UI Light", Font.BOLD, 20));
 		btnAdd.setContentAreaFilled(false);

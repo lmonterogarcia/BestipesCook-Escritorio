@@ -23,6 +23,10 @@ public class Usuario {
 		public Usuario(String sNombreUsuraio) {
 			this.sNombreUsuraio = sNombreUsuraio;
 		}
+		public Usuario(String sNombreUsuraio, String sEmailUsuario) {
+			this.sNombreUsuraio = sNombreUsuraio;
+			this.sEmailUsuario = sEmailUsuario;
+		}
 
 		public Usuario(String sNombreUsuraio, LocalDateTime fechaCreacionUsuario, String sEmailUsuario, String sPassUsuario,
 				byte bGeneroUsuario, boolean booBaneadoUsuario, boolean booENRevisionUsuario, boolean booAdmin) {

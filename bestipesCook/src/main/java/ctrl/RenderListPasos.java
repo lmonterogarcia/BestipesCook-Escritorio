@@ -15,44 +15,29 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
-import ctrl.RenderListRecetas.ListRenderer;
+import ctrl.RenderListPasos.ListRenderer;
 import logic.RecetaLogic;
+import model.constantes.IConstantes;
 import model.constantes.InfoData;
 import view.FrmPrincipal;
+import view.RecetaDetalle;
 
-public class RenderListRecetas {
+public class RenderListPasos implements IConstantes{
 
 	private final HashMap<String, ImageIcon> imageMap;
 
-	public RenderListRecetas() {
-		String[] recetaList = new String[RecetaLogic.lstRecetas.size()];
-		DefaultListModel<Object> listModel = new DefaultListModel<Object>();
+	public RenderListPasos() {
+		DefaultListModel<Object> listModelPasos = new DefaultListModel<Object>();
 
-		for (int i = 0; i < recetaList.length; i++) {
-			listModel.addElement(
-					"  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - " + RecetaLogic.lstEstrellas.get(i)
-							+ estaEnRevision(RecetaLogic.lstRecetas.get(i).isBooEnRevision()));
-		}
+		logic.RecetaLogic.lstPasos.forEach(p -> listModelPasos.addElement(p.getbOrdenPaso() + ". " + p.getsTextoPaso()));
 
 		imageMap = createImageMap();
 
-		FrmPrincipal.list.setModel(listModel);
-		FrmPrincipal.list.setCellRenderer(new ListRenderer());
-	}
-
-	private String estaEnRevision(boolean booEnRevision) {
-		String sMensaje = "";
-
-		if (booEnRevision) {
-			sMensaje = " - EN REVISION";
-		}
-
-		return sMensaje;
+		RecetaDetalle.listPasos.setModel(listModelPasos);
+		RecetaDetalle.listPasos.setCellRenderer(new ListRenderer());
 	}
 
 	public class ListRenderer extends DefaultListCellRenderer {
-
-		Font font = new Font("Yu Gothic UI Light", Font.BOLD, 24);
 
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
@@ -70,7 +55,7 @@ public class RenderListRecetas {
 			}
 
 			label.setHorizontalTextPosition(JLabel.RIGHT);
-			label.setFont(font);
+			label.setFont(FONTLISTASDETALLE);
 			return label;
 		}
 	}
@@ -79,16 +64,16 @@ public class RenderListRecetas {
 		HashMap<String, ImageIcon> map = new HashMap<>();
 
 		for (int i = 0; i < RecetaLogic.lstRecetas.size(); i++) {
-			try {
-				map.put("  " + RecetaLogic.lstRecetas.get(i).getsTituloReceta() + " - "
-						+ RecetaLogic.lstEstrellas.get(i)
-						+ estaEnRevision(RecetaLogic.lstRecetas.get(i).isBooEnRevision()),
-						new ImageIcon(new URL(
-								InfoData.URI_MEDIA + RecetaLogic.lstImagenesPral.get(i).getRutaRelativaImagen())));
-			} catch (MalformedURLException e) {
-
-				e.printStackTrace();
-			}
+			
+				logic.RecetaLogic.lstPasos.forEach(p -> {
+					try {
+						map.put(p.getbOrdenPaso() + ". " + p.getsTextoPaso(),new ImageIcon(new URL(
+								InfoData.URI_MEDIA + p.getImagen().getRutaRelativaImagen())));
+					} catch (MalformedURLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				});
 		}
 
 		return map;
