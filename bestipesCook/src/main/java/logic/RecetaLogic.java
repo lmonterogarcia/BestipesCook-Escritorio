@@ -1,17 +1,13 @@
 package logic;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ctrl.Libreria;
+import ctrl.Utils;
 import model.receta.*;
 import model.usuario.Usuario;
 import model.Imagen;
@@ -60,21 +56,21 @@ public class RecetaLogic implements InfoData, IConstantes {
 
 	private static void getRecetas() throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_LSTRECETAS;
-		String requestHttp = Libreria.peticionHttp2(url);
+		String requestHttp = Utils.peticionHttp2(url);
 		jsonObjectToRecetas(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static void getRecetaPasos(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAPASOS + iIdReceta;
-		String requestHttp = Libreria.peticionHttp2(url);
+		String requestHttp = Utils.peticionHttp2(url);
 		jsonObjectToPasos(obtenerJsonArray(requestHttp));
 
 	}
 
 	private static void getRecetaIngredientes(int iIdReceta) throws IOException {
 		String url = InfoData.URI + URI_RECETA + URI_GETRECETAINGREDIENTES + iIdReceta;
-		String requestHttp = Libreria.peticionHttp2(url);
+		String requestHttp = Utils.peticionHttp2(url);
 		jsonObjectToIngredientes(obtenerJsonArray(requestHttp));
 
 	}
@@ -82,7 +78,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 	public static boolean delReceta(int iIdReceta) throws IOException {
 		boolean booRespuesta = false;
 		String url = InfoData.URI + URI_RECETA + URI_DEL_RECETA + iIdReceta;
-		String requestHttp = Libreria.peticionHttp2(url);
+		String requestHttp = Utils.peticionHttp2(url);
 		
 		if (requestHttp.equals("200")) {
 			booRespuesta = true;
@@ -97,7 +93,7 @@ public class RecetaLogic implements InfoData, IConstantes {
 		byte bEnRevision = booleanToInt(booEnRevision);
 		
 		String url = InfoData.URI + URI_RECETA + URI_UPD_RECETA + iIdReceta + URI_ENREVISION + bEnRevision;
-		String requestHttp = Libreria.peticionHttp2(url);
+		String requestHttp = Utils.peticionHttp2(url);
 		
 		if (requestHttp.equals("200")) {
 			booRespuesta = true;

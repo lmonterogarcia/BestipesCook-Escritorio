@@ -9,7 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_FrmPrincipal;
+import ctrl.Utils;
 import model.constantes.Colors;
+import model.constantes.IConstantes;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -22,7 +24,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.GridLayout;
 
-public class FrmPrincipal extends JFrame {
+public class FrmPrincipal extends JFrame implements IConstantes{
 
 	private JPanel contentPane;
 	public static JList<Object> list;
@@ -36,7 +38,8 @@ public class FrmPrincipal extends JFrame {
 		setTitle("Bestipes Cook");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 600);
+//		setBounds(100, 100, 950, 600);
+		Utils.centarlVentana(ventana, iAnchoGr, iAltoGR);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(5, 0));

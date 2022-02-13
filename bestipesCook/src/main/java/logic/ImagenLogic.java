@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
-import ctrl.Libreria;
+import ctrl.Utils;
 import model.Imagen;
 import model.constantes.InfoData;
 import okhttp3.OkHttpClient;
@@ -25,7 +25,7 @@ public class ImagenLogic {
 	public static void insImagenPHP(String ruta) {
 		String url = InfoData.URI + "imagen/ins-imagen.php?txtrutaRelativaImagen="+ruta;
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -34,7 +34,7 @@ public class ImagenLogic {
 	public static void delImagenPHP(Integer idImagen) {
 		String url = InfoData.URI + "imagen/del-imagen.php?txtidImagen="+idImagen;
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -42,7 +42,7 @@ public class ImagenLogic {
 
 	public static Imagen getImagen(Integer imagenidImagen) throws IOException {
 		String url = InfoData.URI + "imagen/get-imagen.php?txtidImagen="+imagenidImagen;
-		String requestHttp = Libreria.peticionHttp(url);
+		String requestHttp = Utils.peticionHttp(url);
 		
 		Imagen oImagen = new Imagen();
 		JSONObject jsonObj = new JSONObject(requestHttp);
@@ -53,7 +53,7 @@ public class ImagenLogic {
 	
 	public static Imagen getImagenByIdReceta(Integer idReceta) throws IOException {
 		String url = InfoData.URI + InfoData.URI_RECETA + InfoData.URI_GETIMAGENBYIDRECETA + idReceta;
-		String requestHttp = Libreria.peticionHttp(url);
+		String requestHttp = Utils.peticionHttp(url);
 		
 		Imagen oImagen = new Imagen();
 		JSONObject jsonObj = new JSONObject(requestHttp);
@@ -74,7 +74,7 @@ public class ImagenLogic {
 
 	public static Imagen getImagenByUrl(String rutaImagen) throws IOException {
 		String url = InfoData.URI + "imagen/getByUrl-imagen.php?txtrutaRelativaImagen="+rutaImagen;
-		String requestHttp = Libreria.peticionHttp(url);
+		String requestHttp = Utils.peticionHttp(url);
 		
 		Imagen oImagen = new Imagen();
 		JSONObject jsonObj = new JSONObject(requestHttp);

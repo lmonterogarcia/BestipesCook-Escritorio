@@ -31,7 +31,7 @@ public class RetoLogic implements InfoData{
 
 		private static ArrayList<Reto> getRetos() throws IOException {
 			String url = InfoData.URI + "reto/lst-retos.php";
-			String requestHttp = Libreria.peticionHttp(url);
+			String requestHttp = Utils.peticionHttp(url);
 			return stringToListRetos(requestHttp);
 		}
 
@@ -80,7 +80,7 @@ public class RetoLogic implements InfoData{
 				+"&txtidImagen="+oReto.getoImagen().getIdImagen();
 				
 				try {
-					Libreria.peticionHttp(url);
+					Utils.peticionHttp(url);
 				} catch (IOException e) {
 					System.err.println(e.getMessage());
 				}
@@ -112,7 +112,7 @@ public class RetoLogic implements InfoData{
 				+"&txtidImagen="+oImagen.getIdImagen();
 
 				try {
-					Libreria.peticionHttp(url);
+					Utils.peticionHttp(url);
 				} catch (IOException e) {
 					System.err.println(e.getMessage());
 				}
@@ -151,7 +151,7 @@ public class RetoLogic implements InfoData{
 			
 			System.out.println(Ctrl_RetoDetalle.formatDate(RetoDetalle.picker));
 			try {
-				Libreria.peticionHttp(url);
+				Utils.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -160,7 +160,7 @@ public class RetoLogic implements InfoData{
 		public static void delRetoPHP(Reto oReto) {
 			String url = InfoData.URI + "reto/del-reto.php?txtIdReto="+oReto.getIdReto();
 			try {
-				Libreria.peticionHttp(url);
+				Utils.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
