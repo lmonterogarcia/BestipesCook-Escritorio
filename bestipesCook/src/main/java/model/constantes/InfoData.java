@@ -26,4 +26,7 @@ public interface InfoData {
 	public final String URI_UPD_RECETA = "upd-receta.php?txtIdReceta=";
 	public final String URI_ENREVISION = "&txtEnRevision=";
 	
+	
+	// ## LOGIN ##
+	public final String URI_LOGIN = "login/login.php";
 }

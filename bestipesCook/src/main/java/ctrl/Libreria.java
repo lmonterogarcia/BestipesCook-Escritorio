@@ -6,35 +6,44 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.json.JSONObject;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Libreria {
 
-	
-	public static String peticionHttp(String urlWebService) throws IOException{
+	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+	public static String peticionHttp(String urlWebService) throws IOException {
 		OkHttpClient client = new OkHttpClient();
-		
-		
-		// #################### POST #################
-		
-		//RequestBody formBody = new FormBody.Builder().add("hola", "qwerty").build();
-		
-		
-		//Request request = new Request.Builder().url(urlWebService).post(formBody).build();
-		
-		
-		// #################### POST #################
-		
-		
+
 		Request request = new Request.Builder().url(urlWebService).build();
 
 		Response response = client.newCall(request).execute();
-		
+
 		return response.body().string();
 	}
-	
+
+	public static String peticionHttpPostJson(String urlWebService, JSONObject json) throws IOException {
+		OkHttpClient client = new OkHttpClient();
+
+//		RequestBody body = RequestBody.create(json.toString(), JSON);
+//		Request request = new Request.Builder().url(urlWebService).post(body).build();
+		
+		RequestBody body = new FormBody.Builder().add("usuario", json.getString("usuario")).add("pass", json.getString("pass")).build();
+		Request request = new Request.Builder().url(urlWebService).post(body).build();
+
+		Response response = client.newCall(request).execute();
+
+		return response.body().string();
+	}
+
 	public static String peticionHttp2(String urlWebService) throws IOException {
 		StringBuilder resultado = new StringBuilder();
 
