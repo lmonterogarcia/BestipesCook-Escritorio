@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
 
 import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.FormBody.Builder;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,11 +34,24 @@ public class Libreria {
 
 	public static String peticionHttpPostJson(String urlWebService, JSONObject json) throws IOException {
 		OkHttpClient client = new OkHttpClient();
+		String sKey;
 
-//		RequestBody body = RequestBody.create(json.toString(), JSON);
-//		Request request = new Request.Builder().url(urlWebService).post(body).build();
+		// EJEMPLOS
+		//RequestBody body = RequestBody.create(json.toString(), JSON);
+		//RequestBody body = new FormBody.Builder().add("usuario", json.getString("usuario")).add("pass", json.getString("pass")).build();
 		
-		RequestBody body = new FormBody.Builder().add("usuario", json.getString("usuario")).add("pass", json.getString("pass")).build();
+		Builder buildrBody = new FormBody.Builder();
+		@SuppressWarnings("unchecked")
+		Iterator<String> siKey = json.keys();
+		for (int i = 0; i < json.length(); i++) {
+			sKey = siKey.next().toString();
+			buildrBody.add(sKey, json.getString(sKey));
+			
+		}
+		RequestBody body = buildrBody.build();
+		
+		
+		
 		Request request = new Request.Builder().url(urlWebService).post(body).build();
 
 		Response response = client.newCall(request).execute();

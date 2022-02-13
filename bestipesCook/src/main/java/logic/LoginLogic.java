@@ -20,28 +20,13 @@ public class LoginLogic {
 		jsonObj.put("pass", sha256hexPass);
 		
 		String sUserBack = Libreria.peticionHttpPostJson(sUrl, jsonObj);
+
 		
-		if (jsonObjectToUser(obtenerJsonArray(sUserBack)).equals(sUser) && !jsonObjectToUser(obtenerJsonArray(sUserBack)).equals("")) {
+		if (sUserBack.equals(sUser) && !sUserBack.equals("")) {
 			booPasar = true;
 		}
 		
 		return booPasar;
 	}
 	
-	private static String jsonObjectToUser(JSONArray jsonArr) {
-		String sUser = "";
-		for (int i = 0; i < jsonArr.length(); i++) {
-
-			JSONObject jsonObj = jsonArr.getJSONObject(i);
-
-			sUser = jsonObj.getString("nombreUsuario");
-
-		}
-		return sUser;
-	}
-	
-	private static JSONArray obtenerJsonArray(String requestHttp) {
-		return new JSONArray(requestHttp);
-	}
-
 }
