@@ -19,7 +19,7 @@ public class Ctrl_Login {
 				  .toString().toUpperCase();
 		
 		try {
-			if (logic.LoginLogic.verificarAdmin(Login.txtUsuario.getText(), sha256hexPass) /*|| ( Login.txtUsuario.getText().equals("") && String.valueOf(Login.txtPassword.getPassword()).equals(""))*/) {
+			if (logic.LoginLogic.verificarAdmin(Login.txtUsuario.getText(), sha256hexPass)) {
 				Login.window.dispose();
 			} else {
 				JOptionPane.showMessageDialog(Login.window,

@@ -21,7 +21,7 @@ public class LoginLogic {
 		
 		String sUserBack = Libreria.peticionHttpPostJson(sUrl, jsonObj);
 		
-		if (jsonObjectToUser(obtenerJsonArray(sUserBack)).equals(sUser)) {
+		if (jsonObjectToUser(obtenerJsonArray(sUserBack)).equals(sUser) && !jsonObjectToUser(obtenerJsonArray(sUserBack)).equals("")) {
 			booPasar = true;
 		}
 		
