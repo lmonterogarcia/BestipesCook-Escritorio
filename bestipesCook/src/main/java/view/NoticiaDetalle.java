@@ -144,28 +144,7 @@ public class NoticiaDetalle extends JDialog implements IConstantes {
 
 		lblImg.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-
-				if (boEdit) {
-					JFileChooser chooser = new JFileChooser();
-					chooser.showOpenDialog(null);
-					File f = chooser.getSelectedFile();
-					if (f != null) {
-						Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
-					}
-					/*
-					 * try { JFileChooser chooser = new JFileChooser();
-					 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +
-					 * “”; filename = f.getAbsolutePath(); ImageIcon imgThisImg = new ImageIcon(new
-					 * ImageIcon(filename) .getImage().getScaledInstance(280, 187,
-					 * Image.SCALE_DEFAULT)); jLabel1.setIcon(imgThisImg); File image = new
-					 * File(filename); FileInputStream fis = new FileInputStream(image);
-					 * ByteArrayOutputStream bos = new ByteArrayOutputStream(); byte[] buf = new
-					 * byte[1024]; for (int readNum; (readNum = fis.read(buf)) != -1;) {
-					 * bos.write(buf, 0, readNum); } person_image = bos.toByteArray(); } catch
-					 * (HeadlessException | IOException e) { JOptionPane.showMessageDialog(null, e,
-					 * “Error”, JOptionPane.ERROR_MESSAGE); }
-					 */
-				}
+				Ctrl_NoticiaDetalle.guardarImagen();
 			}
 		});
 

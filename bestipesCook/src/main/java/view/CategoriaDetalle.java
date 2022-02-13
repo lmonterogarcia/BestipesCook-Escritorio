@@ -34,10 +34,10 @@ public class CategoriaDetalle extends JDialog implements IConstantes{
 	public CategoriaDetalle() {
 		ventana = this;
 		setTitle("Categoria - Edición");
-		Utils.centarlVentana(ventana, iAnchoPeq, iAltoPeq);
+		Utils.centarlVentana(ventana, iAnchoCat, iAltoCat);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(InfoData.cNaranja);
-		contentPanel.setBounds(0, 0, 434, 58);
+		contentPanel.setBounds(0, 0, 430, 60);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);

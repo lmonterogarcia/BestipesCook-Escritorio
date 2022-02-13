@@ -1,6 +1,9 @@
 package ctrl;
 
+import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JFileChooser;
 
 import logic.NoticiaLogic;
 import model.Noticia;
@@ -86,6 +89,17 @@ public class Ctrl_NoticiaDetalle {
 			cerrarVentanaDetalle();
 		}
 		
+	}
+	
+	public static void guardarImagen() {
+		if (NoticiaDetalle.boEdit) {
+			JFileChooser chooser = new JFileChooser();
+			chooser.showOpenDialog(NoticiaDetalle.ventana);
+			File f = chooser.getSelectedFile();
+			if (f != null) {
+				Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
+			}
+		}
 	}
 
 	public static void cerrarVentanaDetalle() {

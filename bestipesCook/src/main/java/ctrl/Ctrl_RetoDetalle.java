@@ -1,5 +1,6 @@
 package ctrl;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -18,6 +20,7 @@ import logic.RetoLogic;
 import model.Reto;
 import model.constantes.InfoData;
 import view.FrmPrincipal;
+import view.NoticiaDetalle;
 import view.RetoDetalle;
 
 public class Ctrl_RetoDetalle {
@@ -131,6 +134,17 @@ public class Ctrl_RetoDetalle {
 			cerrarVentanaDetalle();
 		}
 		
+	}
+	
+	public static void guardarImagen() {
+		if (RetoDetalle.boEdit) {
+			JFileChooser chooser = new JFileChooser();
+			chooser.showOpenDialog(RetoDetalle.ventana);
+			File f = chooser.getSelectedFile();
+			if (f != null) {
+				Ctrl_Imagen.previsualizarImgReto(f.getAbsolutePath());
+			}
+		}
 	}
 
 	public static void cerrarVentanaDetalle() {
