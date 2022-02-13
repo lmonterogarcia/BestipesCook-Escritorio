@@ -10,7 +10,9 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_Login;
+import ctrl.Utils;
 import model.constantes.Colors;
+import model.constantes.IConstantes;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -24,7 +26,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.FlowLayout;
 
-public class Login extends JDialog {
+public class Login extends JDialog implements IConstantes{
 
 	private final JPanel contentPanel = new JPanel();
 	public static JTextField txtUsuario;
@@ -36,7 +38,8 @@ public class Login extends JDialog {
 		setTitle("Login");
 		setModal(true);
 		setResizable(false);
-		setBounds(400, 225, 300, 400);
+//		setBounds(400, 225, 300, 400);
+		Utils.centarlVentana(window, iAnchoLog, iAltoLog);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 204, 102));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

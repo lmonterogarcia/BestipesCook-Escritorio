@@ -14,11 +14,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_CategoriaDetalle;
+import ctrl.Utils;
+import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
 import javax.swing.JCheckBox;
 
-public class CategoriaDetalle extends JDialog {
+public class CategoriaDetalle extends JDialog implements IConstantes{
 
 	private final JPanel contentPanel = new JPanel();
 	public static JTextField txtTitle;
@@ -32,7 +34,7 @@ public class CategoriaDetalle extends JDialog {
 	public CategoriaDetalle() {
 		ventana = this;
 		setTitle("Categoria - Edición");
-		setBounds(100, 100, 450, 126);
+		Utils.centarlVentana(ventana, iAnchoPeq, iAltoPeq);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(InfoData.cNaranja);
 		contentPanel.setBounds(0, 0, 434, 58);

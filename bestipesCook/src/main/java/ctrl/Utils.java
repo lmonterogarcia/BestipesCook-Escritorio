@@ -7,6 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Iterator;
 
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.*;
+
 import org.json.JSONObject;
 
 import okhttp3.Call;
@@ -18,7 +24,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class Libreria {
+public class Utils {
 
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -75,5 +81,15 @@ public class Libreria {
 		}
 		conn.disconnect();
 		return resultado.toString();
+	}
+	
+	public static void centarlVentana(JDialog dialog, int iAncho, int iAlto) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		dialog.setBounds(((screenSize.width - iAncho) / 2), ((screenSize.height - iAlto) / 2), iAncho, iAlto);
+	}
+	
+	public static void centarlVentana(JFrame frame, int iAncho, int iAlto) {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setBounds(((screenSize.width - iAncho) / 2), ((screenSize.height - iAlto) / 2), iAncho, iAlto);
 	}
 }

@@ -93,4 +93,13 @@ public interface IConstantes {
     		+ "    </table>\n"
     		+ "</body>";
     
+    
+    // DIMENSIONES VENTANAS
+    
+    public final int iAnchoGr = 950;
+    public final int iAltoGR = 600;
+    public final int iAnchoPeq = 450;
+    public final int iAltoPeq = 300;
+    public final int iAnchoLog = 300;
+    public final int iAltoLog = 400;
 }

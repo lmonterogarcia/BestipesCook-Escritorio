@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import com.google.common.hash.Hashing;
 
-import ctrl.Libreria;
+import ctrl.Utils;
 import model.constantes.InfoData;
 import view.Login;
 
@@ -23,7 +23,7 @@ public class LoginLogic {
 		jsonObj.put("usuario", sUser);
 		jsonObj.put("pass", sha256hexPass);
 		
-		String sUserBack = Libreria.peticionHttpPostJson(sUrl, jsonObj);
+		String sUserBack = Utils.peticionHttpPostJson(sUrl, jsonObj);
 		String sUserHash = Hashing.sha256()
 		  .hashString(sUser, StandardCharsets.UTF_8)
 		  .toString();

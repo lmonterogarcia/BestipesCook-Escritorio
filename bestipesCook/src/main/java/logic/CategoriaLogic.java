@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import ctrl.Libreria;
+import ctrl.Utils;
 import ctrl.RenderListCategoria;
 import model.categoria.Categoria;
 import model.constantes.InfoData;
@@ -31,7 +31,7 @@ public class CategoriaLogic implements InfoData{
 
 	private static ArrayList<Categoria> getCategorias() throws IOException {
 		String url = InfoData.URI + "categoria/lst-categorias.php";
-		String requestHttp = Libreria.peticionHttp(url);
+		String requestHttp = Utils.peticionHttp(url);
 		return stringToListCategoria(requestHttp);
 	}
 
@@ -77,7 +77,7 @@ public class CategoriaLogic implements InfoData{
 		+"&txtChallenge="+sChallenge
 		+"&txtIdCategoria="+oCategoria.getIdCategoria();
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -95,7 +95,7 @@ public class CategoriaLogic implements InfoData{
 		String url = InfoData.URI + "categoria/ins-categoria.php?txtNombreCategoria="+CategoriaDetalle.txtTitle.getText()
 		+"&txtChallenge="+sChallenge;
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -104,7 +104,7 @@ public class CategoriaLogic implements InfoData{
 	public static void delCategoriaPHP(Categoria oCategoria) {
 		String url = InfoData.URI + "categoria/del-categoria.php?txtIdCategoria="+oCategoria.getIdCategoria();
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}

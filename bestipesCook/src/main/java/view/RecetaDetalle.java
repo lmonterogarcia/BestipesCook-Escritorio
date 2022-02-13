@@ -29,6 +29,7 @@ import javax.swing.border.EmptyBorder;
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
 import ctrl.Ctrl_RecetaDetalle;
+import ctrl.Utils;
 import model.constantes.IConstantes;
 import model.constantes.InfoData;
 import java.awt.Color;
@@ -63,7 +64,7 @@ public class RecetaDetalle extends JDialog implements InfoData, IConstantes{
 		
 		ventana = this;
 		setTitle("Receta - Edición");
-		setBounds(100, 100, 950, 600);
+		Utils.centarlVentana(ventana, iAnchoGr, iAltoGR);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		contentPanel.setBackground(InfoData.cNaranja);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

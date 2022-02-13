@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_NoticiaDetalle;
+import ctrl.Utils;
+import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
 import java.awt.event.WindowAdapter;
@@ -26,7 +28,7 @@ import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.ImageIcon;
 
-public class NoticiaDetalle extends JDialog {
+public class NoticiaDetalle extends JDialog implements IConstantes {
 
 	private final JPanel contentPanel = new JPanel();
 	public static JTextField txtTitle;
@@ -44,7 +46,7 @@ public class NoticiaDetalle extends JDialog {
 	public NoticiaDetalle() {
 		ventana = this;
 		setTitle("Noticia - Edición");
-		setBounds(100, 100, 450, 300);
+		Utils.centarlVentana(ventana, iAnchoPeq, iAltoPeq);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(InfoData.cNaranja);
 		contentPanel.setBounds(0, 0, 434, 228);
@@ -53,8 +55,7 @@ public class NoticiaDetalle extends JDialog {
 		contentPanel.setLayout(null);
 
 		lblImg = new JLabel("");
-		lblImg.setIcon(new ImageIcon(
-				"src/recursos/img_add.png"));
+		lblImg.setIcon(new ImageIcon("src/recursos/img_add.png"));
 		lblImg.setBounds(295, 10, 129, 100);
 		contentPanel.add(lblImg);
 
@@ -143,12 +144,14 @@ public class NoticiaDetalle extends JDialog {
 
 		lblImg.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				
+
 				if (boEdit) {
 					JFileChooser chooser = new JFileChooser();
 					chooser.showOpenDialog(null);
 					File f = chooser.getSelectedFile();
-					Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
+					if (f != null) {
+						Ctrl_Imagen.previsualizarImgNoticia(f.getAbsolutePath());
+					}
 					/*
 					 * try { JFileChooser chooser = new JFileChooser();
 					 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +

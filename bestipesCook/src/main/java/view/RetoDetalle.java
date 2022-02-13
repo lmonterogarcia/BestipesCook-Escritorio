@@ -10,6 +10,8 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import ctrl.Ctrl_Imagen;
 import ctrl.Ctrl_RetoDetalle;
+import ctrl.Utils;
+import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
 import java.awt.event.WindowAdapter;
@@ -29,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.ImageIcon;
 
-public class RetoDetalle extends JDialog {
+public class RetoDetalle extends JDialog implements IConstantes{
 
 	private final JPanel contentPanel = new JPanel();
 	public static Boolean boEdit = false;
@@ -50,7 +52,7 @@ public class RetoDetalle extends JDialog {
 	public RetoDetalle() {
 		ventana = this;
 		setTitle("Reto - Edición");
-		setBounds(100, 100, 450, 300);
+		Utils.centarlVentana(ventana, iAnchoPeq, iAltoPeq);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(InfoData.cNaranja);
 		contentPanel.setBounds(0, 0, 434, 228);
@@ -60,7 +62,7 @@ public class RetoDetalle extends JDialog {
 
 		lblImg = new JLabel("");
 		lblImg.setIcon(new ImageIcon(
-				"C:\\Users\\Usuario\\Documents\\BestipesCook-Escritorio\\bestipesCook\\src\\recursos\\img_add.png"));
+				"src/recursos/img_add.png"));
 		lblImg.setBounds(295, 11, 120, 99);
 		contentPanel.add(lblImg);
 
@@ -164,7 +166,10 @@ public class RetoDetalle extends JDialog {
 						JFileChooser chooser = new JFileChooser();
 						chooser.showOpenDialog(null);
 						File f = chooser.getSelectedFile();
-						Ctrl_Imagen.previsualizarImgReto(f.getAbsolutePath());
+						if (f != null) {
+							Ctrl_Imagen.previsualizarImgReto(f.getAbsolutePath());
+						}
+						
 						/*
 						 * try { JFileChooser chooser = new JFileChooser();
 						 * chooser.showOpenDialog(null); File f = chooser.getSelectedFile(); path = f +

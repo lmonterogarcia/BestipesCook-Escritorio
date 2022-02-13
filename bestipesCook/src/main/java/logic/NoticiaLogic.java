@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 import ctrl.ClienteFTP;
 import ctrl.Ctrl_Imagen;
-import ctrl.Libreria;
+import ctrl.Utils;
 import ctrl.RenderListNoticias;
 import model.Imagen;
 import model.Noticia;
@@ -33,7 +33,7 @@ public class NoticiaLogic implements InfoData{
 
 	private static ArrayList<Noticia> getNoticias() throws IOException {
 		String url = InfoData.URI + "noticia/lst-noticias.php";
-		String requestHttp = Libreria.peticionHttp(url);
+		String requestHttp = Utils.peticionHttp(url);
 		return stringToListNoticia(requestHttp);
 	}
 
@@ -71,7 +71,7 @@ public class NoticiaLogic implements InfoData{
 			+"&txtidImagen="+oNoticia.getoImagen().getIdImagen();
 			
 			try {
-				Libreria.peticionHttp(url);
+				Utils.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -102,7 +102,7 @@ public class NoticiaLogic implements InfoData{
 			+"&txtidImagen="+oImagen.getIdImagen();
 
 			try {
-				Libreria.peticionHttp(url);
+				Utils.peticionHttp(url);
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
@@ -136,7 +136,7 @@ public class NoticiaLogic implements InfoData{
 		+"&txtTextoNoticia="+NoticiaDetalle.txtDescripcion.getText()
 		+"&txtImg="+oImagen.getIdImagen();
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
@@ -159,7 +159,7 @@ public class NoticiaLogic implements InfoData{
 	public static void delNoticiaPHP(Noticia oNoticia) {
 		String url = InfoData.URI + "noticia/del-noticia.php?txtIdNoticia="+oNoticia.getIdNoticia();
 		try {
-			Libreria.peticionHttp(url);
+			Utils.peticionHttp(url);
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
