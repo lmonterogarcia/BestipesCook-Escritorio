@@ -3,6 +3,8 @@ package view;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -104,6 +106,12 @@ public class CategoriaDetalle extends JDialog implements IConstantes{
 		setModal(true);
 
 		//EVENTOS
+		
+		txtTitle.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTF(e, ventana, btnGuardar, txtTitle, 30);
+			}
+		});
 
 		btnEditar.addActionListener(e -> Ctrl_CategoriaDetalle.habilitarEdicion());
 		btnCancelar.addActionListener(e -> Ctrl_CategoriaDetalle.deshabilitarEdicion());

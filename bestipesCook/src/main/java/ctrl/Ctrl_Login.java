@@ -25,6 +25,9 @@ public class Ctrl_Login {
 				JOptionPane.showMessageDialog(Login.window,
 						"Usuario o contraseña incorrectos",
 						"Gestión de Login", JOptionPane.PLAIN_MESSAGE);
+				Login.txtPassword.requestFocus(true);
+				Login.txtPassword.selectAll();
+				
 			}
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(Login.window,

@@ -14,8 +14,6 @@ import model.constantes.IConstantes;
 
 public class ClienteSMTP implements IConstantes {
 
-	private String sUsuario;
-	private String sTituloReceta;
 	private String sMailTo;
 	private String sMainText;
 	

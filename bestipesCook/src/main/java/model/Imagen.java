@@ -35,6 +35,14 @@ public class Imagen {
 		return fechaCreacionImagen;
 	}
 
+	public LocalDateTime getFechaCreacionImagenldt() {
+		return fechaCreacionImagenldt;
+	}
+
+	public void setFechaCreacionImagenldt(LocalDateTime fechaCreacionImagenldt) {
+		this.fechaCreacionImagenldt = fechaCreacionImagenldt;
+	}
+
 	public void setFechaCreacionImagen(String fechaCreacionImagen) {
 		this.fechaCreacionImagen = fechaCreacionImagen;
 	}

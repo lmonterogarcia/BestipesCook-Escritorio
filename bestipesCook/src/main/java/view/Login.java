@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.FlowLayout;
@@ -38,7 +40,6 @@ public class Login extends JDialog implements IConstantes{
 		setTitle("Login");
 		setModal(true);
 		setResizable(false);
-//		setBounds(400, 225, 300, 400);
 		Utils.centarlVentana(window, iAnchoLog, iAltoLog);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 204, 102));
@@ -89,9 +90,26 @@ public class Login extends JDialog implements IConstantes{
 		txtPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		center_pnl.add(txtPassword);
 		txtPassword.setColumns(10);
-		conectarBtn.addActionListener(e -> Ctrl_Login.conectar());
 		
-
+		
+		// EVENTOS
+		conectarBtn.addActionListener(e -> Ctrl_Login.conectar());
+		txtUsuario.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Ctrl_Login.conectar();
+				}
+			
+			}
+		});
+		txtPassword.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					Ctrl_Login.conectar();
+				}
+			}
+		});
+		
 		setVisible(true);
 		
 		
