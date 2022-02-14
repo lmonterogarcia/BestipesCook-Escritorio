@@ -23,7 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.TextArea;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
@@ -153,6 +154,21 @@ public class RetoDetalle extends JDialog implements IConstantes{
 		setVisible(true);
 
 		// EVENTOS
+		
+		txtTitle.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTF(e, ventana, btnGuardar, txtTitle, 60);
+			}
+		});
+		txtSubTitle.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTF(e, ventana, btnGuardar, txtSubTitle, 255);
+			}
+		});txtDescripcion.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTA(e, ventana, btnGuardar, txtDescripcion, 400);
+			}
+		});
 
 		btnEditar.addActionListener(e -> Ctrl_RetoDetalle.habilitarEdicion());
 		btnCancelar.addActionListener(e -> Ctrl_RetoDetalle.deshabilitarEdicion());

@@ -13,17 +13,13 @@ import ctrl.Utils;
 import model.constantes.IConstantes;
 import model.constantes.InfoData;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-import java.awt.Font;
-import java.awt.TextArea;
+import java.awt.*;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JFileChooser;
 import java.io.File;
 import javax.swing.ImageIcon;
@@ -136,6 +132,22 @@ public class NoticiaDetalle extends JDialog implements IConstantes {
 		setVisible(true);
 
 		// EVENTOS
+
+		txtTitle.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTF(e, ventana, btnGuardar, txtTitle, 60);
+			}
+		});
+		txtSubTitle.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTF(e, ventana, btnGuardar, txtSubTitle, 255);
+			}
+		});
+		txtDescripcion.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				ctrl.Utils.caractesMaxTA(e, ventana, btnGuardar, txtDescripcion, 1800);
+			}
+		});
 
 		btnEditar.addActionListener(e -> Ctrl_NoticiaDetalle.habilitarEdicion());
 		btnCancelar.addActionListener(e -> Ctrl_NoticiaDetalle.deshabilitarEdicion());
