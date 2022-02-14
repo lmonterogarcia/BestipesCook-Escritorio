@@ -71,7 +71,7 @@ public class ClienteSMTP implements IConstantes {
 	public void sendEmail() throws MessagingException {
 		Properties prop = new Properties();
 
-		prop.setProperty("mail.debug", "true");
+		prop.setProperty("mail.debug", "false");
 		prop.setProperty("mail.host", MAIL_SERVER_HOST);
 		prop.setProperty("mail.transport.protocol", "smtp");
 		prop.setProperty("mail.smtp.auth", "true");
