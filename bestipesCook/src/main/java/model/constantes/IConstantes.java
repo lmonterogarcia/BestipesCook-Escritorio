@@ -79,7 +79,7 @@ public interface IConstantes {
     public final String POSTMAILBODY = "</td>\n"
     		+ "        </tr>\n"
     		+ "        <tr>\n"
-    		+ "            <table role=\"presentation\" align=\"center\" style=\"width:90%;background:#ffffcc;border-collapse:collapse;border:1 solid #cccccc;border-spacing:0;\">\n"
+    		+ "            <table role=\"presentation\" align=\"center\" style=\"width:100%;background:#ffffcc;border-collapse:collapse;border:1 solid #cccccc;border-spacing:0;\">\n"
     		+ "                <tr>\n"
     		+ "                    <td style=\"padding:0;width:50%;\" align=\"left\">\n"
     		+ "                        <p><br>&nbsp;&nbsp;Bestipes Cook Team<br></p>\n"

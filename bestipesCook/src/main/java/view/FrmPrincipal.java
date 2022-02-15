@@ -12,6 +12,7 @@ import ctrl.Ctrl_FrmPrincipal;
 import ctrl.Utils;
 import model.constantes.Colors;
 import model.constantes.IConstantes;
+import model.constantes.InfoData;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,7 +25,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.GridLayout;
 
-public class FrmPrincipal extends JFrame implements IConstantes{
+public class FrmPrincipal extends JFrame implements IConstantes, InfoData{
 
 	private JPanel contentPane;
 	public static JList<Object> list;
@@ -38,7 +39,6 @@ public class FrmPrincipal extends JFrame implements IConstantes{
 		setTitle("Bestipes Cook");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 950, 600);
 		Utils.centarlVentana(ventana, iAnchoGr, iAltoGR);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -113,7 +113,7 @@ public class FrmPrincipal extends JFrame implements IConstantes{
         //create the list
         list = new JList<Object>();
         JScrollPane panelScroll = new JScrollPane(list);
-        list.setBackground(new Color(255, 255, 204));    
+        list.setBackground(cRositaPalo);    
         center_pnl.add(panelScroll, BorderLayout.CENTER);
 		
 		
