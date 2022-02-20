@@ -32,10 +32,6 @@ public class LoginLogic {
 			booPasar = true;
 		}
 		
-//		if (sUserBack.equals(sUser) && !sUserBack.equals("")) {
-//			booPasar = true;
-//		}
-		
 		return booPasar;
 	}
 	
